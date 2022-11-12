@@ -5,19 +5,23 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour
 {
 
+    final int type_normal = 0;
+    int type = type_normal;
+
+    float desX = 0f;
+    float desY = 3f;
+
     public Transform RocketP;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    void Start() {
 
         this.RocketP = this.GetComponent<Transform>();
         
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+
+    void FixedUpdate() {
 
         RocketP.position = new Vector2(RocketP.position.x, RocketP.position.y+0.1f);
 
