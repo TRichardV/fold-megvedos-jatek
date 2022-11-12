@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RocketScript : MonoBehaviour
 {
-
+    /*
     final int type_normal = 0;
     int type = type_normal;
 
@@ -25,5 +25,5 @@ public class RocketScript : MonoBehaviour
 
         RocketP.position = new Vector2(RocketP.position.x, RocketP.position.y+0.1f);
 
-    }
+    } */
 }
