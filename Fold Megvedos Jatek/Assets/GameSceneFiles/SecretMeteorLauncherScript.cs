@@ -15,7 +15,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     int waveNumber = 0;
 
-    int meteorNumberMax = 5;
+    int meteorNumberMax = 50;
 
     int preparationTimeMax;
     int preparationTimeCounter = 0;
@@ -23,9 +23,13 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int waveTimeMax;
     int waveTimeCounter = 0;
 
-    List<float[]> meteorSpawns = new List<float[]>();
+    List<bool[]> meteorSpawns = new List<bool[]>();
+    List<int> spawnTimes = new List<int>();
+    int spawnTimeIndex = 0;
 
     readonly float maxX = 2.2f;
+    readonly int colNumber = 8;
+    int rowNumber;
 
     void Start() {
 
@@ -33,6 +37,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         preparationTimeMax = (int)(1 / Time.fixedDeltaTime * defPrepTimeSec);
         waveTimeMax = (int)(1 / Time.fixedDeltaTime * defWaveTimeSec);
+
+        rowNumber = 7 * defWaveTimeSec;
 
     }
     void createMeteor (float desX, float desY, float posX, float posY) {
@@ -54,9 +60,27 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         if (preparationTimeCounter == -1) { // SPAWN METEORS
 
+            if (spawnTimeIndex < rowNumber && waveTimeCounter == spawnTimes[spawnTimeIndex]) {
+
+                Debug.Log(waveTimeCounter + " asd " + spawnTimes[spawnTimeIndex] + " asd " + spawnTimeIndex);
+                for (int i = 0; i < colNumber; i++) {
+
+                    if (meteorSpawns[spawnTimeIndex][i] == true) {
+
+                        createMeteor((maxX * 2 / (colNumber - 1)) * i - maxX, 0, (maxX * 2 / (colNumber - 1)) * i - maxX, LauncherP.position.y);
+
+                    }
+
+
+                }
+
+                spawnTimeIndex++;
+
+            }
+
             waveTimeCounter++;
 
-            if (waveTimeCounter >= waveTimeMax) {
+            if (waveTimeCounter > waveTimeMax) {
 
                 preparationTimeCounter++;
                 waveTimeCounter = 0;
@@ -65,39 +89,46 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
             }
 
-            for (int i = 0; i < meteorSpawns.Count; i++) {
-
-                if (waveTimeCounter == meteorSpawns[i][0]) {
-
-                    createMeteor(meteorSpawns[i][1], 0, meteorSpawns[i][1], LauncherP.position.y);
-
-                }
-
-            }
-
-
         }
         else { // PREP PHASE
 
             if (preparationTimeCounter == 0) {
 
+                spawnTimeIndex = 0;
                 meteorSpawns.Clear();
 
-                meteorNumberMax = (int) Math.Round(meteorNumberMax * 1.5f);
-                waveTimeMax = (int) Math.Round(waveTimeMax * 1.3f);
+                //meteorNumberMax = (int) Math.Round(meteorNumberMax * 1.5f);
+                //waveTimeMax = (int) Math.Round(waveTimeMax * 1.3f);
 
-                for (int i = 0; i < meteorNumberMax; i++) {
+                for (int i = 0; i < rowNumber; i++) {
 
-                    float[] details = new float[2];
-
-                    details[0] = Random.Range(0, waveTimeMax);
-                    details[1] = Random.Range(-maxX, maxX);
-
-                    meteorSpawns.Add(details);
+                    bool[] asd = new bool[colNumber];
+                    meteorSpawns.Add(asd);
 
                 }
 
-                Debug.Log(meteorSpawns.Count);
+                for (int i = 0; i < meteorNumberMax; i++) {
+
+                    int y = Random.Range(0, rowNumber);
+                    int x = Random.Range(0, colNumber);
+                    //float details = (maxX*2/(colNumber-1))*Random.Range(0, colNumber);
+
+                    while (meteorSpawns[y][x] == true) {
+
+                        y = Random.Range(0, rowNumber);
+                        x = Random.Range(0, colNumber);
+
+                    }
+
+                    meteorSpawns[y][x] = true;
+
+                }
+
+                for (int i = 0; i < rowNumber; i++) {
+
+                    spawnTimes.Add(i * (waveTimeMax / (rowNumber - 1)));
+
+                } 
 
             }
 
