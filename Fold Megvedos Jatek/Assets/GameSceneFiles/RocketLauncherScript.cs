@@ -8,13 +8,17 @@ public class RocketLauncherScript : MonoBehaviour {
 
     bool canShot = false;
     int canShotCounter = 0;
-    int canShotMaxCounter = 30;
+    int canShotMaxCounter;
 
     public Transform LauncherP;
+
+    float aps = 0.5f;
 
     void Start() {
 
         this.LauncherP = this.GetComponent<Transform>();
+
+        canShotMaxCounter = (int)(1 / Time.fixedDeltaTime / aps);
 
     }
 
@@ -33,28 +37,27 @@ public class RocketLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
-        canShotCounter++;
-
         if (canShotCounter >= canShotMaxCounter) {
 
             canShot = true;
             canShotCounter = 0;
 
         }
+        if (canShot == false) {
+
+            canShotCounter++;
+
+        }
 
         if (Input.touchCount > 0) {
 
-            if (canShot) {
+            Vector2 tPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
-                Vector2 tPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            if (tPos.y > LauncherP.position.y && canShot == true) {
 
-                if (tPos.y > LauncherP.position.y) {
+                createRocket(tPos.x, tPos.y);
 
-                    createRocket(tPos.x, tPos.y);
-
-                    canShot = false;
-
-                }
+                canShot = false;
 
             }
 

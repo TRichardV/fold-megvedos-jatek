@@ -7,6 +7,9 @@ using Random = UnityEngine.Random;
 
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
+    readonly int defPrepTimeSec = 5; // 5 sec
+    readonly int defWaveTimeSec = 5; // 5 sec
+
     public GameObject meteor;
     Transform LauncherP;
 
@@ -14,19 +17,22 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     int meteorNumberMax = 5;
 
-    int preparationTimeMax = 300;
+    int preparationTimeMax;
     int preparationTimeCounter = 0;
 
-    int waveTimeMax = 300;
+    int waveTimeMax;
     int waveTimeCounter = 0;
 
     List<float[]> meteorSpawns = new List<float[]>();
 
-    readonly float maxX = 3f;
+    readonly float maxX = 2.2f;
 
     void Start() {
 
         LauncherP = this.GetComponent<Transform>();
+
+        preparationTimeMax = (int)(1 / Time.fixedDeltaTime * defPrepTimeSec);
+        waveTimeMax = (int)(1 / Time.fixedDeltaTime * defWaveTimeSec);
 
     }
     void createMeteor (float desX, float desY, float posX, float posY) {
@@ -44,6 +50,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
+        GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Wave: " + waveNumber + "\n" + waveTimeCounter + "\n" + preparationTimeCounter;
+
         if (preparationTimeCounter == -1) { // SPAWN METEORS
 
             waveTimeCounter++;
@@ -54,8 +62,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 waveTimeCounter = 0;
 
                 waveNumber++;
-
-                GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Wave: " + waveNumber;
 
             }
 

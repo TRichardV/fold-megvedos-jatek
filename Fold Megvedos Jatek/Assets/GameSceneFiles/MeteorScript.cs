@@ -14,7 +14,7 @@ public class MeteorScript : MonoBehaviour {
     int maxHealth = 1;
     int health;
 
-    float speed = 0.03f;
+    float speed = 5f;
 
 
     public float desX;
@@ -24,6 +24,8 @@ public class MeteorScript : MonoBehaviour {
     float kX, kY;
 
     void Start() {
+
+        speed *= Time.fixedDeltaTime;
 
         level = 0;
 

@@ -10,7 +10,7 @@ public class RocketScript : MonoBehaviour {
 
     int damage = 1;
 
-    float speed = 0.1f;
+    float speed = 5f;
 
     public float desX;
     public float desY;
@@ -27,6 +27,8 @@ public class RocketScript : MonoBehaviour {
     void Start() {
 
         type = type_normal;
+
+        speed = speed * Time.fixedDeltaTime;
 
         this.RocketP = this.GetComponent<Transform>();
 
