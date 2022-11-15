@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly int defPrepTimeSec = 5; // 5 sec
-    readonly float defWaveTimeSec = 0.3f; // 1 unit row
+    readonly float defWaveTimeSec = 0.1f; // 1 unit row
     readonly int defTableDownSec = 3; // 4 sec
 
     readonly int defTableDis = 300;
@@ -41,6 +41,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
+    int chanceOfSpawn = 1;
+    int[] spawnablePlaces;
 
     void Start() {
 
@@ -51,6 +53,17 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
         tableDownMax = (int)(1 / Time.fixedDeltaTime * defTableDownSec);
 
         meteorNumber = meteorNumberMax;
+
+        spawnablePlaces = new int[colNumber];
+        
+        for (int i = 0; i < spawnablePlaces.Length; i++) {
+
+            spawnablePlaces[i] = -1;
+
+        }
+
+        Debug.Log(waveTimeMax);
+        
 
     }
     void createMeteor (float desX, float desY, float posX, float posY) {
@@ -63,6 +76,14 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         obj.GetComponent<MeteorScript>().desX = desX;
         obj.GetComponent<MeteorScript>().desY = desY;
+
+    }
+
+    public bool haveChance() {
+
+        int num = Random.Range(0, 100);
+
+        return num < chanceOfSpawn;
 
     }
 
@@ -81,6 +102,40 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             }
 
             // SPAWN METEORS
+
+            for (int i = 0; i < colNumber; i++) {
+
+                if (spawnablePlaces[i] == waveTimeMax) {
+
+                    spawnablePlaces[i] = -1;
+
+                }
+
+                if (spawnablePlaces[i] > -1 && spawnablePlaces[i] < waveTimeMax) {
+
+                    spawnablePlaces[i]++;
+
+                }
+
+            }
+
+            if (meteors.Count > 0) {
+
+                for (int i = 0; i < colNumber; i++) {
+
+                    if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
+
+                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y);
+                        meteors.RemoveAt(0);
+                        spawnablePlaces[i] = 0;
+
+                    }
+
+                }
+
+            }
+
+            // USW
 
             waveTimeCounter++;
 
@@ -117,29 +172,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                     meteors.Add(0);
 
                 }
-
-                for (int i = 0; i < meteorNumberMax; i++) {
-
-                    int y = Random.Range(0, rowNumber);
-                    int x = Random.Range(0, colNumber);
-                    //float details = (maxX*2/(colNumber-1))*Random.Range(0, colNumber);
-
-                    while (meteorSpawns[y][x] == true) {
-
-                        y = Random.Range(0, rowNumber);
-                        x = Random.Range(0, colNumber);
-
-                    }
-
-                    meteorSpawns[y][x] = true;
-
-                }
-
-                for (int i = 0; i < rowNumber; i++) {
-
-                    spawnTimes.Add(i * (waveTimeMax / (rowNumber - 1)));
-
-                } 
 
             }
 
