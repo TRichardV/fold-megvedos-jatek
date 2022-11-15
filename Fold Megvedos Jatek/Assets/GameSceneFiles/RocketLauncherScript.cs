@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RocketLauncherScript : MonoBehaviour {
@@ -12,7 +13,10 @@ public class RocketLauncherScript : MonoBehaviour {
 
     public Transform LauncherP;
 
-    float aps = 0.5f;
+    float aps = 1f;
+    int damage = 5;
+    public int score = 0;
+    public float money = 0f;
 
     void Start() {
 
@@ -33,9 +37,14 @@ public class RocketLauncherScript : MonoBehaviour {
         obj.GetComponent<RocketScript>().desX = desX;
         obj.GetComponent<RocketScript>().desY = desY;
 
+        obj.GetComponent<RocketScript>().damage = damage;
+
     }
 
     void FixedUpdate() {
+
+        GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "Money: " + money;
+        GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
         if (canShotCounter >= canShotMaxCounter) {
 

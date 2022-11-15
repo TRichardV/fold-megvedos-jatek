@@ -3,19 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly int defPrepTimeSec = 5; // 5 sec
-    readonly int defWaveTimeSec = 5; // 5 sec
+    readonly float defWaveTimeSec = 0.3f; // 1 unit row
+    readonly int defTableDownSec = 3; // 4 sec
+
+    readonly int defTableDis = 300;
 
     public GameObject meteor;
     Transform LauncherP;
 
-    int waveNumber = 0;
+    public GameObject wicPanel;
+    public GameObject wicText;
 
-    int meteorNumberMax = 50;
+    public GameObject ptSlider;
+
+    int waveNumber = 1;
+
+    int meteorNumberMax = 10;
+    public int meteorNumber;
 
     int preparationTimeMax;
     int preparationTimeCounter = 0;
@@ -23,13 +33,14 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int waveTimeMax;
     int waveTimeCounter = 0;
 
-    List<bool[]> meteorSpawns = new List<bool[]>();
-    List<int> spawnTimes = new List<int>();
-    int spawnTimeIndex = 0;
+    int tableDownMax;
+    int tableDownCounter = -1;
+    int tableState = -1;
+
+    List<int> meteors = new List<int>();
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
-    int rowNumber;
 
     void Start() {
 
@@ -37,8 +48,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         preparationTimeMax = (int)(1 / Time.fixedDeltaTime * defPrepTimeSec);
         waveTimeMax = (int)(1 / Time.fixedDeltaTime * defWaveTimeSec);
+        tableDownMax = (int)(1 / Time.fixedDeltaTime * defTableDownSec);
 
-        rowNumber = 7 * defWaveTimeSec;
+        meteorNumber = meteorNumberMax;
 
     }
     void createMeteor (float desX, float desY, float posX, float posY) {
@@ -56,54 +68,53 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
-        GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Wave: " + waveNumber + "\n" + waveTimeCounter + "\n" + preparationTimeCounter;
+        GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Meteors: " + meteorNumber;
 
         if (preparationTimeCounter == -1) { // SPAWN METEORS
 
-            if (spawnTimeIndex < rowNumber && waveTimeCounter == spawnTimes[spawnTimeIndex]) {
+            // COUNTER REFRESH
 
-                Debug.Log(waveTimeCounter + " asd " + spawnTimes[spawnTimeIndex] + " asd " + spawnTimeIndex);
-                for (int i = 0; i < colNumber; i++) {
+            if (waveTimeCounter > 1 && waveTimeCounter < 5) {
 
-                    if (meteorSpawns[spawnTimeIndex][i] == true) {
-
-                        createMeteor((maxX * 2 / (colNumber - 1)) * i - maxX, 0, (maxX * 2 / (colNumber - 1)) * i - maxX, LauncherP.position.y);
-
-                    }
-
-
-                }
-
-                spawnTimeIndex++;
+                meteorNumber = meteorNumberMax;
 
             }
 
+            // SPAWN METEORS
+
             waveTimeCounter++;
 
-            if (waveTimeCounter > waveTimeMax) {
+            if (waveTimeCounter > waveTimeMax && meteors.Count == 0) {
 
                 preparationTimeCounter++;
+                ptSlider.SetActive(true);
                 waveTimeCounter = 0;
 
                 waveNumber++;
+
+            }
+            else if (waveTimeCounter > waveTimeMax) {
+
+                waveTimeCounter = 1;
 
             }
 
         }
         else { // PREP PHASE
 
+            double sliderScaleUnit = 1d / preparationTimeMax;
+            double value = sliderScaleUnit * preparationTimeCounter;
+            ptSlider.GetComponent<Slider>().value = (float)value;
+
             if (preparationTimeCounter == 0) {
 
-                spawnTimeIndex = 0;
-                meteorSpawns.Clear();
+                tableDownCounter = 0;
+                tableState = 0;
+                wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + ". wave is coming!";
 
-                //meteorNumberMax = (int) Math.Round(meteorNumberMax * 1.5f);
-                //waveTimeMax = (int) Math.Round(waveTimeMax * 1.3f);
+                for (int i = 0; i < meteorNumberMax; i++) {
 
-                for (int i = 0; i < rowNumber; i++) {
-
-                    bool[] asd = new bool[colNumber];
-                    meteorSpawns.Add(asd);
+                    meteors.Add(0);
 
                 }
 
@@ -137,6 +148,50 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             if (preparationTimeCounter >= preparationTimeMax) {
 
                 preparationTimeCounter = -1;
+
+                ptSlider.SetActive(false);
+
+            }
+
+            if (tableDownCounter > -1) {
+
+                tableDownCounter++;
+
+                if (tableDownCounter >= tableDownMax) {
+
+                    tableDownCounter = -1;
+                    tableState = -1;
+
+                }
+
+                if (tableDownCounter == (int)Math.Round((double)(tableDownMax/4))) { // SET TABLE IS DOWN
+
+                    tableState = 1;
+
+                }
+                else if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4)*3)) { // SET TABLE GO UP
+
+                    tableState = 2;
+
+                }
+
+                float disPerTick = defTableDis / (int)Math.Round((double)(tableDownMax / 4));
+
+                switch (tableState) {
+
+                    case 0:
+
+                        wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y - disPerTick);
+
+                        break;
+
+                    case 2:
+
+                        wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y + disPerTick);
+
+                        break;
+
+                }
 
             }
 

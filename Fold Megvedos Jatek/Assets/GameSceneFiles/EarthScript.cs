@@ -21,11 +21,11 @@ public class EarthScript : MonoBehaviour {
 
             if (this.health <= 0) {
 
-                Debug.Log("AJJAJ");
+                //Debug.Log("AJJAJ");
 
             }
 
-            collision.gameObject.GetComponent<MeteorScript>().shot(999);
+            collision.gameObject.GetComponent<MeteorScript>().shot(99999);
 
         }
 
