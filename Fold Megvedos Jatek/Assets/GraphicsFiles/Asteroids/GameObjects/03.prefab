@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
       propertyPath: m_LocalScale.x
@@ -66,7 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
       propertyPath: m_Name
-      value: meteor_005
+      value: 03
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
       propertyPath: m_IsActive
@@ -104,6 +108,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a078fb456ed953418aee7f1d281743a, type: 3}
@@ -126,6 +134,10 @@ PrefabInstance:
     - target: {fileID: 903387495902996711, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
       propertyPath: m_Name
       value: Asteroid_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387495902996711, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 903387495902996761, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
       propertyPath: ShapeModule.m_Scale.x
@@ -182,6 +194,22 @@ PrefabInstance:
     - target: {fileID: 903387495902996762, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293631, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

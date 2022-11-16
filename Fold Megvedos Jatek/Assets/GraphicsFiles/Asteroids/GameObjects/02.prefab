@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid_PS
       objectReference: {fileID: 0}
+    - target: {fileID: 903387495902996711, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 903387495902996761, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
       propertyPath: ShapeModule.m_Scale.x
       value: 1.2
@@ -64,6 +68,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293618, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903387497395293631, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 87dbc10dbccd9574aa3573e503d7d0b8, type: 3}
@@ -82,7 +102,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -138,7 +158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
       propertyPath: m_Name
-      value: meteor_003
+      value: 02
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
       propertyPath: m_IsActive
@@ -167,6 +191,10 @@ PrefabInstance:
     - target: {fileID: 1151388028547126963, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: f467ba98f25697f4ea3d07ed687f52c5, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
