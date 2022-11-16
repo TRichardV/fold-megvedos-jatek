@@ -41,7 +41,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
-    int chanceOfSpawn = 1;
+    int chanceOfSpawn = 10;
+    readonly int secondChance = 1;
+
     int[] spawnablePlaces;
 
     void Start() {
@@ -81,9 +83,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public bool haveChance() {
 
-        int num = Random.Range(0, 100);
+        int num = Random.Range(0, 10000);
 
-        return num < chanceOfSpawn;
+        return num < chanceOfSpawn*secondChance;
 
     }
 
@@ -170,6 +172,12 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 for (int i = 0; i < meteorNumberMax; i++) {
 
                     meteors.Add(0);
+
+                }
+
+                for (int i = 0; i < spawnablePlaces.Length; i++) {
+
+                    spawnablePlaces[i] = -1;
 
                 }
 

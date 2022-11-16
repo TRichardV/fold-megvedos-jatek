@@ -8,7 +8,7 @@ public class RocketScript : MonoBehaviour {
     readonly int type_normal = 0;
     int type;
 
-    public int damage;
+    public float damage;
 
     float speed = 3f;
 

@@ -13,10 +13,10 @@ public class MeteorScript : MonoBehaviour {
     int score = 1;
     float money = 0.1f;
 
-    int maxHealth = 1;
-    int health;
+    float maxHealth = 10;
+    float health;
 
-    float speed = 5f;
+    float speed = 2f;
 
 
     public float desX;
@@ -55,13 +55,12 @@ public class MeteorScript : MonoBehaviour {
 
     }
 
-    public void shot(int damage) {
+    public void shot(float damage) {
 
         health -= damage;
 
         if (health <= 0) {
 
-            Destroy(this.gameObject);
             GameObject.Find("SecretMeteorLauncher").GetComponent<SecretMeteorLauncherScript>().meteorNumber--;
 
             if (damage != 99999) {
@@ -70,6 +69,8 @@ public class MeteorScript : MonoBehaviour {
                 GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().money += this.money;
 
             }
+
+            Destroy(this.gameObject);
 
         }
 
