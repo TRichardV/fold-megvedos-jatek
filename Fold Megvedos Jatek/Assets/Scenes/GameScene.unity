@@ -704,7 +704,6 @@ MonoBehaviour:
   wicPanel: {fileID: 313480959}
   wicText: {fileID: 576954486}
   ptSlider: {fileID: 2120504689}
-  meteorNumber: 0
 --- !u!1 &576954486
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int waveNumber = 1;
 
     int meteorNumberMax = 10;
-    public int meteorNumber;
+    int meteorNumber;
 
     int preparationTimeMax;
     int preparationTimeCounter = 0;
@@ -68,16 +68,21 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
         
 
     }
-    void createMeteor (float desX, float desY, float posX, float posY) {
+    void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
 
         GameObject obj = Instantiate(meteor);
 
-        obj.transform.parent = this.gameObject.transform;
+        //obj.transform.parent = this.gameObject.transform;
 
         obj.transform.position = new Vector2(posX, posY);
 
         obj.GetComponent<MeteorScript>().desX = desX;
         obj.GetComponent<MeteorScript>().desY = desY;
+
+        obj.GetComponent<MeteorScript>().type = type;
+        obj.GetComponent<MeteorScript>().level = level;
+
+        obj.GetComponent<MeteorScript>().set();
 
     }
 
@@ -89,19 +94,17 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     }
 
+    public void minusMeteor() {
+
+        meteorNumber--;
+
+    }
+
     void FixedUpdate() {
 
         GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Meteors: " + meteorNumber;
 
         if (preparationTimeCounter == -1) { // SPAWN METEORS
-
-            // COUNTER REFRESH
-
-            if (waveTimeCounter > 1 && waveTimeCounter < 5) {
-
-                meteorNumber = meteorNumberMax;
-
-            }
 
             // SPAWN METEORS
 
@@ -127,7 +130,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
 
-                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y);
+                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, 12, 0);
                         meteors.RemoveAt(0);
                         spawnablePlaces[i] = 0;
 
@@ -141,7 +144,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
             waveTimeCounter++;
 
-            if (waveTimeCounter > waveTimeMax && meteors.Count == 0) {
+            if (waveTimeCounter > waveTimeMax && meteors.Count == 0 && meteorNumber <= 0) {
 
                 preparationTimeCounter++;
                 ptSlider.SetActive(true);
@@ -169,15 +172,17 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 tableState = 0;
                 wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + ". wave is coming!";
 
-                for (int i = 0; i < meteorNumberMax; i++) {
-
-                    meteors.Add(0);
-
-                }
-
                 for (int i = 0; i < spawnablePlaces.Length; i++) {
 
                     spawnablePlaces[i] = -1;
+
+                }
+
+                meteorNumber = meteorNumberMax;
+
+                for (int i = 0; i < meteorNumberMax; i++) {
+
+                    meteors.Add(0);
 
                 }
 

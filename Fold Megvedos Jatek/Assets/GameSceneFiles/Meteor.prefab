@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeteorP: {fileID: 0}
+  meteor: {fileID: 8017870706591989014}
+  type: 0
+  level: 0
   damage: 1
   desX: 0
   desY: 0

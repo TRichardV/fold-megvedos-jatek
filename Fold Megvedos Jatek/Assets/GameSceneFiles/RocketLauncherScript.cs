@@ -61,7 +61,7 @@ public class RocketLauncherScript : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Debug.Log("damage: " + damage + " aps: " + aps);
+        //Debug.Log("damage: " + damage + " aps: " + aps);
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "Money: " + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
@@ -157,7 +157,7 @@ public class RocketLauncherScript : MonoBehaviour {
     }
 
     public void attackPerSecUpgrade() {
-        Debug.Log(apsUP + " " + apsUPs.GetLength(0));
+        //Debug.Log(apsUP + " " + apsUPs.GetLength(0));
         if (apsUP < apsUPs.GetLength(0) && money >= apsUPs[apsUP, 1]) {
 
             aps += apsUPs[apsUP, 0];
