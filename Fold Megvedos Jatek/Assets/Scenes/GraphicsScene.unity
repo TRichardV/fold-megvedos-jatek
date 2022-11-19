@@ -894,7 +894,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b188f208dae192429b460c8166ea7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteor: {fileID: 8017870706591989014, guid: 17e87511c37e78c48adc8ab8118ec324, type: 3}
+  MeteorObjs:
+  - {fileID: 7321949903579065771, guid: 5db6a4532c7c08044ba397f6b3446a3f, type: 3}
+  - {fileID: 7932612689090509713, guid: f010f8b0050858049b6f21dd821aaf7a, type: 3}
+  - {fileID: 5399977761355216950, guid: a0c8956baa0a44b48a7fb63130a17514, type: 3}
+  - {fileID: 6451260140200833716, guid: 64d6d9b7d14e5b4458375f484ed55d12, type: 3}
+  - {fileID: 5958838067109198737, guid: 4acc6da0a5b13a142987a9a86345f929, type: 3}
   wicPanel: {fileID: 313480959}
   wicText: {fileID: 576954486}
   ptSlider: {fileID: 2120504689}
@@ -1250,7 +1255,6 @@ GameObject:
   m_Component:
   - component: {fileID: 733315078}
   - component: {fileID: 733315080}
-  - component: {fileID: 733315079}
   m_Layer: 3
   m_Name: Camera
   m_TagString: MainCamera
@@ -1273,14 +1277,6 @@ Transform:
   m_Father: {fileID: 1738995832}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &733315079
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733315077}
-  m_Enabled: 1
 --- !u!20 &733315080
 Camera:
   m_ObjectHideFlags: 0
