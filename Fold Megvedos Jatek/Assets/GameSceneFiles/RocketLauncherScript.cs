@@ -58,6 +58,14 @@ public class RocketLauncherScript : MonoBehaviour {
 
         obj.GetComponent<RocketScript>().damage = damage;
 
+        float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
+        float b = 1;
+        float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
+
+        float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+        GameObject.Find("SpaceShip").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
+        obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
+
     }
 
     void FixedUpdate() {

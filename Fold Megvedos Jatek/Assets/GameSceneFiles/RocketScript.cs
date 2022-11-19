@@ -64,7 +64,7 @@ public class RocketScript : MonoBehaviour {
         if(collision.gameObject.tag.Equals("meteor")) {
 
             collision.gameObject.GetComponent<MeteorScript>().shot(damage);
-
+            GameObject.Find("Main Camera").GetComponent<Shake>().start = true;
             Destroy(this.gameObject);
 
         }

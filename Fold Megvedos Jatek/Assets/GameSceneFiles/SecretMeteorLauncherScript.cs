@@ -14,7 +14,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly int defTableDis = 300;
 
-    public GameObject meteor;
+    public GameObject[] MeteorObjs;
     Transform LauncherP;
 
     public GameObject wicPanel;
@@ -70,7 +70,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     }
     void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
 
-        GameObject obj = Instantiate(meteor);
+        GameObject obj = Instantiate(MeteorObjs[Random.Range(0, 5)]);
 
         //obj.transform.parent = this.gameObject.transform;
 
@@ -83,7 +83,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
         obj.GetComponent<MeteorScript>().level = level;
 
         obj.GetComponent<MeteorScript>().set();
-
+        
     }
 
     public bool haveChance() {
