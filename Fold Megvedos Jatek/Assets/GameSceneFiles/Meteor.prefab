@@ -106,6 +106,7 @@ MonoBehaviour:
   damage: 1
   desX: 0
   desY: 0
+  isBullet: 0
 --- !u!61 &8017870706591989010
 BoxCollider2D:
   m_ObjectHideFlags: 0
