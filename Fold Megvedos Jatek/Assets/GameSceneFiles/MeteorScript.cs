@@ -15,14 +15,14 @@ public class MeteorScript : MonoBehaviour {
     public int type;
     public int level;
 
-    public int damage = 1;
-    int score = 1;
+    public float damage = 1f;
+    float score = 1f;
     float money = 0.1f;
 
     float maxHealth = 10;
     float health;
 
-    float speed = 2f;
+    float speed;
 
 
     public float desX;
@@ -57,15 +57,68 @@ public class MeteorScript : MonoBehaviour {
 
     Vector3 scale;
 
+    float[,,] stats;
+
+    void statUpload() {
+
+        // SPEED - HEALTH - DAMAGE - SCORE - MONEY
+
+        stats = new float[2, 1, 5] {
+
+            { { 2f, 10f, 10f, 5f, 1f } },
+            { { 1f, 20f, 20f, 10f, 1.5f } },
+
+        };
+
+    }
+
+    void getStats(int index, int level) {
+
+        speed = stats[index, level, 0];
+        maxHealth = stats[index, level, 1];
+        damage = stats[index, level, 2];
+        score = stats[index, level, 3];
+        money = stats[index, level, 4];
+
+    } 
+
     void Start() {
+
+        
 
     }
 
     public void set() {
 
+        statUpload();
+
         switch (type) {
 
+            case 0:
+
+                getStats(0, 0);
+
+                break;
+
             case 1:
+
+                scale = new Vector3(0.16f, 0.16f, 2f);
+
+                this.gameObject.transform.localScale = scale;
+
+                getStats(1, 0);
+
+                break;
+
+            case 2:
+
+                scale = new Vector3(0.22f, 0.22f, 2f);
+
+                this.gameObject.transform.localScale = scale;
+
+                break;
+
+            case 3:
 
                 speed = 3f;
 
@@ -78,7 +131,7 @@ public class MeteorScript : MonoBehaviour {
 
                 break;
 
-            case 2:
+            case 4:
 
                 scale = new Vector3(1.3f, 1.3f, 2f);
 
@@ -88,7 +141,7 @@ public class MeteorScript : MonoBehaviour {
 
                 break;
 
-            case 3:
+            case 5:
 
                 speed = 0.7f;
 
@@ -168,6 +221,14 @@ public class MeteorScript : MonoBehaviour {
 
                 break;
 
+            case 200:
+            case 201:
+            case 202:
+
+                damage = 0f;
+
+                break;
+
         }
 
         speed *= Time.fixedDeltaTime;
@@ -194,23 +255,25 @@ public class MeteorScript : MonoBehaviour {
         switch(type) {
 
             case 0: // NORMAL METEOR
+            case 1: // NORMAL METEOR t2
+            case 2: // NORMAL METEOR t3
 
                 type0();
                 break;
 
-            case 1: // A MOVING METEOR (TO RIGHT AND LEFT)
-
-                type1();
-                break;
-
-            case 2: // BIG METEOR
-
-                type2();
-                break;
-
-            case 3: // METEOR WAVE TO THE RIGHT (OR LEFT)
+            case 3: // A MOVING METEOR (TO RIGHT AND LEFT)
 
                 type3();
+                break;
+
+            case 4: // BIG METEOR
+
+                type4();
+                break;
+
+            case 5: // METEOR WAVE TO THE RIGHT (OR LEFT)
+
+                type5();
                 break;
 
             case 10: // REGULAR SPACESHIP
@@ -242,6 +305,14 @@ public class MeteorScript : MonoBehaviour {
 
                 type110();
                 break;
+
+            case 200: // COIN t1
+            case 201: // COIN t2
+            case 202: // COIN t3
+
+                type200();
+                break;
+
         }
 
     }
@@ -258,7 +329,7 @@ public class MeteorScript : MonoBehaviour {
 
             if (!isBullet) {
 
-                if (type >= 110) {
+                if (type >= 110 && type < 200) {
 
                     parentB.GetComponent<MeteorScript>().hIndex3--;
 
@@ -314,7 +385,7 @@ public class MeteorScript : MonoBehaviour {
 
     }
 
-    public void type1() {
+    public void type3() {
 
         MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
 
@@ -350,13 +421,13 @@ public class MeteorScript : MonoBehaviour {
 
     }
 
-    public void type2() {
+    public void type4() {
 
         MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
 
     }
 
-    public void type3() {
+    public void type5() {
 
         MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
 
@@ -525,6 +596,12 @@ public class MeteorScript : MonoBehaviour {
             createEnemyRocket(MeteorP.position.x, -20, MeteorP.position.x, MeteorP.position.y, 90, 0);
 
         }
+
+    }
+
+    public void type200() {
+
+        MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
 
     }
 

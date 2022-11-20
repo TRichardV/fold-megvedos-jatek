@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class EarthScript : MonoBehaviour {
 
-    int maxHealth = 5;
-    int health = 0;
+    float maxHealth = 100f;
+    float health = 0f;
 
     void Start() {
 
         health = maxHealth;
+
+    }
+
+    private void FixedUpdate() {
+
+        Debug.Log(health + "/" + maxHealth);
 
     }
 

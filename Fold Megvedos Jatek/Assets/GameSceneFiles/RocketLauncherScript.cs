@@ -15,8 +15,8 @@ public class RocketLauncherScript : MonoBehaviour {
     public Transform LauncherP;
 
     float aps = 0.5f;
-    float damage = 5;
-    public int score = 0;
+    float damage = 10;
+    public float score = 0;
     public float money = 0;
 
     // UPGRADE PANEL
@@ -31,7 +31,7 @@ public class RocketLauncherScript : MonoBehaviour {
     int apsUP = 0;
 
     float[,] dmgUPs = { { 1f, 3f }, { 1.5f, 5f }, { 2f, 10f}, { 3f, 20f }, { 5f, 50f }, { 7f, 120f }, { 10f, 250f }, { 15f, 500f }, { 20, 1000f} };
-    float[,] apsUPs = { { 0.1f, 3f }, { 0.15f, 6f }, { 0.25f, 20f }, { 0.35f, 50f }, { 0.45f, 100f}, { 0.60f, 200f }, { 0.80f, 500f }, { 1f, 1000f }, { 1.5f, 3000f } };
+    float[,] apsUPs = { { 0.2f, 10f }, { 0.15f, 10f }, { 0.25f, 20f }, { 0.35f, 50f }, { 0.45f, 100f}, { 0.60f, 200f }, { 0.80f, 500f }, { 1f, 1000f }, { 1.5f, 3000f } };
 
     void Start() {
 

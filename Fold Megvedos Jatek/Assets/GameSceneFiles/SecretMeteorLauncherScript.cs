@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
-    readonly int defPrepTimeSec = 5; // 5 sec
+    readonly int defPrepTimeSec = 1; // 5 sec
     readonly float defWaveTimeSec = 0.1f; // 1 unit row
     readonly int defTableDownSec = 3; // 4 sec
 
@@ -22,7 +22,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public GameObject ptSlider;
 
-    int waveNumber = 1;
+    int waveNumber = 0;
 
     int meteorNumberMax = 1;
     int meteorNumber;
@@ -37,7 +37,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int tableDownCounter = -1;
     int tableState = -1;
 
-    List<int> meteors = new List<int>();
+    int[,,] waveSettings;
+
+    List<int[]> meteors = new List<int[]>();
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
@@ -46,15 +48,64 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     int[] spawnablePlaces;
 
-    void uploadList() {
+    void uploadWaveSettings() {
+
+        waveSettings = new int[10, 10, 3] {
+
+            { {10, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {15, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {25, 0, 0 }, { 40, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {30, 0, 0 }, { 50, 0, 0 }, { 20, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {100, 0, 0 }, { 15, 200, 0 }, { 7, 201, 0 }, { 1, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {30, 0, 0 }, { 60, 0, 0 }, { 25, 1, 0 }, { 5, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {40, 0, 0 }, { 60, 0, 0 }, { 30, 1, 0 }, { 10, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {45, 0, 0 }, { 70, 0, 0 }, { 35, 1, 0 }, { 15, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {45, 0, 0 }, { 80, 0, 0 }, { 40, 1, 0 }, { 25, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+            { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} }
 
 
+
+        };
+
+    }
+
+    void uploadList(int index) {
+
+        meteors.Clear();
+
+        if (waveSettings[index, 0, 0] > 0) {
+
+            chanceOfSpawn = waveSettings[index, 0, 0];
+
+        }
+
+        for (int i = 1; i < 10; i++) {
+
+            if (waveSettings[index, i, 0] != 0) {
+
+                for (int e = 0; e < waveSettings[index, i, 0]; e++) {
+
+                    int[] loc = new int[2];
+
+                    loc[0] = waveSettings[index, i, 1];
+                    loc[1] = waveSettings[index, i, 2];
+
+                    meteors.Add(loc);
+
+                }
+
+            }
+
+        }
+
+        meteors.Reverse(); // HELP NINCS MEG, HOGY KELL KEVERNI
 
     }
 
     void Start() {
 
-        uploadList();
+        uploadWaveSettings();
 
         LauncherP = this.GetComponent<Transform>();
 
@@ -136,9 +187,17 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                 for (int i = 0; i < colNumber; i++) {
 
-                    if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
+                    if (waveSettings[waveNumber, 0, 0] == -1) {
 
-                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, 100, 0);
+                        createMeteor(0, 0, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        meteors.RemoveAt(0); // actually useless
+
+                    }
+
+                    else if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
+
+                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        
                         meteors.RemoveAt(0);
                         spawnablePlaces[i] = 0;
 
@@ -178,7 +237,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                 tableDownCounter = 0;
                 tableState = 0;
-                wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + ". wave is coming!";
+                wicText.GetComponent<TextMeshProUGUI>().text = waveNumber+1 + ". wave is coming!";
 
                 for (int i = 0; i < spawnablePlaces.Length; i++) {
 
@@ -186,6 +245,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                 }
 
+                uploadList(waveNumber);
+
+                meteorNumberMax = meteors.Count;
                 meteorNumber = meteorNumberMax;
 
             }
