@@ -10,6 +10,8 @@ public class MeteorScript : MonoBehaviour {
 
     public GameObject meteor;
 
+    public GameObject parentB;
+
     public int type;
     public int level;
 
@@ -33,6 +35,8 @@ public class MeteorScript : MonoBehaviour {
     int hIndexMax;
 
     int hIndex2 = 0;
+    
+    public int hIndex3 = 0;
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
@@ -48,6 +52,8 @@ public class MeteorScript : MonoBehaviour {
     int canShotCounterM;
 
     public Boolean isBullet = false;
+
+    bool canGetDamage = true;
 
     Vector3 scale;
 
@@ -137,6 +143,31 @@ public class MeteorScript : MonoBehaviour {
 
                 break;
 
+            case 100:
+
+                speed = 3f;
+                scale = new Vector3(0.5f, 0.5f, 2f);
+                this.gameObject.transform.localScale = scale;
+
+                hIndex = 0;
+
+                hIndexMax = (int)MathF.Round(4 * (1/Time.deltaTime));
+                
+                hIndex2 = 0;
+
+                break;
+
+            case 110:
+
+                speed = 1.5f;
+
+                canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+
+                minAPS = 0.2f;
+                maxAPS = 0.5f;
+
+                break;
+
         }
 
         speed *= Time.fixedDeltaTime;
@@ -201,19 +232,42 @@ public class MeteorScript : MonoBehaviour {
 
                 type90();
                 break;
+
+            case 100: // BOSS 1
+
+                type100();
+                break;
+
+            case 110: // BOSS'S SPACESHIP
+
+                type110();
+                break;
         }
 
     }
 
     public void shot(float damage) {
 
-        health -= damage;
+        if (canGetDamage == true) {
+
+            health -= damage;
+
+        }
 
         if (health <= 0) {
 
             if (!isBullet) {
 
-                GameObject.Find("SecretMeteorLauncher").GetComponent<SecretMeteorLauncherScript>().minusMeteor();
+                if (type >= 110) {
+
+                    parentB.GetComponent<MeteorScript>().hIndex3--;
+
+                }
+                else {
+
+                    GameObject.Find("SecretMeteorLauncher").GetComponent<SecretMeteorLauncherScript>().minusMeteor();
+
+                }
 
             }
 
@@ -232,9 +286,9 @@ public class MeteorScript : MonoBehaviour {
 
     void createEnemyRocket(float desX, float desY, float posX, float posY, int type, int level) {
 
-        GameObject obj = Instantiate(meteor);
+        GameObject obj = Instantiate(meteor, new Vector2(posX, posY), Quaternion.identity);
 
-        obj.transform.parent = this.gameObject.transform;
+        //obj.transform.parent = this.gameObject.transform;
 
         obj.transform.position = new Vector2(posX, posY);
 
@@ -243,6 +297,12 @@ public class MeteorScript : MonoBehaviour {
 
         obj.GetComponent<MeteorScript>().type = type;
         obj.GetComponent<MeteorScript>().level = level;
+
+        if (type >= 110) {
+
+            obj.GetComponent<MeteorScript>().parentB = this.gameObject;
+
+        }
 
         obj.GetComponent<MeteorScript>().set();
 
@@ -396,6 +456,75 @@ public class MeteorScript : MonoBehaviour {
     public void type90() {
 
         MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
+
+    }
+
+    public void type100() {
+
+        if (hIndex2 == 0) { // MOVE IN
+
+            MeteorP.position = new Vector2(MeteorP.position.x, MeteorP.position.y - speed);
+
+        }
+        if (MeteorP.position.y <= 3f && hIndex2 == 0) {
+
+            hIndex2 = 1;
+
+        }
+        if (hIndex2 == 1) { // PREP PHASE
+
+            hIndex++;
+
+            if (hIndex >= hIndexMax) {
+
+                hIndex2 = 2;
+                hIndex = 0;
+
+            }
+
+        }
+
+        if (hIndex2 == 2) { //SPAWN SPACESHIPS
+
+            canGetDamage = false;
+            
+            hIndex3 = 2;
+
+            hIndex2 = 3;
+
+            createEnemyRocket(MeteorP.position.x - 1f, MeteorP.position.y - 1f, MeteorP.position.x - 1f, MeteorP.position.y + 3f, 110, 0);
+            createEnemyRocket(MeteorP.position.x + 1f, MeteorP.position.y - 1f, MeteorP.position.x + 1f, MeteorP.position.y + 3f, 110, 0);
+
+        }
+
+        if (hIndex3 <= 0 && hIndex2 == 3) {
+
+            canGetDamage = true;
+
+            hIndex2 = 1;
+
+        }
+
+    }
+
+    public void type110() {
+
+        if (MeteorP.position.y >= desY) {
+
+            MeteorP.position = new Vector2(MeteorP.position.x + kX, MeteorP.position.y + kY);
+
+        }
+
+        canShotCounter++;
+
+        if (canShotCounter >= canShotCounterM) {
+
+            canShotCounter = 0;
+            canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+
+            createEnemyRocket(MeteorP.position.x, -20, MeteorP.position.x, MeteorP.position.y, 90, 0);
+
+        }
 
     }
 

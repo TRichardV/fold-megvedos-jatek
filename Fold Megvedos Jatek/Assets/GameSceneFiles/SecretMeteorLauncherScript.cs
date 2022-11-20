@@ -24,7 +24,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     int waveNumber = 1;
 
-    int meteorNumberMax = 10;
+    int meteorNumberMax = 1;
     int meteorNumber;
 
     int preparationTimeMax;
@@ -46,7 +46,15 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     int[] spawnablePlaces;
 
+    void uploadList() {
+
+
+
+    }
+
     void Start() {
+
+        uploadList();
 
         LauncherP = this.GetComponent<Transform>();
 
@@ -130,7 +138,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
 
-                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, 12, 0);
+                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, 100, 0);
                         meteors.RemoveAt(0);
                         spawnablePlaces[i] = 0;
 
@@ -179,12 +187,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 }
 
                 meteorNumber = meteorNumberMax;
-
-                for (int i = 0; i < meteorNumberMax; i++) {
-
-                    meteors.Add(0);
-
-                }
 
             }
 
