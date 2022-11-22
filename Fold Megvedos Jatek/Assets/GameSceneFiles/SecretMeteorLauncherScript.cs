@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
-    readonly int defPrepTimeSec = 1; // 5 sec
-    readonly float defWaveTimeSec = 0.1f; // 1 unit row
+    readonly int defPrepTimeSec = 5; // 5 sec
+    readonly float defWaveTimeSec = 1f; // 1 unit row
     readonly int defTableDownSec = 3; // 4 sec
 
     readonly int defTableDis = 300;
@@ -22,7 +22,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public GameObject ptSlider;
 
-    int waveNumber = 0;
+    int waveNumber = 4;
 
     int meteorNumberMax = 1;
     int meteorNumber;
@@ -43,24 +43,27 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     readonly float maxX = 2.2f;
     readonly int colNumber = 8;
-    int chanceOfSpawn = 10;
-    readonly int secondChance = 1;
+    float chanceOfSpawn = 1f;
+    float atmChance = 1f;
+    float atmChanceIncrease;
 
     int[] spawnablePlaces;
 
     void uploadWaveSettings() {
 
+        // 100% chance ==> 1%
+
         waveSettings = new int[10, 10, 3] {
 
-            { {10, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {15, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {25, 0, 0 }, { 40, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {30, 0, 0 }, { 50, 0, 0 }, { 20, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {100, 0, 0 }, { 15, 200, 0 }, { 7, 201, 0 }, { 1, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {30, 0, 0 }, { 60, 0, 0 }, { 25, 1, 0 }, { 5, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {40, 0, 0 }, { 60, 0, 0 }, { 30, 1, 0 }, { 10, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {45, 0, 0 }, { 70, 0, 0 }, { 35, 1, 0 }, { 15, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {45, 0, 0 }, { 80, 0, 0 }, { 40, 1, 0 }, { 25, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {110, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {130, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {150, 0, 0 }, { 40, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {180, 0, 0 }, { 50, 0, 0 }, { 20, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {400, 0, 0 }, { 15, 200, 0 }, { 7, 201, 0 }, { 1, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {0, 0, 0 }, { 60, 0, 0 }, { 25, 1, 0 }, { 5, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {0, 0, 0 }, { 60, 0, 0 }, { 30, 1, 0 }, { 10, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {0, 0, 0 }, { 70, 0, 0 }, { 35, 1, 0 }, { 15, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {0, 0, 0 }, { 80, 0, 0 }, { 40, 1, 0 }, { 25, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
             { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} }
 
@@ -76,7 +79,9 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         if (waveSettings[index, 0, 0] > 0) {
 
-            chanceOfSpawn = waveSettings[index, 0, 0];
+            chanceOfSpawn = (float)(waveSettings[index, 0, 0]) / 100;
+            atmChanceIncrease = (float)(waveSettings[index, 0, 0]) / 1000;
+            Debug.Log("aaaaaaaaaaaaa " + atmChanceIncrease);
 
         }
 
@@ -98,8 +103,38 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             }
 
         }
+        shufle(); // KEVERES
 
-        meteors.Reverse(); // HELP NINCS MEG, HOGY KELL KEVERNI
+    }
+
+    void shufle() {
+
+        List<int[]> meteors2 = new List<int[]>();
+
+        for (int i = 0; i < meteors.Count; i++) {
+
+            meteors2.Add(meteors[i]);
+
+        }
+
+        meteors.Clear();
+        List<int> indexes = new List<int>();
+
+        for (int i = 0; i < meteors2.Count; i++) {
+            
+            int rNum = Random.Range(0, meteors2.Count);
+
+            while (indexes.Contains(rNum)) {
+
+                rNum = Random.Range(0, meteors2.Count);
+
+            }
+
+            meteors.Add(meteors2[rNum]);
+
+            indexes.Add(rNum);
+
+        }
 
     }
 
@@ -122,9 +157,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             spawnablePlaces[i] = -1;
 
         }
-
-        Debug.Log(waveTimeMax);
-        
 
     }
     void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
@@ -149,7 +181,19 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         int num = Random.Range(0, 10000);
 
-        return num < chanceOfSpawn*secondChance;
+        Debug.Log(atmChance * chanceOfSpawn);
+        if (num < chanceOfSpawn*atmChance) {
+
+            atmChance = 1f;
+            return true;
+
+        }
+        else {
+
+            atmChance = atmChance + (atmChance * (atmChanceIncrease/100));
+            return false;
+
+        }
 
     }
 

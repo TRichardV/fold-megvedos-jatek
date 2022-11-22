@@ -15,7 +15,7 @@ public class EarthScript : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        Debug.Log(health + "/" + maxHealth);
+        //Debug.Log(health + "/" + maxHealth);
 
     }
 

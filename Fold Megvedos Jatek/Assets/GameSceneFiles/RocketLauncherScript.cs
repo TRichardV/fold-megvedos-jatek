@@ -30,12 +30,10 @@ public class RocketLauncherScript : MonoBehaviour {
     int dmgUP = 0;
     int apsUP = 0;
 
-    float[,] dmgUPs = { { 1f, 3f }, { 1.5f, 5f }, { 2f, 10f}, { 3f, 20f }, { 5f, 50f }, { 7f, 120f }, { 10f, 250f }, { 15f, 500f }, { 20, 1000f} };
-    float[,] apsUPs = { { 0.2f, 10f }, { 0.15f, 10f }, { 0.25f, 20f }, { 0.35f, 50f }, { 0.45f, 100f}, { 0.60f, 200f }, { 0.80f, 500f }, { 1f, 1000f }, { 1.5f, 3000f } };
+    float[,] dmgUPs = { { 5f, 30f }, { 7f, 75f }, { 10f, 150f}, { 3f, 2000000f }, { 5f, 50f }, { 7f, 120f }, { 10f, 250f }, { 15f, 500f }, { 20, 1000f} };
+    float[,] apsUPs = { { 0.1f, 10f }, { 0.12f, 20f }, { 0.15f, 35f }, { 0.2f, 60f }, { 0.25f, 125f}, { 0.33f, 200f }, { 0.4F, 350F }, { 1f, 1000000f }, { 1.5f, 3000f } };
 
     void Start() {
-
-        money = 100000f;
 
         this.LauncherP = this.GetComponent<Transform>();
 

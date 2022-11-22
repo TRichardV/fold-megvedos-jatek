@@ -63,10 +63,23 @@ public class MeteorScript : MonoBehaviour {
 
         // SPEED - HEALTH - DAMAGE - SCORE - MONEY
 
-        stats = new float[2, 1, 5] {
+        stats = new float[15, 1, 5] {
 
             { { 2f, 10f, 10f, 5f, 1f } },
-            { { 1f, 20f, 20f, 10f, 1.5f } },
+            { { 1.4f, 20f, 20f, 10f, 1.5f } },
+            { { 1f, 30f, 30f, 50f, 2f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 2f, 1f, 0f, 0f, 3f } },
+            { { 2f, 1f, 0f, 0f, 6f } },
+            { { 2f, 1f, 0f, 0f, 10f } },
 
         };
 
@@ -102,7 +115,7 @@ public class MeteorScript : MonoBehaviour {
 
             case 1:
 
-                scale = new Vector3(0.16f, 0.16f, 2f);
+                scale = new Vector3(0.16f, 0.16f, 0.16f);
 
                 this.gameObject.transform.localScale = scale;
 
@@ -112,9 +125,11 @@ public class MeteorScript : MonoBehaviour {
 
             case 2:
 
-                scale = new Vector3(0.22f, 0.22f, 2f);
+                scale = new Vector3(0.22f, 0.22f, 0.22f);
 
                 this.gameObject.transform.localScale = scale;
+
+                getStats(2, 0);
 
                 break;
 
@@ -129,15 +144,19 @@ public class MeteorScript : MonoBehaviour {
 
                 movingUnit = movingX / hIndexMax;
 
+                getStats(3, 0);
+
                 break;
 
             case 4:
 
-                scale = new Vector3(1.3f, 1.3f, 2f);
+                scale = new Vector3(1.3f, 1.3f, 1.3f);
 
                 this.gameObject.transform.localScale = scale;
                 
                 speed = 1f;
+
+                getStats(4, 0);
 
                 break;
 
@@ -154,11 +173,16 @@ public class MeteorScript : MonoBehaviour {
 
                 hIndex2 = Random.Range(0, 2);
 
+                getStats(5, 0);
+
                 break;
 
             case 10:
 
                 speed = 1.5f;
+
+                getStats(6, 0);
+
                 break;
 
             case 11:
@@ -169,6 +193,8 @@ public class MeteorScript : MonoBehaviour {
 
                 minAPS = 0.5f;
                 maxAPS = 0.5f;
+
+                getStats(7, 0);
 
                 break;
 
@@ -183,6 +209,8 @@ public class MeteorScript : MonoBehaviour {
 
                 movingUnit = movingX / hIndexMax;
 
+                getStats(8, 0);
+
                 break;
 
             case 90:
@@ -190,16 +218,18 @@ public class MeteorScript : MonoBehaviour {
                 isBullet = true;
                 speed = 4f;
 
-                scale = new Vector3(0.3f, 1f, 0f);
+                scale = new Vector3(0.3f, 1f, 0.1f);
 
                 this.gameObject.transform.localScale = scale;
+
+                getStats(9, 0);
 
                 break;
 
             case 100:
 
                 speed = 3f;
-                scale = new Vector3(0.5f, 0.5f, 2f);
+                scale = new Vector3(0.5f, 0.5f, 0.5f);
                 this.gameObject.transform.localScale = scale;
 
                 hIndex = 0;
@@ -207,6 +237,8 @@ public class MeteorScript : MonoBehaviour {
                 hIndexMax = (int)MathF.Round(4 * (1/Time.deltaTime));
                 
                 hIndex2 = 0;
+
+                getStats(10, 0);
 
                 break;
 
@@ -219,13 +251,26 @@ public class MeteorScript : MonoBehaviour {
                 minAPS = 0.2f;
                 maxAPS = 0.5f;
 
+                getStats(11, 0);
+
                 break;
 
             case 200:
+
+                getStats(12, 0);
+
+                break;
+
             case 201:
+
+                getStats(13, 0);
+                break;
+
             case 202:
 
                 damage = 0f;
+
+                getStats(14, 0);
 
                 break;
 
