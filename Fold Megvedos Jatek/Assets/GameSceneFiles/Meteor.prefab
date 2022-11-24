@@ -101,11 +101,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeteorP: {fileID: 0}
   meteor: {fileID: 8017870706591989014}
+  parentB: {fileID: 0}
   type: 0
   level: 0
   damage: 1
   desX: 0
   desY: 0
+  hIndex3: 0
   isBullet: 0
 --- !u!61 &8017870706591989010
 BoxCollider2D:
