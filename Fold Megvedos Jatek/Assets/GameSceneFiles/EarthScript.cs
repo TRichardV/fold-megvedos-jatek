@@ -23,7 +23,7 @@ public class EarthScript : MonoBehaviour {
 
         if (collision.gameObject.tag.Equals("meteor")) {
 
-            this.health -= collision.gameObject.GetComponent<MeteorScript>().damage;
+            this.health -= collision.gameObject.GetComponent<MeteorScript>().health;
 
             if (this.health <= 0) {
 

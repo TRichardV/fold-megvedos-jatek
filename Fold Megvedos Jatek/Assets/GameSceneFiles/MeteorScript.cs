@@ -15,12 +15,12 @@ public class MeteorScript : MonoBehaviour {
     public int type;
     public int level;
 
-    public float damage = 1f;
-    float score = 1f;
-    float money = 0.1f;
+    public float damage;
+    float score;
+    float money;
 
-    float maxHealth = 10;
-    float health;
+    float maxHealth;
+    public float health;
 
     float speed;
 
@@ -65,18 +65,18 @@ public class MeteorScript : MonoBehaviour {
 
         stats = new float[15, 1, 5] {
 
-            { { 2f, 10f, 10f, 5f, 1f } },
-            { { 1.4f, 20f, 20f, 10f, 1.5f } },
+            { { 1.7f, 10f, 10f, 5f, 1f } },
+            { { 1.3f, 20f, 20f, 10f, 1.5f } },
             { { 1f, 30f, 30f, 50f, 2f } },
             { { 0f, 0f, 0f, 0f, 0f } },
             { { 0f, 0f, 0f, 0f, 0f } },
             { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
+            { { 1.8f, 22f, 30f, 40f, 2.25f } },
+            { { 1.6f, 30f, 30f, 60f, 3.5f } },
+            { { 1.6f, 30f, 30f, 80, 4f } },
+            { { 3f, 1f, 15f, 1f, 0.05f } },
+            { { 0.6f, 300f, 10f, 1000f, 100f } },
+            { { 1.0f, 30f, 30f, 20f, 2f } },
             { { 2f, 1f, 0f, 0f, 3f } },
             { { 2f, 1f, 0f, 0f, 6f } },
             { { 2f, 1f, 0f, 0f, 10f } },
@@ -96,8 +96,6 @@ public class MeteorScript : MonoBehaviour {
     } 
 
     void Start() {
-
-        
 
     }
 
@@ -216,8 +214,6 @@ public class MeteorScript : MonoBehaviour {
             case 90:
 
                 isBullet = true;
-                speed = 4f;
-
                 scale = new Vector3(0.3f, 1f, 0.1f);
 
                 this.gameObject.transform.localScale = scale;
@@ -369,6 +365,7 @@ public class MeteorScript : MonoBehaviour {
             health -= damage;
 
         }
+        Debug.Log(health + " " + damage);
 
         if (health <= 0) {
 

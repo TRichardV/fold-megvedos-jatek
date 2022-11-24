@@ -30,8 +30,8 @@ public class RocketLauncherScript : MonoBehaviour {
     int dmgUP = 0;
     int apsUP = 0;
 
-    float[,] dmgUPs = { { 5f, 30f }, { 7f, 75f }, { 10f, 150f}, { 3f, 2000000f }, { 5f, 50f }, { 7f, 120f }, { 10f, 250f }, { 15f, 500f }, { 20, 1000f} };
-    float[,] apsUPs = { { 0.1f, 10f }, { 0.12f, 20f }, { 0.15f, 35f }, { 0.2f, 60f }, { 0.25f, 125f}, { 0.33f, 200f }, { 0.4F, 350F }, { 1f, 1000000f }, { 1.5f, 3000f } };
+    float[,] dmgUPs = { { 5f, 25f }, { 7f, 60f }, { 10f, 130f}, { 15f, 300f }, { 22f, 1200f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f} };
+    float[,] apsUPs = { { 0.1f, 10f }, { 0.12f, 25f }, { 0.13f, 40f }, { 0.15f, 60f }, { 0.17f, 125f}, { 0.22f, 200f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
 
     void Start() {
 
@@ -61,8 +61,18 @@ public class RocketLauncherScript : MonoBehaviour {
         float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
 
         float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
-        GameObject.Find("SpaceShip").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
         obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
+
+    }
+
+    void rotateOurself(float desX, float desY) {
+
+        float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
+        float b = 1;
+        float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
+
+        float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+        GameObject.Find("SpaceShip").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
 
     }
 
@@ -95,11 +105,13 @@ public class RocketLauncherScript : MonoBehaviour {
 
         }
 
-        if (Input.touchCount > 0 && !panelVisible) {
+        if (Input.touchCount > 0) {
 
             Vector2 tPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
-            if (tPos.y > LauncherP.position.y && canShot == true) {
+            rotateOurself(tPos.x, tPos.y);
+
+            if (tPos.y > LauncherP.position.y && canShot == true && !panelVisible) {
 
                 createRocket(tPos.x, tPos.y);
 
@@ -163,7 +175,7 @@ public class RocketLauncherScript : MonoBehaviour {
     }
 
     public void attackPerSecUpgrade() {
-        //Debug.Log(apsUP + " " + apsUPs.GetLength(0));
+
         if (apsUP < apsUPs.GetLength(0) && money >= apsUPs[apsUP, 1]) {
 
             aps += apsUPs[apsUP, 0];

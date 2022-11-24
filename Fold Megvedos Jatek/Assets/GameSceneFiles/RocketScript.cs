@@ -47,7 +47,6 @@ public class RocketScript : MonoBehaviour {
 
     }
 
-
     void FixedUpdate() {
 
         if (!isExploded)
@@ -69,16 +68,39 @@ public class RocketScript : MonoBehaviour {
         if(collision.gameObject.tag.Equals("meteor")) {
 
             collision.gameObject.GetComponent<MeteorScript>().shot(damage);
-            GameObject.Find("Main Camera").GetComponent<Shake>().start = true;
 
-            transform.GetChild(0).gameObject.SetActive(false);
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = false;
-            explosionParticle = transform.GetComponentInChildren<ParticleSystem>();
-            explosionParticle.Play();
+            if (collision.gameObject.GetComponent<MeteorScript>().isBullet == true) {
 
-            StartCoroutine(Destroyer());
+                this.damage -= collision.gameObject.GetComponent<MeteorScript>().health;
+
+                if (this.damage <= 0) {
+
+                    destroyT();
+
+                }
+
+            }
+            else {
+
+                destroyT();
+
+            }
+
         }
+
+    }
+
+    void destroyT() {
+
+        GameObject.Find("Main Camera").GetComponent<Shake>().start = true;
+
+        transform.GetChild(0).gameObject.SetActive(false);
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        explosionParticle = transform.GetComponentInChildren<ParticleSystem>();
+        explosionParticle.Play();
+
+        StartCoroutine(Destroyer());
 
     }
 
