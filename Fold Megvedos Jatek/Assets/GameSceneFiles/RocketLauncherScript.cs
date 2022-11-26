@@ -19,6 +19,8 @@ public class RocketLauncherScript : MonoBehaviour {
     public float score = 0;
     public float money = 0;
 
+    public float rocketSpeed = 3f;
+
     // UPGRADE PANEL
 
     public GameObject panel;
@@ -55,6 +57,7 @@ public class RocketLauncherScript : MonoBehaviour {
         obj.GetComponent<RocketScript>().desY = desY;
 
         obj.GetComponent<RocketScript>().damage = damage;
+        obj.GetComponent<RocketScript>().speed = rocketSpeed * Time.deltaTime;
 
         float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
         float b = 1;

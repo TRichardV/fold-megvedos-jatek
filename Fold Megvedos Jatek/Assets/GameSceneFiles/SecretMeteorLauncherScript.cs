@@ -22,7 +22,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public GameObject ptSlider;
 
-    int waveNumber = 9;
+    int waveNumber = 0;
 
     int meteorNumberMax = 1;
     int meteorNumber;
@@ -81,7 +81,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
             chanceOfSpawn = (float)(waveSettings[index, 0, 0]) / 100;
             atmChanceIncrease = (float)(waveSettings[index, 0, 0]) / 1000;
-            Debug.Log("aaaaaaaaaaaaa " + atmChanceIncrease);
+            //Debug.Log("aaaaaaaaaaaaa " + atmChanceIncrease);
 
         }
 
@@ -181,7 +181,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         int num = Random.Range(0, 10000);
 
-        Debug.Log(atmChance * chanceOfSpawn);
+        //Debug.Log(atmChance * chanceOfSpawn);
         if (num < chanceOfSpawn*atmChance) {
 
             atmChance = 1f;

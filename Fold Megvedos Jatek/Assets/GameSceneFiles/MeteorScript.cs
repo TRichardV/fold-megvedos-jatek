@@ -365,7 +365,7 @@ public class MeteorScript : MonoBehaviour {
             health -= damage;
 
         }
-        Debug.Log(health + " " + damage);
+        //Debug.Log(health + " " + damage);
 
         if (health <= 0) {
 
