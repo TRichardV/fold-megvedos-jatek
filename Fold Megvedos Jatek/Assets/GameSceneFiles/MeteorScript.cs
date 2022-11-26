@@ -29,7 +29,7 @@ public class MeteorScript : MonoBehaviour {
     public float desY;
 
     float startX, startY;
-    float kX, kY;
+    public float kX, kY;
 
     int hIndex = 0;
     int hIndexMax;

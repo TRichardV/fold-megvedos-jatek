@@ -14,8 +14,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
     public Transform LauncherP;
 
-    float aps = 0.5f;
-    float damage = 10;
+    public float aps = 0.5f;
+    public float damage = 10;
     public float score = 0;
     public float money = 0;
 
