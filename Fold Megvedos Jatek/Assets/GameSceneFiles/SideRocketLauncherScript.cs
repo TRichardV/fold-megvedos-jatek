@@ -8,8 +8,8 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     public GameObject rocket;
     
-    float damagePercent = 50;
-    float apsPercent = 100;
+    public float damagePercent = 50;
+    public float apsPercent = 50;
 
     float damage;
     float aps;
@@ -82,28 +82,34 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
         if (des != null && des.transform.position.y > this.transform.localPosition.y) {
 
-            GameObject obj = Instantiate(rocket);
-
-            obj.transform.parent = GameObject.Find("RocketLauncher").transform;
-
-            obj.transform.position = this.gameObject.transform.position;
-
             Vector2 targetDis = getIronDome(des);
 
-            obj.GetComponent<RocketScript>().desX = targetDis.x;
-            obj.GetComponent<RocketScript>().desY = targetDis.y;
+            if (targetDis.x != 0 && targetDis.y != 0) {
 
-            obj.GetComponent<RocketScript>().damage = damage;
-            obj.GetComponent<RocketScript>().speed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
+                GameObject obj = Instantiate(rocket);
+
+                obj.transform.parent = GameObject.Find("RocketLauncher").transform;
+
+                obj.transform.position = this.gameObject.transform.position;
 
 
 
-            /*float a = Vector3.Distance(transform.position, new Vector3(des.transform.position.x, des.transform.position.y));
-            float b = 1;
-            float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(des.transform.position.x, des.transform.position.y));
+                obj.GetComponent<RocketScript>().desX = targetDis.x;
+                obj.GetComponent<RocketScript>().desY = targetDis.y;
 
-            float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
-            obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);*/
+                obj.GetComponent<RocketScript>().damage = damage;
+                obj.GetComponent<RocketScript>().speed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
+
+
+
+                /*float a = Vector3.Distance(transform.position, new Vector3(des.transform.position.x, des.transform.position.y));
+                float b = 1;
+                float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(des.transform.position.x, des.transform.position.y));
+
+                float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+                obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);*/
+
+            }
 
         }
         else {
@@ -117,7 +123,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
     Vector2 getIronDome(GameObject target) {
 
         // OUR ROCKET'S SPEED
-        float rSpeed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
+        float rSpeed = 5f * Time.deltaTime;//GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
 
 
         // TARGET'S POSITONS
@@ -172,23 +178,40 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
             }
 
-            i+=1;
+            i+=10;
 
-            if (i > 200) {
+            /*if (time == i) {
 
-                time = 0;
-                Debug.Log("ajjajj");
+                int e = i;
+                while ()
+
+            }*/
+
+            if (i > 500) {
+
+                time = -2;
+                //Debug.Log("ajjajj");
 
             }
 
         }
 
-        float g2X2 = tX + kX * time;
-        float g2Y2 = tY + kY * time;
+        if (time != -2) {
+
+            float g2X2 = tX + kX * time;
+            float g2Y2 = tY + kY * time - 5 * kY;
+
+            vec = new Vector2(g2X2, g2Y2);
+
+        }
+        else {
+
+            vec = new Vector2(0f, 0f);
+
+        }
 
 
 
-        vec = new Vector2(g2X2, g2Y2);
 
         return vec;
 
@@ -201,8 +224,6 @@ public class SideRocketLauncherScript : MonoBehaviour {
         // OUR POSITION
         float startX = this.gameObject.transform.localPosition.x;
         float startY = this.gameObject.transform.localPosition.y;
-
-        Debug.Log(startX + " " + startY);
 
         // DIFFERENCE BETWEEN POSITIONS
         float dX = desX - startX;
@@ -218,7 +239,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     }
 
-    void refreshDatas() {
+    public void refreshDatas() {
 
         damage = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().damage * (damagePercent/100);
         aps = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().aps * (apsPercent / 100);

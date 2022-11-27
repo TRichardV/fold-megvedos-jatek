@@ -75,7 +75,7 @@ public class MeteorScript : MonoBehaviour {
             { { 1.6f, 30f, 30f, 60f, 3.5f } },
             { { 1.6f, 30f, 30f, 80, 4f } },
             { { 3f, 1f, 15f, 1f, 0.05f } },
-            { { 0.6f, 300f, 10f, 1000f, 100f } },
+            { { 0.6f, 300f, 10f, 1000f, 100f } }, // BOSS
             { { 1.0f, 30f, 30f, 20f, 2f } },
             { { 2f, 1f, 0f, 0f, 3f } },
             { { 2f, 1f, 0f, 0f, 6f } },

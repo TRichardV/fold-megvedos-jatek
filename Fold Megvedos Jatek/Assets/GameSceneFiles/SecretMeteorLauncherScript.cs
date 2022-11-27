@@ -22,7 +22,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public GameObject ptSlider;
 
-    int waveNumber = 0;
+    int waveNumber = 9;
 
     int meteorNumberMax = 1;
     int meteorNumber;
@@ -262,6 +262,11 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 waveTimeCounter = 0;
 
                 waveNumber++;
+                if (waveNumber % 10 == 0) {
+
+                    spawnItem();
+
+                }
 
             }
             else if (waveTimeCounter > waveTimeMax) {
@@ -273,82 +278,92 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
         }
         else { // PREP PHASE
 
-            double sliderScaleUnit = 1d / preparationTimeMax;
-            double value = sliderScaleUnit * preparationTimeCounter;
-            ptSlider.GetComponent<Slider>().value = (float)value;
+            if (this.gameObject.GetComponent<ItemManagerScript>().choiceIsOn == false) {
 
-            if (preparationTimeCounter == 0) {
+                double sliderScaleUnit = 1d / preparationTimeMax;
+                double value = sliderScaleUnit * preparationTimeCounter;
+                ptSlider.GetComponent<Slider>().value = (float)value;
 
-                tableDownCounter = 0;
-                tableState = 0;
-                wicText.GetComponent<TextMeshProUGUI>().text = waveNumber+1 + ". wave is coming!";
+                if (preparationTimeCounter == 0) {
 
-                for (int i = 0; i < spawnablePlaces.Length; i++) {
+                    tableDownCounter = 0;
+                    tableState = 0;
+                    wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + 1 + ". wave is coming!";
 
-                    spawnablePlaces[i] = -1;
+                    for (int i = 0; i < spawnablePlaces.Length; i++) {
 
-                }
+                        spawnablePlaces[i] = -1;
 
-                uploadList(waveNumber);
+                    }
 
-                meteorNumberMax = meteors.Count;
-                meteorNumber = meteorNumberMax;
+                    uploadList(waveNumber);
 
-            }
-
-            preparationTimeCounter++;
-
-            if (preparationTimeCounter >= preparationTimeMax) {
-
-                preparationTimeCounter = -1;
-
-                ptSlider.SetActive(false);
-
-            }
-
-            if (tableDownCounter > -1) {
-
-                tableDownCounter++;
-
-                if (tableDownCounter >= tableDownMax) {
-
-                    tableDownCounter = -1;
-                    tableState = -1;
+                    meteorNumberMax = meteors.Count;
+                    meteorNumber = meteorNumberMax;
 
                 }
 
-                if (tableDownCounter == (int)Math.Round((double)(tableDownMax/4))) { // SET TABLE IS DOWN
+                preparationTimeCounter++;
 
-                    tableState = 1;
+                if (preparationTimeCounter >= preparationTimeMax) {
+
+                    preparationTimeCounter = -1;
+
+                    ptSlider.SetActive(false);
 
                 }
-                else if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4)*3)) { // SET TABLE GO UP
 
-                    tableState = 2;
+                if (tableDownCounter > -1) {
 
-                }
+                    tableDownCounter++;
 
-                float disPerTick = defTableDis / (int)Math.Round((double)(tableDownMax / 4));
+                    if (tableDownCounter >= tableDownMax) {
 
-                switch (tableState) {
+                        tableDownCounter = -1;
+                        tableState = -1;
 
-                    case 0:
+                    }
 
-                        wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y - disPerTick);
+                    if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4))) { // SET TABLE IS DOWN
 
-                        break;
+                        tableState = 1;
 
-                    case 2:
+                    }
+                    else if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4) * 3)) { // SET TABLE GO UP
 
-                        wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y + disPerTick);
+                        tableState = 2;
 
-                        break;
+                    }
+
+                    float disPerTick = defTableDis / (int)Math.Round((double)(tableDownMax / 4));
+
+                    switch (tableState) {
+
+                        case 0:
+
+                            wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y - disPerTick);
+
+                            break;
+
+                        case 2:
+
+                            wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y + disPerTick);
+
+                            break;
+
+                    }
 
                 }
 
             }
 
         }
+
+    }
+
+    void spawnItem() {
+
+        this.gameObject.GetComponent<ItemManagerScript>().spawnItems();
 
     }
 
