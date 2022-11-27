@@ -8,6 +8,12 @@ public class RocketLauncherScript : MonoBehaviour {
 
     public GameObject rocket;
 
+    public GameObject brimstoneLaser;
+    public bool bulletBrim = false;
+
+    int brimTimeOnM;
+    int brimTimeOn = -1;
+
     bool canShot = false;
     int canShotCounter = 0;
     int canShotMaxCounter;
@@ -41,30 +47,54 @@ public class RocketLauncherScript : MonoBehaviour {
 
         canShotMaxCounter = (int)(1 / Time.fixedDeltaTime / aps);
 
+        brimTimeOnM = (int)(1 / Time.fixedDeltaTime) * 3;
+
         setPanel();
 
     }
 
     void createRocket(float desX, float desY) {
 
-        GameObject obj = Instantiate(rocket);
+        if (bulletBrim == false) {
 
-        obj.transform.parent = this.gameObject.transform;
+            GameObject obj = Instantiate(rocket);
 
-        obj.transform.position = this.gameObject.transform.position;
+            obj.transform.parent = this.gameObject.transform;
 
-        obj.GetComponent<RocketScript>().desX = desX;
-        obj.GetComponent<RocketScript>().desY = desY;
+            obj.transform.position = this.gameObject.transform.position;
 
-        obj.GetComponent<RocketScript>().damage = damage;
-        obj.GetComponent<RocketScript>().speed = rocketSpeed * Time.deltaTime;
+            obj.GetComponent<RocketScript>().desX = desX;
+            obj.GetComponent<RocketScript>().desY = desY;
 
-        float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
-        float b = 1;
-        float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
+            obj.GetComponent<RocketScript>().damage = damage;
+            obj.GetComponent<RocketScript>().speed = rocketSpeed * Time.deltaTime;
 
-        float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
-        obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
+            float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
+            float b = 1;
+            float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
+
+            float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+            obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
+
+        }
+        else {
+
+            brimstoneLaser.active = true;
+            brimstoneLaser.GetComponent<BrimstoneLaserScript>().setup();
+            brimstoneLaser.GetComponent<BrimstoneLaserScript>().damage = damage;
+
+            float a = Mathf.Abs(this.gameObject.transform.position.x - desX);
+            float b = Mathf.Abs(this.gameObject.transform.position.y - desY);
+
+            float angle = Mathf.Atan(b / a) * Mathf.Rad2Deg;//tangens alfa = b/a;
+
+            brimstoneLaser.transform.rotation = Quaternion.Euler(0f, 0f, -90 + angle);
+
+            //brimstoneLaser.transform.position = new Vector3(desX, brimstoneLaser.transform.position.y);
+
+            brimTimeOn++;
+
+        }
 
     }
 
@@ -80,7 +110,7 @@ public class RocketLauncherScript : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //Debug.Log("damage: " + damage + " aps: " + aps);
+
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "Money: " + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
@@ -98,13 +128,26 @@ public class RocketLauncherScript : MonoBehaviour {
             reloadBar.SetActive(false);
 
         }
-        if (canShot == false) {
+        if (canShot == false && brimTimeOn == -1) {
 
             canShotCounter++;
 
             double sliderScaleUnit = 1d / canShotMaxCounter;
             double value = sliderScaleUnit * canShotCounter;
             reloadBar.GetComponent<Slider>().value = (float)value;
+
+        }
+
+        if (brimTimeOn > -1) {
+
+            brimTimeOn++;
+
+            if (brimTimeOn >= brimTimeOnM) {
+
+                brimTimeOn = -1;
+                brimstoneLaser.active = false;
+
+            }
 
         }
 

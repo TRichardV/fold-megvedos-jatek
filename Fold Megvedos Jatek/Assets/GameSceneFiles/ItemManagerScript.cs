@@ -7,18 +7,30 @@ using UnityEngine.UI;
 public class ItemManagerScript : MonoBehaviour
 {
 
+    public GameObject launcher;
+
     public GameObject ironDomeG;
     public GameObject itemChoice;
     public bool choiceIsOn = false;
 
-    int[] itemsInPool = { 1, 1 };
+    int[] itemsInPool = { 1, 1, 1 };
     int items = 2;
-    string[] names = { "Iron Dome", "Andrási tér"};
+    string[] names = { "Iron Dome", "Brimstone", "Artemis"};
 
     int item0 = -1;
     int item1 = -1;
 
     int haveIronDome = 0;
+    int haveBrimstone = 0;
+    int haveArtemis = 0;
+
+    private void Start() {
+
+        //getArtemis();
+        //getArtemis();
+        getBrimstoneItem();
+
+    }
 
     public void spawnItems() {
 
@@ -84,12 +96,18 @@ public class ItemManagerScript : MonoBehaviour
         switch(item) {
 
             case 0:
-                Debug.Log("asd0");
+
                 getIronDomeItem();
                 break;
 
             case 1:
-                Debug.Log("asd1");
+
+                getBrimstoneItem();
+                break;
+
+            case 2:
+
+                getArtemis();
                 break;
 
         }
@@ -127,6 +145,45 @@ public class ItemManagerScript : MonoBehaviour
             dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().refreshDatas();
             dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().refreshDatas();
             haveIronDome++;
+
+        }
+
+    }
+
+    void getBrimstoneItem() {
+
+        if (haveBrimstone == 0) {
+
+            launcher.GetComponent<RocketLauncherScript>().bulletBrim = true;
+
+            launcher.GetComponent<RocketLauncherScript>().aps *= 0.5f;
+            launcher.GetComponent<RocketLauncherScript>().damage *= 0.1f;
+
+            haveBrimstone++;
+
+        }
+        else if (haveBrimstone == 1) {
+
+            launcher.GetComponent<RocketLauncherScript>().damage *= 2;
+
+            haveBrimstone++;
+
+        }
+
+    }
+
+    void getArtemis() {
+
+        if (haveArtemis == 0) {
+
+            GameObject.Find("Earth").GetComponent<EarthScript>().haveTankItem++;
+            haveArtemis++;
+
+        }
+        else if (haveArtemis == 1) {
+
+            GameObject.Find("Earth").GetComponent<EarthScript>().haveTankItem++;
+            haveArtemis++;
 
         }
 

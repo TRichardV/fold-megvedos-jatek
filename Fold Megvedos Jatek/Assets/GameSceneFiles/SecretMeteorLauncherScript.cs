@@ -22,7 +22,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     public GameObject ptSlider;
 
-    int waveNumber = 9;
+    int waveNumber = 0;
 
     int meteorNumberMax = 1;
     int meteorNumber;
