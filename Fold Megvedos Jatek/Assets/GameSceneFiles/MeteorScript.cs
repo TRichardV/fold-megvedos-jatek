@@ -59,6 +59,10 @@ public class MeteorScript : MonoBehaviour {
 
     float[,,] stats;
 
+    float defSpeed;
+    public int slowTick = -1;
+    int slowTickM;
+
     void statUpload() {
 
         // SPEED - HEALTH - DAMAGE - SCORE - MONEY
@@ -96,6 +100,8 @@ public class MeteorScript : MonoBehaviour {
     } 
 
     void Start() {
+
+
 
     }
 
@@ -291,7 +297,51 @@ public class MeteorScript : MonoBehaviour {
 
     }
 
+    void setTravel() {
+
+        startX = MeteorP.position.x;
+        startY = MeteorP.position.y;
+
+        float dX = desX - startX;
+        float dY = desY - startY;
+
+        float unit = Convert.ToSingle(Math.Sqrt(Math.Abs(dX * dX) + Math.Abs(dY * dY)) / speed);
+
+        kX = dX / unit;
+        kY = dY / unit;
+
+    }
+
+    
     void FixedUpdate() {
+
+        if (slowTick > -1) {
+
+            slowTick++;
+
+            // SLOW
+
+            if (slowTick == 1) {
+
+                this.speed = defSpeed * 0.5f;
+
+                setTravel();
+
+            }
+            
+
+            if (slowTick >= slowTickM) {
+
+                slowTick = -1;
+
+                speed = defSpeed;
+                setTravel();
+
+
+            }
+
+        }
+
 
         switch(type) {
 
@@ -363,6 +413,16 @@ public class MeteorScript : MonoBehaviour {
         if (canGetDamage == true) {
 
             health -= damage;
+
+            if (GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveIceborn == 0) {
+
+                slowTickM = (int)Mathf.Round(1 / Time.deltaTime * 1.5f);
+
+                defSpeed = speed;
+
+                slowTick = 0;
+
+            }
 
         }
         //Debug.Log(health + " " + damage);

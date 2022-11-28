@@ -14,14 +14,16 @@ public class RocketLauncherScript : MonoBehaviour {
     int brimTimeOnM;
     int brimTimeOn = -1;
 
+    public int haveIceborn = 0;
+
     bool canShot = false;
     int canShotCounter = 0;
     int canShotMaxCounter;
 
     public Transform LauncherP;
 
-    public float aps = 0.5f;
-    public float damage = 10;
+    public float aps;
+    public float damage;
     public float score = 0;
     public float money = 0;
 
@@ -42,6 +44,10 @@ public class RocketLauncherScript : MonoBehaviour {
     float[,] apsUPs = { { 0.1f, 10f }, { 0.12f, 25f }, { 0.13f, 40f }, { 0.15f, 60f }, { 0.17f, 125f}, { 0.22f, 200f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
 
     void Start() {
+
+        aps = 0.5f;
+        damage = 1f;
+
 
         this.LauncherP = this.GetComponent<Transform>();
 
@@ -83,12 +89,12 @@ public class RocketLauncherScript : MonoBehaviour {
             brimstoneLaser.GetComponent<BrimstoneLaserScript>().setup();
             brimstoneLaser.GetComponent<BrimstoneLaserScript>().damage = damage;
 
-            float a = Mathf.Abs(this.gameObject.transform.position.x - desX);
-            float b = Mathf.Abs(this.gameObject.transform.position.y - desY);
+            //float a = Mathf.Abs(this.gameObject.transform.position.x - desX);
+            //float b = Mathf.Abs(this.gameObject.transform.position.y - desY);
 
-            float angle = Mathf.Atan(b / a) * Mathf.Rad2Deg;//tangens alfa = b/a;
+            //float angle = Mathf.Atan(b / a) * Mathf.Rad2Deg;//tangens alfa = b/a;
 
-            brimstoneLaser.transform.rotation = Quaternion.Euler(0f, 0f, -90 + angle);
+            //brimstoneLaser.transform.rotation = Quaternion.Euler(0f, 0f, -90 + angle);
 
             //brimstoneLaser.transform.position = new Vector3(desX, brimstoneLaser.transform.position.y);
 

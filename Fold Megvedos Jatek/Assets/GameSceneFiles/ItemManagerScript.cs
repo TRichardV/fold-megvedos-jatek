@@ -13,9 +13,9 @@ public class ItemManagerScript : MonoBehaviour
     public GameObject itemChoice;
     public bool choiceIsOn = false;
 
-    int[] itemsInPool = { 1, 1, 1 };
+    int[] itemsInPool = { 1, 1, 1 , 1};
     int items = 2;
-    string[] names = { "Iron Dome", "Brimstone", "Artemis"};
+    string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn"};
 
     int item0 = -1;
     int item1 = -1;
@@ -23,12 +23,20 @@ public class ItemManagerScript : MonoBehaviour
     int haveIronDome = 0;
     int haveBrimstone = 0;
     int haveArtemis = 0;
+    int haveWarmog = 0;
+    int haveIceborn = 0;
 
     private void Start() {
 
-        //getArtemis();
-        //getArtemis();
-        getBrimstoneItem();
+        //getIronDomeItem();
+        //getWarmogItem();
+        //getWarmogItem();
+
+        //getArtemisItem();
+        //getArtemisItem();
+        //getBrimstoneItem();
+
+        getIcebornItem();
 
     }
 
@@ -107,7 +115,17 @@ public class ItemManagerScript : MonoBehaviour
 
             case 2:
 
-                getArtemis();
+                getArtemisItem();
+                break;
+
+            case 3:
+
+                getWarmogItem();
+                break;
+
+            case 4:
+
+                getIcebornItem();
                 break;
 
         }
@@ -172,7 +190,7 @@ public class ItemManagerScript : MonoBehaviour
 
     }
 
-    void getArtemis() {
+    void getArtemisItem() {
 
         if (haveArtemis == 0) {
 
@@ -186,6 +204,34 @@ public class ItemManagerScript : MonoBehaviour
             haveArtemis++;
 
         }
+
+    }
+
+    void getWarmogItem() {
+
+        if (haveWarmog == 0) {
+
+            GameObject.Find("Earth").GetComponent<EarthScript>().haveWarmog++;
+            GameObject.Find("Earth").GetComponent<EarthScript>().getWarmog();
+
+            haveWarmog++;
+        
+        }
+
+        else if (haveWarmog == 1) {
+
+            GameObject.Find("Earth").GetComponent<EarthScript>().haveWarmog++;
+            GameObject.Find("Earth").GetComponent<EarthScript>().getWarmog();
+
+            haveWarmog++;
+
+        }
+
+    }
+
+    void getIcebornItem() {
+
+        GameObject.Find("Earth").GetComponent<RocketLauncherScript>().haveIceborn++;
 
     }
 

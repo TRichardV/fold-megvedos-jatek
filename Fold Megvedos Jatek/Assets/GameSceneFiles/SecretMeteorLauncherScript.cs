@@ -233,14 +233,14 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     if (meteors.Count > 0 && waveSettings[waveNumber, 0, 0] == -1) {
 
-                        createMeteor(0, 0, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        createMeteor(0, -50f, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
                         meteors.RemoveAt(0); // actually useless
 
                     }
 
                     else if (meteors.Count > 0 && spawnablePlaces[i] == -1 && haveChance()) {
 
-                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, 0, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        createMeteor(i * ((maxX * 2) / (colNumber - 1)) - maxX, -50f, i * ((maxX * 2) / (colNumber - 1)) - maxX, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
                         
                         meteors.RemoveAt(0);
                         spawnablePlaces[i] = 0;

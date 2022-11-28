@@ -6,8 +6,9 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     List<GameObject> inLaser = new List<GameObject>();
 
-    float defScaleY = 0.7f;
-    float defPosY = 1.15f;
+    float defScaleX = 12f;
+    float defScaleY = 1f;
+    float defPosZ = 11f;
 
     public float damage;
     float damageTick = 0;
@@ -15,18 +16,26 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     private void Start() {
 
+        //defPosZ = this.gameObject.transform.localPosition.z;
+
         damageTickM = (int)Mathf.Round(1 / Time.fixedDeltaTime / 10);
 
         setup();
 
-        Debug.Log(defScaleY + " asdasd");
+        //Debug.Log(defScaleY + " asdasd");
 
     }
 
     public void setup() {
 
-        this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, defScaleY);
-        this.gameObject.transform.localPosition = new Vector2(this.gameObject.transform.localPosition.x, defPosY);
+        Vector3 pos = this.gameObject.transform.localPosition;
+        Vector3 scale = this.gameObject.transform.localScale;
+
+        this.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, 11f);
+        this.gameObject.transform.localScale = new Vector3(defScaleX, defScaleY, scale.z);
+
+        //this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, defScaleY);
+        //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.z, defPosZ);
         
     }
 
@@ -35,16 +44,16 @@ public class BrimstoneLaserScript : MonoBehaviour {
         damageTick++;
         Debug.Log(inLaser.Count);
 
-        while(inLaser.Count == 0 && this.gameObject.transform.localScale.y < 8f) {
+        while(inLaser.Count == 0 && this.gameObject.transform.localScale.y < 100f) {
 
-            this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y+0.1f);
-            this.gameObject.transform.position += new Vector3(0f, 0.05f);
+            this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y + 0.1f);
+            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
 
         }
         while (inLaser.Count > 1) {
 
             this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y - 0.1f);
-            this.gameObject.transform.position -= new Vector3(0f, 0.05f);
+            this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.05f);
 
         }
 

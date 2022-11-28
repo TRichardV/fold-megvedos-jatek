@@ -82,9 +82,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
         if (des != null && des.transform.position.y > this.transform.localPosition.y) {
 
-            Vector2 targetDis = getIronDome(des);
-
-            if (targetDis.x != 0 && targetDis.y != 0) {
+            if (InterceptionDirection(des.transform.position, this.transform.position, new Vector2(des.GetComponent<MeteorScript>().kX, des.GetComponent<MeteorScript>().kY), GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime, out var direction)) {
 
                 GameObject obj = Instantiate(rocket);
 
@@ -94,20 +92,14 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
 
 
-                obj.GetComponent<RocketScript>().desX = targetDis.x;
-                obj.GetComponent<RocketScript>().desY = targetDis.y;
+                obj.GetComponent<RocketScript>().desX = direction.x;
+                obj.GetComponent<RocketScript>().desY = direction.y;
 
                 obj.GetComponent<RocketScript>().damage = damage;
                 obj.GetComponent<RocketScript>().speed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
+                
 
-
-
-                /*float a = Vector3.Distance(transform.position, new Vector3(des.transform.position.x, des.transform.position.y));
-                float b = 1;
-                float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(des.transform.position.x, des.transform.position.y));
-
-                float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
-                obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);*/
+                Debug.Log(direction.x + " " + direction.y);
 
             }
 
@@ -120,7 +112,51 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     }
 
-    Vector2 getIronDome(GameObject target) {
+    public bool InterceptionDirection(Vector2 a, Vector2 b, Vector2 vA, float sB, out Vector2 result) {
+
+        var aToB = b - a;
+        var dC = aToB.magnitude;
+        var alpha = Vector2.Angle(aToB, vA) * Mathf.Deg2Rad;
+
+        var sA = vA.magnitude;
+        var r = sA / sB;
+
+        if (SolveQuadratic( 1 - r * r, 2 * r * dC * Mathf.Cos(alpha), -(dC * dC), out var root1, out var root2) == 0) {
+
+            result = Vector2.zero;
+            return false;
+
+        }
+        var dA = Mathf.Max(root1, root2);
+        var t = dA / sB;
+        var c = a + vA * t;
+        Debug.Log(c);
+        //result = (c - b).normalized;
+        result = c;
+        
+        return true;
+
+    }
+
+    public int SolveQuadratic(float a, float b, float c, out float root1, out float root2) {
+
+        var discriminant = b * b - 4 * a * c;
+        if (discriminant < 0) {
+
+            root1 = Mathf.Infinity;
+            root2 = -root1;
+            return 0;
+
+        }
+
+        root1 = (-b + Mathf.Sqrt(discriminant)) / (2 * a);
+        root2 = (-b - Mathf.Sqrt(discriminant)) / (2 * a);
+
+        return discriminant > 0 ? 2 : 1;
+    
+    }
+
+    /*Vector2 getIronDome(GameObject target) {
 
         // OUR ROCKET'S SPEED
         float rSpeed = 5f * Time.deltaTime;//GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
@@ -185,7 +221,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
                 int e = i;
                 while ()
 
-            }*/
+            }
 
             if (i > 500) {
 
@@ -215,9 +251,9 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
         return vec;
 
-    }
+    }*/
 
-    Vector2 moveVector(float desX, float desY, float speed) {
+    /*Vector2 moveVector(float desX, float desY, float speed) {
 
         Vector2 move = new Vector2();
 
@@ -237,7 +273,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
         return move;
 
-    }
+    }*/
 
     public void refreshDatas() {
 
