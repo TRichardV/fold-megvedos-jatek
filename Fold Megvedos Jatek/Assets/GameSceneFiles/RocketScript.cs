@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RocketScript : MonoBehaviour {
 
@@ -26,6 +27,11 @@ public class RocketScript : MonoBehaviour {
 
     public Transform RocketP;
 
+    public GameObject Electric;
+
+    int haveKnuts;
+    int chanceOfCrit = 0;
+
     void Start() {
 
         type = type_normal;
@@ -42,6 +48,27 @@ public class RocketScript : MonoBehaviour {
 
         kX = dX / unit;
         kY = dY / unit;
+
+        haveKnuts = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveKnuts;
+
+        Electric.GetComponent<ElectricScript>().damage = 2000f;//this.damage
+
+        if (haveKnuts == 1) {
+
+            chanceOfCrit = 100;
+
+        }
+        else if (haveKnuts == 2) {
+
+            chanceOfCrit = 100;
+
+        }
+
+    }
+
+    bool doCritDamage() {
+
+        return Random.Range(0, 100) < chanceOfCrit;
 
     }
 
@@ -61,9 +88,17 @@ public class RocketScript : MonoBehaviour {
 
     }
 
+    
+
     private void OnTriggerEnter2D(Collider2D collision) {
 
         if(collision.gameObject.tag.Equals("meteor")) {
+
+            if (haveKnuts > 0 && doCritDamage()) {
+
+                Electric.gameObject.active = true;
+
+            }
 
             collision.gameObject.GetComponent<MeteorScript>().shot(damage);
 

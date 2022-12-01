@@ -13,9 +13,9 @@ public class ItemManagerScript : MonoBehaviour
     public GameObject itemChoice;
     public bool choiceIsOn = false;
 
-    int[] itemsInPool = { 1, 1, 1 , 1};
+    int[] itemsInPool = { 1, 1, 1, 1, 1, 1};
     int items = 2;
-    string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn"};
+    string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn", "Knuts Hammer"};
 
     int item0 = -1;
     int item1 = -1;
@@ -36,7 +36,10 @@ public class ItemManagerScript : MonoBehaviour
         //getArtemisItem();
         //getBrimstoneItem();
 
-        getIcebornItem();
+        //getIcebornItem();
+        //getIcebornItem();
+
+        getKnutsItem();
 
     }
 
@@ -126,6 +129,11 @@ public class ItemManagerScript : MonoBehaviour
             case 4:
 
                 getIcebornItem();
+                break;
+
+            case 5:
+
+                getKnutsItem();
                 break;
 
         }
@@ -231,7 +239,13 @@ public class ItemManagerScript : MonoBehaviour
 
     void getIcebornItem() {
 
-        GameObject.Find("Earth").GetComponent<RocketLauncherScript>().haveIceborn++;
+        GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveIceborn++;
+
+    }
+
+    public void getKnutsItem() {
+
+        GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveKnuts++;
 
     }
 

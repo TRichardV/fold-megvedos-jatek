@@ -15,6 +15,7 @@ public class RocketLauncherScript : MonoBehaviour {
     int brimTimeOn = -1;
 
     public int haveIceborn = 0;
+    public int haveKnuts = 0;
 
     bool canShot = false;
     int canShotCounter = 0;
