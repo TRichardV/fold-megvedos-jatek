@@ -13,9 +13,9 @@ public class ItemManagerScript : MonoBehaviour
     public GameObject itemChoice;
     public bool choiceIsOn = false;
 
-    int[] itemsInPool = { 1, 1, 1, 1, 1, 1};
+    int[] itemsInPool = { 1, 1, 1, 1, 1, 1, 1, 1 };
     int items = 2;
-    string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn", "Knuts Hammer"};
+    string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn", "Knuts Hammer", "Trisagion", "20/20"};
 
     int item0 = -1;
     int item1 = -1;
@@ -39,7 +39,12 @@ public class ItemManagerScript : MonoBehaviour
         //getIcebornItem();
         //getIcebornItem();
 
-        getKnutsItem();
+        //getKnutsItem();
+
+        //getTrisagionItem();
+
+        //getTwentyItem();
+        //getTwentyItem();
 
     }
 
@@ -134,6 +139,16 @@ public class ItemManagerScript : MonoBehaviour
             case 5:
 
                 getKnutsItem();
+                break;
+
+            case 6:
+
+                getTrisagionItem();
+                break;
+
+            case 7:
+
+                getTwentyItem();
                 break;
 
         }
@@ -246,6 +261,18 @@ public class ItemManagerScript : MonoBehaviour
     public void getKnutsItem() {
 
         GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveKnuts++;
+
+    }
+
+    public void getTrisagionItem() {
+
+        GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveTrisagion++;
+
+    }
+
+    public void getTwentyItem() {
+
+        GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveTwenty++;
 
     }
 

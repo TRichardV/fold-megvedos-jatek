@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EarthScript : MonoBehaviour {
@@ -17,6 +18,8 @@ public class EarthScript : MonoBehaviour {
 
     float healTick = -1;
     float healTickM;
+
+    public GameObject hpBar;
 
     void Start() {
 
@@ -51,7 +54,7 @@ public class EarthScript : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        Debug.Log(health + "/" + maxHealth);
+        hpBar.GetComponent<TextMeshProUGUI>().text = ((int)Mathf.Round(this.health) + "/" + this.maxHealth);
         
         if (waitTick == -1) {
 

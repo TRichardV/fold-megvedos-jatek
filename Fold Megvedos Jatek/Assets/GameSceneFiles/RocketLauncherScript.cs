@@ -16,6 +16,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
     public int haveIceborn = 0;
     public int haveKnuts = 0;
+    public int haveTrisagion = 0;
+    public int haveTwenty = 0;
 
     bool canShot = false;
     int canShotCounter = 0;
@@ -47,7 +49,7 @@ public class RocketLauncherScript : MonoBehaviour {
     void Start() {
 
         aps = 0.5f;
-        damage = 1f;
+        damage = 10f;
 
 
         this.LauncherP = this.GetComponent<Transform>();
@@ -75,6 +77,14 @@ public class RocketLauncherScript : MonoBehaviour {
 
             obj.GetComponent<RocketScript>().damage = damage;
             obj.GetComponent<RocketScript>().speed = rocketSpeed * Time.deltaTime;
+
+            obj.GetComponent<RocketScript>().haveResist = false;
+
+            if (this.haveTwenty > 0) {
+
+                obj.GetComponent<RocketScript>().canSplit = true;
+
+            }
 
             float a = Vector3.Distance(transform.position, new Vector3(desX, desY));
             float b = 1;

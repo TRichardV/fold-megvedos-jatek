@@ -39,23 +39,36 @@ public class BrimstoneLaserScript : MonoBehaviour {
         
     }
 
-    private void FixedUpdate() {
+    void inc() {
 
-        damageTick++;
-        Debug.Log(inLaser.Count);
-
-        while(inLaser.Count == 0 && this.gameObject.transform.localScale.y < 100f) {
+       while (inLaser.Count == 0 && this.gameObject.transform.localScale.y < 100f) {
 
             this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y + 0.1f);
             this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
 
-        }
-        while (inLaser.Count > 1) {
+       }
+
+
+    }
+
+    void dec() {
+
+        while (inLaser.Count > 1 && this.gameObject.transform.localScale.y > 1f) {
 
             this.gameObject.transform.localScale = new Vector2(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y - 0.1f);
             this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.05f);
 
         }
+
+    }
+
+    private void FixedUpdate() {
+
+        damageTick++;
+        Debug.Log(inLaser.Count);
+
+        inc();
+        dec();
 
         if (damageTick >= damageTickM) {
 
