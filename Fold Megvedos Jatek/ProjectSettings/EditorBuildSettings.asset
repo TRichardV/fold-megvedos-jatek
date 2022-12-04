@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Menu/asd.unity
     guid: dba48e3ccf6ec9440a973811d9caf312
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 17e7ff1008e55cf4583626924578a865, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: d53d58b32d16d1b44b6483bbe8a79290, type: 2}
