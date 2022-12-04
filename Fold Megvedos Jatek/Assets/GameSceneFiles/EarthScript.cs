@@ -153,7 +153,7 @@ public class EarthScript : MonoBehaviour {
 
                 if (this.health <= (this.maxHealth * activationPercent)) {
 
-                    this.health -= (collision.gameObject.GetComponent<MeteorScript>().damage * damagePercent);
+                    this.health -= (collision.gameObject.GetComponent<MeteorScript>().damage * (damagePercent/100));
 
                 }
                 else {

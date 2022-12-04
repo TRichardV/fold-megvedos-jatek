@@ -493,7 +493,7 @@ public class MeteorScript : MonoBehaviour {
 
             }
 
-            if (damage != 99999) {
+            if (damage != 999999) {
 
                 GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score += this.score;
                 GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().money += this.money;

@@ -183,9 +183,10 @@ public class BrimstoneLaserBodyScript : MonoBehaviour
 
     }
 
-
+    int a;
     void doingDamage(GameObject obj) {
-
+        Debug.Log(a);
+        a++;
         if (obj.gameObject.tag.Equals("meteor")) {
 
             if (haveKnuts > 0) {
@@ -202,7 +203,7 @@ public class BrimstoneLaserBodyScript : MonoBehaviour
                         if (haveKnuts > 0) {
 
                             el.GetComponent<ElectricScript>().damage = damage * aoeDamageRate;
-                            el.transform.position = this.transform.position;
+                            el.transform.position = obj.transform.position;
                             obj.gameObject.GetComponent<MeteorScript>().shot(damageCritRate * damage);
                             tryShoot(damageCritRate * damage * twentyDamageRate, obj); // 20/20
 

@@ -82,7 +82,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     }
 
-    private void OnEnable() {
+    public void onStart() {
 
         damageTickM = (int)Mathf.Round(1 / Time.fixedDeltaTime * damagePerSec);
 
@@ -91,6 +91,15 @@ public class BrimstoneLaserScript : MonoBehaviour {
         if (haveTrisagion > 0) {
 
             goDatas();
+
+        }
+
+        if (haveTrisagion > 0) {
+
+            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, 100f);
+            laser.gameObject.transform.localPosition = new Vector3(0f, 0f, 50f);
+
+            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 100f);
 
         }
 
@@ -115,7 +124,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     }
 
-    void inc() {
+    /*void inc() {
 
         if (inLaser.Count == 0 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
 
@@ -140,14 +149,39 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
         }
 
+    }*/
+    
+    void checkGrow() {
+
+        int index1 = 0;
+        while (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && index1 < 10 && inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
+
+            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y + 0.1f);
+            laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
+
+            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.1f);
+            index1++;
+
+        }
+        int index2 = 0;
+        while (index2 < 10 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
+
+            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.2f);
+            laser.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.1f);
+
+            this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.2f);
+            index2++;
+
+        }
+
     }
 
     int dama;
     private void FixedUpdate() {
 
-        // NOT WHILE
+        /*// NOT WHILE
         for (int i = 0; i < 100; i++) { dec(); }
-        for (int i = 0; i < 100; i++) { inc(); }
+        for (int i = 0; i < 100; i++) { inc(); }*/
 
         if (haveTrisagion == 0) {
 
@@ -167,7 +201,11 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
             }
 
+            checkGrow();
+
         }
+
+
 
     }
 
@@ -340,7 +378,16 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
         if (!inLaser.Contains(collision.gameObject)) {
 
-            inLaser.Add(collision.gameObject);
+            if (collision.GetComponent<MeteorScript>().isBullet == true) {
+
+                collision.gameObject.GetComponent<MeteorScript>().shot(999999);
+
+            }
+            else {
+
+                inLaser.Add(collision.gameObject);
+
+            }
 
         }
 

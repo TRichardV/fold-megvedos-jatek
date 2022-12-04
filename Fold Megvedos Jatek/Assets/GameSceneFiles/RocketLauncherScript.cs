@@ -199,6 +199,9 @@ public class RocketLauncherScript : MonoBehaviour {
 
             brimstoneLaser.active = true;
             brimstoneLaserHead.active = true;
+
+            Debug.Log(damage + " " + brimDamageRate + " " + damage * brimDamageRate);
+
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().damage = damage * brimDamageRate;
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().damagePerSec = brimDamagePerSec;
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().setup();
@@ -214,10 +217,12 @@ public class RocketLauncherScript : MonoBehaviour {
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().twentyBrimstoneBoostRate = twentyBrimstoneBoostRate;
 
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().electricStillAlive = electricStillAlive;
-
+            Debug.Log(haveKnuts + " " + haveTrisagion + " " + haveTwenty);
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().haveKnuts = haveKnuts;
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().haveTrisagion = haveTrisagion;
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().haveTwenty = haveTwenty;
+
+            brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().onStart();
 
             brimTimeOn++;
 

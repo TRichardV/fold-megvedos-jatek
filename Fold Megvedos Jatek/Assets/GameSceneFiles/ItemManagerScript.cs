@@ -36,9 +36,13 @@ public class ItemManagerScript : MonoBehaviour
     // ONLY FOR TESTING
     private void Start() {
 
-        getBrimstoneItem();
+        //getBrimstoneItem();
         getIcebornItem();
         getKnutsItem();
+        //getTrisagionItem();
+
+        getArtemisItem();
+        getWarmogItem();
 
     }
 
@@ -80,7 +84,6 @@ public class ItemManagerScript : MonoBehaviour
         return item;
 
     }
-
 
 
     // GET AN ITEM

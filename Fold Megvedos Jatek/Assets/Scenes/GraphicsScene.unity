@@ -5080,7 +5080,7 @@ MonoBehaviour:
   button: {fileID: 1901818246}
   reloadBar: {fileID: 1829888002}
   aps: 0.5
-  damage: 10
+  damage: 1
   score: 0
   money: 0
   rocketSpeed: 3
