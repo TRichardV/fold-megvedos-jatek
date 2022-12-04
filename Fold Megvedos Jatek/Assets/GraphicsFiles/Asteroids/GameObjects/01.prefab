@@ -242,7 +242,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.008282006, y: 0.04969263}
@@ -272,12 +272,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeteorP: {fileID: 0}
   meteor: {fileID: 8017870706591989014, guid: 17e87511c37e78c48adc8ab8118ec324, type: 3}
+  parentB: {fileID: 0}
   type: 0
   level: 0
   damage: 1
+  health: 0
+  speed: 0
   desX: 0
   desY: 0
+  kX: 0
+  kY: 0
+  hIndex3: 0
   isBullet: 0
+  defSpeed: 0
+  slowTick: -1
+  slowTickM: 0
+  stunTick: -1
+  stunTickM: 0
 --- !u!4 &7986881086912821009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c63bf934ef968af429d11e83954e45b9, type: 3}

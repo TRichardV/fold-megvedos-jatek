@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ElectricScript : MonoBehaviour {
 
+    // DAMAGED METEORS
     public List<GameObject> damagedMeteors = new List<GameObject>();
 
+
+    // STATS
     public float damage;
 
+
+    // ALIVE DURATION
     int aliveTick = 0;
-    int aliveTickM;
+    public int aliveTickM;
 
-    private void Start() {
-
-        aliveTickM = (int)(1 / Time.deltaTime) * 1;
-
-    }
 
     private void FixedUpdate() {
 
@@ -31,7 +31,7 @@ public class ElectricScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         
-        if (!damagedMeteors.Contains(collision.gameObject)) {
+        if (!damagedMeteors.Contains(collision.gameObject) && collision.gameObject.tag == "meteor") {
 
             damagedMeteors.Add(collision.gameObject);
 

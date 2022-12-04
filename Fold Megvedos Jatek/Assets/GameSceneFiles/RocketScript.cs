@@ -6,59 +6,71 @@ using Random = UnityEngine.Random;
 
 public class RocketScript : MonoBehaviour {
 
+    // MISSILES, OBJECTS
     public GameObject sRocket;
-
-    readonly int type_normal = 0;
-    int type;
-
-    public float damage;
-
-    public float speed;
-
-    public float desX;
-    public float desY;
-
-    float startX, startY;
-    float kX, kY;
-
-    readonly float rangeOutX = 5f;
-    readonly float rangeOutY = 10f;
-
-    ParticleSystem explosionParticle;
-    bool isExploded = false;
-
-    public Transform RocketP;
-
     public GameObject Electric;
 
-    int haveKnuts;
-    int chanceOfCrit = 0;
 
-    float aoeDamage;
-    float damageCrit;
+    // STATS
+    public float damage;
+    public float speed;
 
-    int haveTrisagion = 0;
 
-    bool first = true;
+    // KNUTS HAMMER STATS
+    public int chanceOfCrit;
+    public float aoeDamageRate;
+    public float damageCritRate;
 
-    public bool canSplit = false;
-    int haveTwenty = 0;
+    public float electricStillAlive;
 
+
+    // 20/20 STATS
+    public float twentyDamageRate;
+
+    float haveResistInSec = 0.25f;
+
+
+    // 20/20 ITEM
     public bool haveResist = false;
     int haveResistC = 0;
     int haveResistCM;
 
 
+    // DESTINATION FIND
+    public float desX;
+    public float desY;
+
+    float startX;
+    float startY;
+    float kX;
+    float kY;
+
+
+    // EXCEPTION HANDLE
+    readonly float rangeOutX = 5f;
+    readonly float rangeOutY = 10f;
+
+
+    // EFFECTS
+    ParticleSystem explosionParticle;
+    bool isExploded = false;
+
+
+    // ITEMS
+    public int haveKnuts;
+    public int haveTrisagion;
+    public int haveTwenty;
+
+    bool first = true;
+    public bool canSplit = false;
+
+
     void Start() {
 
-        haveResistCM = (int)Mathf.Round(1 / Time.deltaTime * 0.25f);
+        haveResistCM = (int)Mathf.Round(1 / Time.deltaTime * haveResistInSec); 
 
-        type = type_normal;
-
-        this.RocketP = this.GetComponent<Transform>();
-
-        startX = RocketP.position.x;
-        startY = RocketP.position.y;
+        startX = transform.position.x;
+        startY = transform.position.y;
 
         float dX = desX - startX;
         float dY = desY - startY;
@@ -67,27 +79,6 @@ public class RocketScript : MonoBehaviour {
 
         kX = dX / unit;
         kY = dY / unit;
-
-        haveKnuts = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveKnuts;
-
-        if (haveKnuts == 1) {
-
-            chanceOfCrit = 100;
-            aoeDamage = 10f;
-            damageCrit = 30f;
-
-        }
-        else if (haveKnuts == 2) {
-
-            chanceOfCrit = 100;
-            aoeDamage = 10f;
-            damageCrit = 30f;
-
-        }
-
-        haveTrisagion = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveTrisagion;
-
-        haveTwenty = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveTwenty;
 
     }
 
@@ -98,8 +89,6 @@ public class RocketScript : MonoBehaviour {
     }
 
     void FixedUpdate() {
-
-        Debug.Log("rocket's damage: " + damage);
 
         if (haveResist) {
 
@@ -113,13 +102,14 @@ public class RocketScript : MonoBehaviour {
 
         }
 
-        if (!isExploded)
-        {
-            RocketP.position = new Vector2(RocketP.position.x + kX, RocketP.position.y + kY);
+        if (!isExploded) {
+
+            transform.position = new Vector2(transform.position.x + kX, transform.position.y + kY);
+        
         }
 
-        if (RocketP.position.x > rangeOutX || RocketP.position.x < -rangeOutX ||
-            RocketP.position.y > rangeOutY || RocketP.position.y < -rangeOutY) {
+        if (transform.position.x > rangeOutX || transform.position.x < -rangeOutX ||
+            transform.position.y > rangeOutY || transform.position.y < -rangeOutY) {
 
             Destroy(this.gameObject);
 
@@ -137,6 +127,7 @@ public class RocketScript : MonoBehaviour {
         }
 
     }
+
     int lastI = -1;
 
     void createSecondRocket(float damagee) {
@@ -144,8 +135,7 @@ public class RocketScript : MonoBehaviour {
         GameObject obj = Instantiate(sRocket);
 
         obj.transform.parent = GameObject.Find("RocketLauncher").gameObject.transform;
-
-        obj.transform.position = this.gameObject.transform.position;
+        obj.transform.position = transform.position;
 
         float x1 = this.transform.position.x;
         float y1 = this.transform.position.y;
@@ -177,22 +167,23 @@ public class RocketScript : MonoBehaviour {
         obj.GetComponent<RocketScript>().desX = x1;
         obj.GetComponent<RocketScript>().desY = y1;
 
-        if (haveTwenty == 1) {
+        obj.GetComponent<RocketScript>().damage = damage;
+        obj.GetComponent<RocketScript>().speed = speed;
 
-            obj.GetComponent<RocketScript>().damage = damagee / 3;
+        obj.GetComponent<RocketScript>().chanceOfCrit = chanceOfCrit;
+        obj.GetComponent<RocketScript>().aoeDamageRate = aoeDamageRate;
+        obj.GetComponent<RocketScript>().damageCritRate = damageCritRate;
 
-        }
-        else if (haveTwenty == 2) {
+        obj.GetComponent<RocketScript>().twentyDamageRate = twentyDamageRate;
 
-            obj.GetComponent<RocketScript>().damage = damagee / 2;
+        obj.GetComponent<RocketScript>().electricStillAlive = electricStillAlive;
 
-        }
+        obj.GetComponent<RocketScript>().haveKnuts = haveKnuts;
+        obj.GetComponent<RocketScript>().haveTrisagion = haveTrisagion;
+        obj.GetComponent<RocketScript>().haveTwenty = haveTwenty;
 
         obj.GetComponent<RocketScript>().canSplit = false;
-
         obj.GetComponent<RocketScript>().haveResist = true;
-
-        obj.GetComponent<RocketScript>().speed = speed;
 
 
         float a = Vector3.Distance(transform.position, new Vector3(x1, y1));
@@ -200,7 +191,7 @@ public class RocketScript : MonoBehaviour {
         float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(x1, y1));
 
         float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
-        obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
+        //obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
 
     }
 
@@ -214,28 +205,19 @@ public class RocketScript : MonoBehaviour {
 
                 if (collision.gameObject.GetComponent<MeteorScript>().isBullet != true) {
 
-                    //collision.gameObject.GetComponent<MeteorScript>().damage;
-
                     // DO CRIT DAMAGE
                     if (doCritDamage()) {
 
                         GameObject el = Instantiate(Electric);
-                        el.GetComponent<ElectricScript>().damagedMeteors.Add(this.gameObject);
+                        el.GetComponent<ElectricScript>().aliveTickM = (int)Mathf.Round(1 / Time.deltaTime * electricStillAlive);
+                        el.GetComponent<ElectricScript>().damagedMeteors.Add(collision.gameObject);
 
-                        if (haveKnuts == 1) {
+                        if (haveKnuts > 0) {
 
-                            el.GetComponent<ElectricScript>().damage = aoeDamage;
+                            el.GetComponent<ElectricScript>().damage = damage * aoeDamageRate;
                             el.transform.position = this.transform.position;
-                            collision.gameObject.GetComponent<MeteorScript>().shot(damageCrit);
-                            tryShoot(damageCrit); // 20/20
-
-                        }
-                        else if (haveKnuts == 2) {
-
-                            el.GetComponent<ElectricScript>().damage = aoeDamage;
-                            el.transform.position = this.transform.position;
-                            collision.gameObject.GetComponent<MeteorScript>().shot(damageCrit);
-                            tryShoot(damageCrit); // 20/20
+                            collision.gameObject.GetComponent<MeteorScript>().shot(damage * damageCritRate);
+                            tryShoot(damage * damageCritRate * twentyDamageRate); // 20/20
 
                         }
 
@@ -245,11 +227,11 @@ public class RocketScript : MonoBehaviour {
                     else {
 
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
-                        tryShoot(damage); // 20/20
+                        tryShoot(damage * twentyDamageRate); // 20/20
 
                     }
 
-
+                    destroyT();
 
                 }
 
@@ -257,6 +239,7 @@ public class RocketScript : MonoBehaviour {
                 else if (collision.gameObject.GetComponent<MeteorScript>().isBullet == true) {
 
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+
                     this.damage -= collision.gameObject.GetComponent<MeteorScript>().health;
 
                     if (this.damage <= 0) {
@@ -277,29 +260,16 @@ public class RocketScript : MonoBehaviour {
 
                         first = false;
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
-                        tryShoot(damage); // 20/20
-                        
-                        if (haveTrisagion == 1) {
-
-                            this.damage *= 0.5f;
-
-                        }
-                        else if (haveTrisagion == 2) {
-
-                            this.damage *= 0.5f;
-
-                        }
+                        tryShoot(damage * twentyDamageRate); // 20/20
 
                     }
 
                     else if (!first) {
 
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
-                        tryShoot(damage); // 20/20
+                        tryShoot(damage * twentyDamageRate); // 20/20
 
                     }
-
-
 
                 }
                 // IF IT IS A BULLET
@@ -309,6 +279,44 @@ public class RocketScript : MonoBehaviour {
 
                 }
 
+
+            }
+            else if (haveKnuts > 0 && haveTrisagion > 0) {
+
+                if (collision.gameObject.GetComponent<MeteorScript>().isBullet == false) {
+
+                    // DO CRIT DAMAGE
+                    if (doCritDamage()) {
+
+                        GameObject el = Instantiate(Electric);
+                        el.GetComponent<ElectricScript>().damagedMeteors.Add(collision.gameObject);
+                        el.GetComponent<ElectricScript>().aliveTickM = (int)Mathf.Round(1 / Time.deltaTime * electricStillAlive);
+
+                        if (haveKnuts > 0) {
+
+                            el.GetComponent<ElectricScript>().damage = damage * aoeDamageRate;
+                            el.transform.position = transform.position;
+                            collision.gameObject.GetComponent<MeteorScript>().shot(damage * damageCritRate);
+                            tryShoot(damage * damageCritRate * twentyDamageRate); // 20/20
+
+                        }
+
+                    }
+
+                    // DIDNT DO CRIT
+                    else {
+
+                        collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+                        tryShoot(damage * twentyDamageRate); // 20/20
+
+                    }
+
+                }
+                else {
+
+                    collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+
+                }
 
             }
             else if (haveKnuts == 0 && haveTrisagion == 0) {
@@ -327,7 +335,7 @@ public class RocketScript : MonoBehaviour {
                 }
                 else if (collision.gameObject.GetComponent<MeteorScript>().isBullet == false) {
 
-                    tryShoot(damage); // 20/20
+                    tryShoot(damage * twentyDamageRate); // 20/20
 
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
 

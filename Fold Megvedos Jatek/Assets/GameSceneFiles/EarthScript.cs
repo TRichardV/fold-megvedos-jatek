@@ -5,22 +5,59 @@ using UnityEngine;
 
 public class EarthScript : MonoBehaviour {
 
+    // OBJECTS
+    public GameObject hpBar;
+
+
+    // STATS
     float maxHealth = 100f;
+
     float health = 0f;
 
-    public int haveTankItem = 0;
-    public int haveWarmog = 0;
 
-    float heal;
+    // WARMOG STATS
+    float waitForHealInSec1 = 15f;
+    float healInEverySecond1 = 1.5f;
+    float healPercent1 = 1f;
 
+    float waitForHealInSec2 = 20f;
+    float healInEverySecond2 = 1f;
+    float healPercent2 = 2f;
+
+
+    // ARTEMIS STATS
+    float activationPercent1 = 33f;
+    float damagePercent1 = 40f;
+
+    float activationPercent2 = 50f;
+    float damagePercent2 = 25f;
+
+
+    // WARMOG
+    float healPercent;
+    float waitForHealInSec;
+    float healInEverySecond;
+
+
+    // WARMOG AUXILIARY VARIABLES
     float waitTick = 0;
     float waitTickM;
 
     float healTick = -1;
     float healTickM;
 
-    public GameObject hpBar;
 
+    // ARTEMIS
+    float activationPercent;
+    float damagePercent;
+
+
+    // ITEMS
+    public int haveTankItem = 0;
+    public int haveWarmog = 0;
+
+
+    // ONLY FOR TESTING
     void Start() {
 
         health = 1;
@@ -31,22 +68,39 @@ public class EarthScript : MonoBehaviour {
 
         if (haveWarmog == 1) {
 
-            waitTickM = (int)Mathf.Round(1 / Time.deltaTime * 15);
+            waitForHealInSec = waitForHealInSec1;
+            healInEverySecond = healInEverySecond1;
+            healPercent = healPercent1;
 
-            healTickM = (int)Mathf.Round(1 / Time.deltaTime * 1.5f);
-
-            heal = 1;
+            waitTickM = (int)Mathf.Round(1 / Time.deltaTime * waitForHealInSec);
+            healTickM = (int)Mathf.Round(1 / Time.deltaTime * healInEverySecond);
 
         }
         if (haveWarmog == 2) {
 
-            this.maxHealth *= 1.5f;
+            waitForHealInSec = waitForHealInSec2;
+            healInEverySecond = healInEverySecond2;
+            healPercent = healPercent2;
 
-            waitTickM = (int)Mathf.Round(1 / Time.deltaTime * 20);
+            waitTickM = (int)Mathf.Round(1 / Time.deltaTime * waitForHealInSec);
+            healTickM = (int)Mathf.Round(1 / Time.deltaTime * healInEverySecond);
 
-            healTickM = (int)Mathf.Round(1 / Time.deltaTime * 1f);
+        }
 
-            heal = 2f;
+    }
+
+    public void getArtemis() {
+
+        if (haveTankItem == 1) {
+
+            activationPercent = activationPercent1;
+            damagePercent = damagePercent1;
+
+        }
+        if (haveTankItem == 2) {
+
+            activationPercent = activationPercent2;
+            damagePercent = damagePercent2;
 
         }
 
@@ -62,9 +116,7 @@ public class EarthScript : MonoBehaviour {
 
             if (healTick >= healTickM) {
 
-                // HEAL
-
-                this.health += this.maxHealth * (this.heal / 100);
+                this.health += this.maxHealth * (this.healPercent / 100);
 
                 if (this.health > this.maxHealth) {
 
@@ -97,30 +149,16 @@ public class EarthScript : MonoBehaviour {
 
             waitTick = 0;
 
-            if (haveTankItem == 1) {
+            if (haveTankItem > 0) {
 
-                if (this.health <= (this.maxHealth*0.334f)) {
+                if (this.health <= (this.maxHealth * activationPercent)) {
 
-                    this.health -= (collision.gameObject.GetComponent<MeteorScript>().damage/3);
+                    this.health -= (collision.gameObject.GetComponent<MeteorScript>().damage * damagePercent);
 
                 }
                 else {
 
                     this.health -= collision.gameObject.GetComponent<MeteorScript>().damage;
-
-                }
-
-            }
-            else if (haveTankItem == 2) {
-
-                if (this.health <= (this.maxHealth * 0.5)) {
-
-                    this.health -= (collision.gameObject.GetComponent<MeteorScript>().damage / 4);
-
-                }
-                else {
-
-                    this.health -= collision.gameObject.GetComponent<MeteorScript>().damage/1.5f;
 
                 }
 
@@ -137,7 +175,7 @@ public class EarthScript : MonoBehaviour {
 
             }
 
-            collision.gameObject.GetComponent<MeteorScript>().shot(99999);
+            collision.gameObject.GetComponent<MeteorScript>().shot(999999);
 
         }
 

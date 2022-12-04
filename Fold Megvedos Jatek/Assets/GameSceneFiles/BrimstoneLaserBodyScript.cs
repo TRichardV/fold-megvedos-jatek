@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrimstoneLaserScript : MonoBehaviour {
+public class BrimstoneLaserBodyScript : MonoBehaviour
+{
 
     // OBJECTS
     public GameObject laser;
@@ -11,7 +12,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
 
     // DAMAGED OBJECT
-    List<GameObject> inLaser = new List<GameObject>();
+    public List<GameObject> inLaser = new List<GameObject>();
 
 
     // DEFAULT POSITIONS, SCALES
@@ -28,6 +29,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     public float brimDamageRate;
     public float twentyBrimstoneBoostRate;
+
 
     // KNUTS HAMMER STATS
     public int chanceOfCrit;
@@ -46,7 +48,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
     // DAMAGE COUNTERS
     public float damageTickM;
     float damageTick = 0;
-    
+
 
     // ITEMS
     public int haveKnuts = 0;
@@ -57,113 +59,27 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     int doAnything = 0; // KNUT'S HAMMER
 
-    void goDatas() {
+    bool doCritDamage() {
 
-        laser.GetComponent<BrimstoneLaserBodyScript>().damage = damage;
-        laser.GetComponent<BrimstoneLaserBodyScript>().damagePerSec = damagePerSec;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().brimDamageRate = brimDamageRate;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().chanceOfCrit = chanceOfCrit;
-        laser.GetComponent<BrimstoneLaserBodyScript>().aoeDamageRate = aoeDamageRate;
-        laser.GetComponent<BrimstoneLaserBodyScript>().damageCritRate = damageCritRate;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().twentyDamageRate = twentyDamageRate;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().twentyBrimstoneBoostRate = twentyBrimstoneBoostRate;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().electricStillAlive = electricStillAlive;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().haveKnuts = haveKnuts;
-        laser.GetComponent<BrimstoneLaserBodyScript>().haveTrisagion = haveTrisagion;
-        laser.GetComponent<BrimstoneLaserBodyScript>().haveTwenty = haveTwenty;
-
-        laser.GetComponent<BrimstoneLaserBodyScript>().damageTickM = damageTickM;
+        return Random.Range(0, 100) < chanceOfCrit;
 
     }
 
-    private void OnEnable() {
-
-        damageTickM = (int)Mathf.Round(1 / Time.fixedDeltaTime * damagePerSec);
-
-        setup();
-
-        if (haveTrisagion > 0) {
-
-            goDatas();
-
-        }
-
-    }
-
-    public void setup() {
-
-        Vector3 posy = transform.localPosition;
-        Vector3 pos = laser.gameObject.transform.localPosition;
-        Vector3 scale = laser.gameObject.transform.localScale;
-
-        laser.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, 11f);
-        laser.gameObject.transform.localScale = new Vector3(defScaleX, defScaleY, scale.z);
-
-        transform.localPosition = new Vector3(posy.x, posy.y, headDefPosZ);
-
-        /*
-        laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 50f);
-        laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, 100f);
-
-        transform.localPosition += new Vector3(0f, 0f, 100f);*/
-
-    }
-
-    void inc() {
-
-        if (inLaser.Count == 0 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
-
-            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y + 0.1f);
-            laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
-
-            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.1f);
-
-        }
-
-
-    }
-
-    void dec() {
-
-        if (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
-
-            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.1f);
-            laser.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.05f);
-
-            this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.1f);
-
-        }
-
-    }
-
-    int dama;
     private void FixedUpdate() {
 
-        // NOT WHILE
-        for (int i = 0; i < 100; i++) { dec(); }
-        for (int i = 0; i < 100; i++) { inc(); }
-
-        if (haveTrisagion == 0) {
+        if (haveTrisagion > 0) {
 
             damageTick++;
 
             if (damageTick >= damageTickM) {
 
-                damageTick = 0;
+                for (int i = 0; i < inLaser.Count; i++) {
 
-                if (inLaser.Count != 0) {
-
-                    dama++;
-                    doingDamage(inLaser[0]);
-                    Debug.Log("Damage " + dama);
+                    doingDamage(inLaser[i]);
 
                 }
+
+                damageTick = 0;
 
             }
 
@@ -189,9 +105,9 @@ public class BrimstoneLaserScript : MonoBehaviour {
         }
 
     }
-    
-    int lastI = -1;
 
+
+    int lastI = -1;
     void createSecondRocket(float damagee, GameObject obja) {
 
         GameObject obj = Instantiate(sRocket);
@@ -203,7 +119,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
         float y1 = obja.transform.position.y;
 
         int rIndex = Random.Range(0, 9);
-        
+
         while (rIndex == lastI) {
 
             rIndex = Random.Range(0, 9);
@@ -267,11 +183,6 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
     }
 
-    bool doCritDamage() {
-
-        return Random.Range(0, 100) < chanceOfCrit;
-
-    }
 
     void doingDamage(GameObject obj) {
 
@@ -325,7 +236,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
                 tryShoot(damage * twentyDamageRate, obj); // 20/20
 
             }
-            
+
             else if (haveKnuts == 0) {
 
                 obj.gameObject.GetComponent<MeteorScript>().shot(damage);
@@ -348,7 +259,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        
+
         if (inLaser.Contains(collision.gameObject)) {
 
             inLaser.Remove(collision.gameObject);

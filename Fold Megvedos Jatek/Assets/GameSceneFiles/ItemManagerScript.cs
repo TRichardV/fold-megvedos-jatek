@@ -6,48 +6,43 @@ using UnityEngine.UI;
 
 public class ItemManagerScript : MonoBehaviour
 {
-
+    
+    // OBJECTS
     public GameObject launcher;
-
     public GameObject ironDomeG;
     public GameObject itemChoice;
+    
+
     public bool choiceIsOn = false;
 
     int[] itemsInPool = { 1, 1, 1, 1, 1, 1, 1, 1 };
-    int items = 2;
     string[] names = { "Iron Dome", "Brimstone", "Artemis", "Warmog", "Iceborn", "Knuts Hammer", "Trisagion", "20/20"};
+    
 
+    // AUXILIARY VARIABLES
+    int items = 2;
     int item0 = -1;
     int item1 = -1;
 
+
+    // ITEMS THAT HANDLED THERE
     int haveIronDome = 0;
     int haveBrimstone = 0;
     int haveArtemis = 0;
     int haveWarmog = 0;
     int haveIceborn = 0;
 
+
+    // ONLY FOR TESTING
     private void Start() {
 
-        //getIronDomeItem();
-        //getWarmogItem();
-        //getWarmogItem();
-
-        //getArtemisItem();
-        //getArtemisItem();
-        //getBrimstoneItem();
-
-        //getIcebornItem();
-        //getIcebornItem();
-
-        //getKnutsItem();
-
-        //getTrisagionItem();
-
-        //getTwentyItem();
-        //getTwentyItem();
+        getBrimstoneItem();
+        getIcebornItem();
+        getKnutsItem();
 
     }
 
+    // SPAWN AN ITEM ON THE SCREEN
     public void spawnItems() {
 
         choiceIsOn = true;
@@ -61,6 +56,7 @@ public class ItemManagerScript : MonoBehaviour
 
     }
 
+    // GET A RANDOM ITEM
     int randomItem() {
 
         int item = -1;
@@ -87,7 +83,7 @@ public class ItemManagerScript : MonoBehaviour
 
 
 
-
+    // GET AN ITEM
     public void getItem(int index) {
 
         int item = -1;
@@ -196,17 +192,14 @@ public class ItemManagerScript : MonoBehaviour
         if (haveBrimstone == 0) {
 
             launcher.GetComponent<RocketLauncherScript>().bulletBrim = true;
-
-            launcher.GetComponent<RocketLauncherScript>().aps *= 0.5f;
-            launcher.GetComponent<RocketLauncherScript>().damage *= 0.1f;
+            launcher.GetComponent<RocketLauncherScript>().haveBrimstone++;
 
             haveBrimstone++;
 
         }
         else if (haveBrimstone == 1) {
 
-            launcher.GetComponent<RocketLauncherScript>().damage *= 2;
-
+            launcher.GetComponent<RocketLauncherScript>().haveBrimstone++;
             haveBrimstone++;
 
         }
@@ -218,12 +211,14 @@ public class ItemManagerScript : MonoBehaviour
         if (haveArtemis == 0) {
 
             GameObject.Find("Earth").GetComponent<EarthScript>().haveTankItem++;
+            GameObject.Find("Earth").GetComponent<EarthScript>().getArtemis();
             haveArtemis++;
 
         }
         else if (haveArtemis == 1) {
 
             GameObject.Find("Earth").GetComponent<EarthScript>().haveTankItem++;
+            GameObject.Find("Earth").GetComponent<EarthScript>().getArtemis();
             haveArtemis++;
 
         }
