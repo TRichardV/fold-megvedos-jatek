@@ -6,18 +6,56 @@ using Random = UnityEngine.Random;
 
 public class SideRocketLauncherScript : MonoBehaviour {
 
+    // GAMEOBJECTS
     public GameObject rocket;
-    
-    public float damagePercent = 50;
-    public float apsPercent = 50;
 
-    float damage;
-    float aps;
 
-    int apsRate = 10;
+    // STATS
+    public float aps = 0.5f;
+    public float damage = 1f;
+    public float score = 0f;
+    public float money = 0f;
 
+    public float apsRange = 20;
+
+    public float rocketSpeed = 3f; // WILL BEEN MULTIPLYED WITH DELTATIME
+
+
+    // KNUTS HAMMER STATS
+    int chanceOfCrit1 = 20;
+    float aoeDamageRate1 = 0.5f;
+    float damageCritRate1 = 1.5f;
+
+    int chanceOfCrit2 = 35;
+    float aoeDamageRate2 = 0.75f;
+    float damageCritRate2 = 1.75f;
+
+    float electricStillAlive = 1f; // In Sec
+
+
+    // 20/20 ITEM STATS
+    float twentyDamageRate1 = 0.3f;
+    float twentyDamageRate2 = 0.5f;
+    float twentyBrimstoneBoostRate = 1f;
+
+
+    // 20/20 ITEM
+    float twentyDamageRate;
+
+
+    // KNUTS ITEM
+    int chanceOfCrit;
+    float aoeDamageRate;
+    float damageCritRate;
+
+
+    // CANSHOT COUNTERS
     int canShotCounterMax;
     int canShotCounter = 0;
+
+    // DEKETETASLDLASLDLALSDLSAFLASLDLLSADLGAFÉSAFÁSA
+    public int apsPercent;
+    public int damagePercent;
 
     private void Start() {
 
@@ -68,14 +106,14 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     }
 
-    void randomCanShot() {
+    /*void randomCanShot() {
 
         int rate = Random.Range(0, apsRate);
         float apsPlusChance = aps * (rate / 100f);
         canShotCounterMax = (int)Mathf.Round(((1 / Time.deltaTime) / ((float)aps + apsPlusChance)));
 
     }
-
+    */
     void shootRocket() {
 
         GameObject des = getNearestObject();
@@ -277,10 +315,10 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     public void refreshDatas() {
 
-        damage = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().damage * (damagePercent/100);
+        /*damage = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().damage * (damagePercent/100);
         aps = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().aps * (apsPercent / 100);
 
-        randomCanShot();
+        randomCanShot();*/
 
     }
 
