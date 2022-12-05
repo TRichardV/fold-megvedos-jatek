@@ -5079,6 +5079,8 @@ MonoBehaviour:
   panel: {fileID: 1436981419}
   button: {fileID: 1901818246}
   reloadBar: {fileID: 1829888002}
+  dmgUPObject: {fileID: 1454510941}
+  apsUPObject: {fileID: 1821313487}
   aps: 0.5
   damage: 1
   score: 0

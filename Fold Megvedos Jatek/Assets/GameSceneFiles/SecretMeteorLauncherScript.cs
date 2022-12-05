@@ -8,25 +8,39 @@ using Random = UnityEngine.Random;
 
 public class SecretMeteorLauncherScript : MonoBehaviour {
 
+    // GAMEOBJECTS
+    public GameObject wicPanel;
+    public GameObject wicText;
+
+    public GameObject ptSlider;
+
+
+    // STATS
     readonly int defPrepTimeSec = 5; // 5 sec
     readonly float defWaveTimeSec = 1f; // 1 unit row
     readonly int defTableDownSec = 3; // 4 sec
 
     readonly int defTableDis = 300;
 
+    readonly float maxX = 2.2f;
+    readonly int colNumber = 8;
+
+
+    // WAVE NUMBER
+    int waveNumber = 0;
+
+
+    // WAVES + METEORS
     public GameObject[] MeteorObjs;
-    Transform LauncherP;
 
-    public GameObject wicPanel;
-    public GameObject wicText;
+    int[,,] waveSettings;
 
-    public GameObject ptSlider;
+    int[] spawnablePlaces;
 
-    int waveNumber = 8;
+    List<int[]> meteors = new List<int[]>();
 
-    int meteorNumberMax = 1;
-    int meteorNumber;
 
+    // COUNTERS AND STATES
     int preparationTimeMax;
     int preparationTimeCounter = 0;
 
@@ -37,23 +51,19 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int tableDownCounter = -1;
     int tableState = -1;
 
-    int[,,] waveSettings;
 
-    List<int[]> meteors = new List<int[]>();
-
-    readonly float maxX = 2.2f;
-    readonly int colNumber = 8;
+    // AUXILIARY VARIABLES
     float chanceOfSpawn = 1f;
     float atmChance = 1f;
     float atmChanceIncrease;
 
-    int[] spawnablePlaces;
+    int meteorNumberMax = 1;
+    int meteorNumber;
+
 
     void uploadWaveSettings() {
 
-        // 100% chance ==> 1%
-
-        waveSettings = new int[10, 10, 3] {
+        waveSettings = new int[20, 10, 3] {
 
             { {150, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
             { {180, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
@@ -65,9 +75,20 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             { {380, 0, 0 }, { 50, 0, 0 }, { 35, 1, 0 }, { 22, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
             { {430, 0, 0 }, { 50, 0, 0 }, { 40, 1, 0 }, { 30, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
-            { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} }
+            { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
 
+            { {150, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {180, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {210, 0, 0 }, { 35, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {240, 0, 0 }, { 42, 0, 0 }, { 17, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {1000, 0, 0 }, { 35, 200, 0 }, { 18, 201, 0 }, { 3, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {300, 0, 0 }, { 45, 0, 0 }, { 25, 1, 0 }, { 7, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {340, 0, 0 }, { 50, 0, 0 }, { 30, 1, 0 }, { 15, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {380, 0, 0 }, { 50, 0, 0 }, { 35, 1, 0 }, { 22, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {430, 0, 0 }, { 50, 0, 0 }, { 40, 1, 0 }, { 30, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+            { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
         };
 
@@ -81,7 +102,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
             chanceOfSpawn = (float)(waveSettings[index, 0, 0]) / 100;
             atmChanceIncrease = (float)(waveSettings[index, 0, 0]) / 1000;
-            //Debug.Log("aaaaaaaaaaaaa " + atmChanceIncrease);
 
         }
 
@@ -141,8 +161,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     void Start() {
 
         uploadWaveSettings();
-
-        LauncherP = this.GetComponent<Transform>();
 
         preparationTimeMax = (int)(1 / Time.fixedDeltaTime * defPrepTimeSec);
         waveTimeMax = (int)(1 / Time.fixedDeltaTime * defWaveTimeSec);
@@ -233,7 +251,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     if (meteors.Count > 0 && waveSettings[waveNumber, 0, 0] == -1) {
 
-                        createMeteor(0, -50f, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        //createMeteor(0, -50f, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
+                        createMeteor(0f, 0f, 0f, this.gameObject.transform.position.y, 300, 0);
                         meteors.RemoveAt(0); // actually useless
 
                     }

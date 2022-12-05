@@ -15,6 +15,9 @@ public class RocketLauncherScript : MonoBehaviour {
     public GameObject button;
     public GameObject reloadBar;
 
+    public GameObject dmgUPObject;
+    public GameObject apsUPObject;
+
 
     // UPGRADE PANEL
     bool panelVisible = false;
@@ -101,7 +104,7 @@ public class RocketLauncherScript : MonoBehaviour {
 
 
     // SET THE APS AND THE BRIMSTONE SETTINGS
-    void setStats() {
+    public void setStats() {
 
         if (haveKnuts == 1) {
 
@@ -381,6 +384,50 @@ public class RocketLauncherScript : MonoBehaviour {
             else {
 
                 GameObject.Find("apsUP").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. MAX]";
+
+            }
+
+            canShotMaxCounter = (int)(1 / Time.fixedDeltaTime / aps);
+
+        }
+
+    }
+
+    public void getDamageUp() {
+
+        if (dmgUP < dmgUPs.GetLength(0)) {
+
+            dmgUP++;
+
+            if (dmgUP <= dmgUPs.GetLength(0) - 1) {
+
+                dmgUPObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {dmgUP}].\n${dmgUPs[dmgUP, 1]}";
+
+            }
+            else {
+
+                dmgUPObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. MAX]";
+
+            }
+
+        }
+
+    }
+
+    public void getAPSUp() {
+
+        if (apsUP < apsUPs.GetLength(0)) {
+
+            apsUP++;
+
+            if (apsUP <= apsUPs.GetLength(0) - 1) {
+
+                apsUPObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {apsUP}].\n${apsUPs[apsUP, 1]}";
+
+            }
+            else {
+
+                apsUPObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. MAX]";
 
             }
 
