@@ -94,6 +94,16 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     }
 
+    void setComponents(GameObject gameobj)
+    {
+        Rigidbody2D rb2 = gameobj.AddComponent(typeof(Rigidbody2D)) as Rigidbody2D;
+        BoxCollider2D bc2 = gameobj.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+        MeteorScript ms = gameobj.AddComponent(typeof(MeteorScript)) as MeteorScript;
+
+        rb2.gravityScale = 0;
+        bc2.isTrigger = true;
+    }
+
     void uploadList(int index) {
 
         meteors.Clear();
@@ -224,6 +234,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                 obj = Instantiate(MeteorObjs[22]);
                 break;
         }
+
+        setComponents(obj);
 
         //obj.transform.parent = this.gameObject.transform;
 
