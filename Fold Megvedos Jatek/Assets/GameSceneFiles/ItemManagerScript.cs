@@ -36,7 +36,7 @@ public class ItemManagerScript : MonoBehaviour
     // ONLY FOR TESTING
     private void Start() {
 
-
+        //getIronDomeItem();
 
     }
 
@@ -198,25 +198,21 @@ public class ItemManagerScript : MonoBehaviour
 
             dome.active = true;
 
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().apsPercent = 50;
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().apsPercent = 50;
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().damagePercent = 70;
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().damagePercent = 70;
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveIronDome++;
 
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().refreshDatas();
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().refreshDatas();
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().getDome();
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().ironDomeRefresh();
+
             haveIronDome++;
 
         }
         else if (haveIronDome == 1) {
 
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().apsPercent = 80;
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().apsPercent = 80;
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().damagePercent = 85;
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().damagePercent = 85;
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveIronDome++;
 
-            dome.transform.GetChild(0).GetComponent<SideRocketLauncherScript>().refreshDatas();
-            dome.transform.GetChild(1).GetComponent<SideRocketLauncherScript>().refreshDatas();
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().getDome();
+            GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().ironDomeRefresh();
+
             haveIronDome++;
 
         }

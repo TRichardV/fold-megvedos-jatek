@@ -11,57 +11,15 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
 
     // STATS
-    public float aps = 0.5f;
-    public float damage = 1f;
-    public float score = 0f;
-    public float money = 0f;
+    public float aps;
+    public float damage;
 
-    public float apsRange = 20;
-
-    public float rocketSpeed = 3f; // WILL BEEN MULTIPLYED WITH DELTATIME
-
-
-    // KNUTS HAMMER STATS
-    int chanceOfCrit1 = 20;
-    float aoeDamageRate1 = 0.5f;
-    float damageCritRate1 = 1.5f;
-
-    int chanceOfCrit2 = 35;
-    float aoeDamageRate2 = 0.75f;
-    float damageCritRate2 = 1.75f;
-
-    float electricStillAlive = 1f; // In Sec
-
-
-    // 20/20 ITEM STATS
-    float twentyDamageRate1 = 0.3f;
-    float twentyDamageRate2 = 0.5f;
-    float twentyBrimstoneBoostRate = 1f;
-
-
-    // 20/20 ITEM
-    float twentyDamageRate;
-
-
-    // KNUTS ITEM
-    int chanceOfCrit;
-    float aoeDamageRate;
-    float damageCritRate;
+    public int apsRange;
 
 
     // CANSHOT COUNTERS
     int canShotCounterMax;
     int canShotCounter = 0;
-
-    // DEKETETASLDLASLDLALSDLSAFLASLDLLSADLGAFÉSAFÁSA
-    public int apsPercent;
-    public int damagePercent;
-
-    private void Start() {
-
-        refreshDatas();
-
-    }
 
     private void FixedUpdate() {
 
@@ -93,7 +51,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
             float dif = (float)Math.Sqrt(Math.Abs((difX * difX) + (difY * difY)));
 
-            if ( dif < dis ) {
+            if ( dif < dis && meteors[i].GetComponent<MeteorScript>().isBullet == false) {
 
                 dis = dif;
                 n = meteors[i];
@@ -106,23 +64,25 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     }
 
-    /*void randomCanShot() {
+    void randomCanShot() {
 
-        int rate = Random.Range(0, apsRate);
+        int rate = Random.Range(0, apsRange);
         float apsPlusChance = aps * (rate / 100f);
         canShotCounterMax = (int)Mathf.Round(((1 / Time.deltaTime) / ((float)aps + apsPlusChance)));
 
     }
-    */
+
     void shootRocket() {
 
         GameObject des = getNearestObject();
 
         if (des != null && des.transform.position.y > this.transform.localPosition.y) {
 
-            if (InterceptionDirection(des.transform.position, this.transform.position, new Vector2(des.GetComponent<MeteorScript>().kX, des.GetComponent<MeteorScript>().kY), GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime, out var direction)) {
+            if (InterceptionDirection(des.transform.position, this.transform.position, new Vector2(des.GetComponent<MeteorScript>().kX, des.GetComponent<MeteorScript>().kY), GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed, out var direction)) {
 
-                GameObject obj = Instantiate(rocket);
+                // SHOOOOOOT!
+
+                /*GameObject obj = Instantiate(rocket);
 
                 obj.transform.parent = GameObject.Find("RocketLauncher").transform;
 
@@ -134,10 +94,12 @@ public class SideRocketLauncherScript : MonoBehaviour {
                 obj.GetComponent<RocketScript>().desY = direction.y;
 
                 obj.GetComponent<RocketScript>().damage = damage;
-                obj.GetComponent<RocketScript>().speed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;
+                obj.GetComponent<RocketScript>().speed = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().rocketSpeed * Time.deltaTime;*/
+                //Debug.Log("LOOO");
+                GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().createRocketForTheDome(direction.x, direction.y, transform.position, damage);
                 
 
-                Debug.Log(direction.x + " " + direction.y);
+                //Debug.Log(direction.x + " " + direction.y);
 
             }
 
@@ -168,7 +130,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
         var dA = Mathf.Max(root1, root2);
         var t = dA / sB;
         var c = a + vA * t;
-        Debug.Log(c);
+        //Debug.Log(c);
         //result = (c - b).normalized;
         result = c;
         
@@ -291,7 +253,7 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
     }*/
 
-    /*Vector2 moveVector(float desX, float desY, float speed) {
+    Vector2 moveVector(float desX, float desY, float speed) {
 
         Vector2 move = new Vector2();
 
@@ -311,14 +273,16 @@ public class SideRocketLauncherScript : MonoBehaviour {
 
         return move;
 
-    }*/
+    }
 
     public void refreshDatas() {
 
         /*damage = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().damage * (damagePercent/100);
-        aps = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().aps * (apsPercent / 100);
+        aps = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().aps * (apsPercent / 100);*/
 
-        randomCanShot();*/
+
+
+        randomCanShot();
 
     }
 

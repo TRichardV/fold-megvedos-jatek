@@ -89,23 +89,23 @@ public class MeteorScript : MonoBehaviour {
 
         stats = new float[17, 1, 5] {
 
-            { { 1.7f, 10f, 10f, 5f, 1f } },
-            { { 1.3f, 20f, 20f, 10f, 1.5f } },
-            { { 1f, 30f, 30f, 50f, 2f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 0f, 0f, 0f, 0f, 0f } },
-            { { 1.8f, 22f, 30f, 40f, 2.25f } },
-            { { 1.6f, 30f, 30f, 60f, 3.5f } },
-            { { 1.6f, 30f, 30f, 80, 4f } },
-            { { 3f, 1f, 15f, 1f, 0.05f } },
-            { { 0.6f, 300f, 10f, 1000f, 100f } }, // BOSS
-            { { 1.0f, 30f, 30f, 20f, 2f } },
-            { { 3f, 100f, 50f, 10f, 0f } },
-            { { 2f, 1f, 0f, 0f, 3f } },
-            { { 2f, 1f, 0f, 0f, 6f } },
-            { { 2f, 1f, 0f, 0f, 10f } },
-            { { 1f, 1f, 0f, -100f, -5f } },
+            { { 1.7f, 10f, 10f, 5f, 1f } }, // 0
+            { { 1.3f, 20f, 20f, 10f, 1.5f } }, // 1
+            { { 1f, 30f, 30f, 50f, 2f } }, // 2
+            { { 0f, 0f, 0f, 0f, 0f } }, // 3
+            { { 0f, 0f, 0f, 0f, 0f } }, // 4
+            { { 0f, 0f, 0f, 0f, 0f } }, // 5
+            { { 1.8f, 22f, 30f, 40f, 2.25f } }, // 10
+            { { 1.6f, 30f, 30f, 60f, 3.5f } }, // 11
+            { { 1.6f, 30f, 30f, 80, 4f } }, // 12
+            { { 3f, 1f, 15f, 1f, 0.05f } }, // 90
+            { { 0.6f, 300f, 10f, 1000f, 100f } }, // 100 - BOSS
+            { { 1.0f, 30f, 30f, 20f, 2f } }, // 110
+            { { 3f, 100f, 50f, 10f, 0f } }, // 120
+            { { 2f, 1f, 0f, 0f, 3f } }, // 200
+            { { 2f, 1f, 0f, 0f, 6f } }, // 201
+            { { 2f, 1f, 0f, 0f, 10f } }, // 202
+            { { 1f, 1f, 0f, -100f, -5f } }, // 303
 
         };
 
@@ -524,6 +524,7 @@ public class MeteorScript : MonoBehaviour {
 
                 GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score += this.score;
                 GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().money += this.money;
+                GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().testMoney += this.money;
 
             }
 

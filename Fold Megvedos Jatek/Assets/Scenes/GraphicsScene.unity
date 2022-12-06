@@ -1028,15 +1028,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b188f208dae192429b460c8166ea7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wicPanel: {fileID: 313480959}
+  wicText: {fileID: 576954486}
+  ptSlider: {fileID: 2120504689}
   MeteorObjs:
   - {fileID: 7321949903579065771, guid: 5db6a4532c7c08044ba397f6b3446a3f, type: 3}
   - {fileID: 7932612689090509713, guid: f010f8b0050858049b6f21dd821aaf7a, type: 3}
   - {fileID: 5399977761355216950, guid: a0c8956baa0a44b48a7fb63130a17514, type: 3}
   - {fileID: 6451260140200833716, guid: 64d6d9b7d14e5b4458375f484ed55d12, type: 3}
   - {fileID: 5958838067109198737, guid: 4acc6da0a5b13a142987a9a86345f929, type: 3}
-  wicPanel: {fileID: 313480959}
-  wicText: {fileID: 576954486}
-  ptSlider: {fileID: 2120504689}
 --- !u!114 &512398754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2415,8 +2415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 7281636248719431734, guid: 2f5f8c3298f164b4db8a2593cf45d301, type: 3}
-  damagePercent: 50
-  apsPercent: 50
+  aps: 0.5
+  damage: 1
+  apsRange: 20
 --- !u!212 &1164272465
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5044,8 +5045,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 7281636248719431734, guid: 2f5f8c3298f164b4db8a2593cf45d301, type: 3}
-  damagePercent: 50
-  apsPercent: 50
+  aps: 0.5
+  damage: 1
+  apsRange: 20
 --- !u!1 &1965579550
 GameObject:
   m_ObjectHideFlags: 0
@@ -5082,7 +5084,7 @@ MonoBehaviour:
   dmgUPObject: {fileID: 1454510941}
   apsUPObject: {fileID: 1821313487}
   aps: 0.5
-  damage: 1
+  damage: 10
   score: 0
   money: 0
   rocketSpeed: 3
@@ -5090,10 +5092,17 @@ MonoBehaviour:
   brimstoneLaserHead: {fileID: 2027746820}
   bulletBrim: 0
   haveBrimstone: 0
+  dome1: {fileID: 1963604713}
+  dome2: {fileID: 1164272462}
+  domeDamagePercent: 0
+  domeAPSPercent: 0
+  domeAPSRange: 0
   haveIceborn: 0
   haveKnuts: 0
   haveTrisagion: 0
   haveTwenty: 0
+  haveIronDome: 0
+  testMoney: 0
 --- !u!4 &1965579553
 Transform:
   m_ObjectHideFlags: 0

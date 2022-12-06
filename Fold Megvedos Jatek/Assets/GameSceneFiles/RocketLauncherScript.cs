@@ -25,7 +25,7 @@ public class RocketLauncherScript : MonoBehaviour {
 
     // STATS
     public float aps = 0.5f;
-    public float damage = 1f;
+    public float damage = 10f;
     public float score = 0f;
     public float money = 0f;
 
@@ -61,6 +61,17 @@ public class RocketLauncherScript : MonoBehaviour {
     float twentyBrimstoneBoostRate = 1f;
 
 
+    // IRON DOME STATS
+    float domeDamagePercent1 = 50;
+    float domeDamagePercent2 = 70;
+
+    float domeAPSPercent1 = 80;
+    float domeAPSPercent2 = 100;
+
+    int domeAPSRange1 = 30;
+    int domeAPSRange2 = 15;
+
+
     // 20/20 ITEM
     float twentyDamageRate;
 
@@ -82,12 +93,21 @@ public class RocketLauncherScript : MonoBehaviour {
     int brimTimeOn = -1;
 
 
+    // IRON DOME
+    public GameObject dome1;
+    public GameObject dome2;
+
+    public float domeDamagePercent;
+    public float domeAPSPercent;
+    public int domeAPSRange;
+
+
     // UPGRADES
     int dmgUP = 0;
     int apsUP = 0;
 
     float[,] dmgUPs = { { 5f, 25f }, { 7f, 60f }, { 10f, 130f }, { 15f, 300f }, { 22f, 1200f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
-    float[,] apsUPs = { { 0.1f, 10f }, { 0.12f, 25f }, { 0.13f, 40f }, { 0.15f, 60f }, { 0.17f, 125f }, { 0.22f, 200f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
+    float[,] apsUPs = { { 0.1f, 10f }, { 0.13f, 20f }, { 0.14f, 45f }, { 0.15f, 75f }, { 0.17f, 140f }, { 0.22f, 220f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
 
 
     // ITEMS FOR HANDLE
@@ -95,6 +115,7 @@ public class RocketLauncherScript : MonoBehaviour {
     public int haveKnuts = 0;
     public int haveTrisagion = 0;
     public int haveTwenty = 0;
+    public int haveIronDome = 0;
 
 
     // SHOOTING
@@ -102,6 +123,53 @@ public class RocketLauncherScript : MonoBehaviour {
     int canShotCounter = 0;
     int canShotMaxCounter;
 
+
+    // TESTING
+    public float testMoney = 0f;
+
+
+    // GET AN IRON DOME
+    public void getDome() {
+
+        if (haveIronDome == 1) {
+
+            domeDamagePercent = domeDamagePercent1;
+            domeAPSPercent = domeAPSPercent1;
+            domeAPSRange = domeAPSRange1;
+
+        }
+        else if (haveIronDome == 2) {
+
+            domeDamagePercent = domeDamagePercent2;
+            domeAPSPercent = domeAPSPercent2;
+            domeAPSRange = domeAPSRange2;
+
+        }
+
+        dome1.GetComponent<SideRocketLauncherScript>().refreshDatas();
+        dome2.GetComponent<SideRocketLauncherScript>().refreshDatas();
+
+
+    }
+
+    // REFRESH IRON DOME STATS
+    public void ironDomeRefresh() {
+
+        if (haveIronDome > 0) {
+            //Debug.Log(domeDamagePercent + " " + domeAPSPercent + " " + domeAPSRange);
+
+            dome1.GetComponent<SideRocketLauncherScript>().damage = damage * (domeDamagePercent / 100);
+            dome2.GetComponent<SideRocketLauncherScript>().damage = damage * (domeDamagePercent / 100);
+
+            dome1.GetComponent<SideRocketLauncherScript>().aps = aps * (domeAPSPercent / 100);
+            dome2.GetComponent<SideRocketLauncherScript>().aps = aps * (domeAPSPercent / 100);
+
+            dome1.GetComponent<SideRocketLauncherScript>().apsRange = domeAPSRange;
+            dome2.GetComponent<SideRocketLauncherScript>().apsRange = domeAPSRange;
+
+        }
+
+    }
 
     // SET THE APS AND THE BRIMSTONE SETTINGS
     public void setStats() {
@@ -161,6 +229,40 @@ public class RocketLauncherScript : MonoBehaviour {
         setPanel();
 
         rocketSpeed *= Time.deltaTime;
+
+    }
+
+
+    public void createRocketForTheDome(float desX, float desY, Vector2 pos, float ldamage) {
+
+        GameObject obj = Instantiate(rocket);
+
+        obj.transform.parent = transform;
+        obj.transform.position = pos;
+
+        obj.GetComponent<RocketScript>().desX = desX;
+        obj.GetComponent<RocketScript>().desY = desY;
+
+        obj.GetComponent<RocketScript>().damage = ldamage;
+        obj.GetComponent<RocketScript>().speed = rocketSpeed;
+
+        obj.GetComponent<RocketScript>().chanceOfCrit = chanceOfCrit;
+        obj.GetComponent<RocketScript>().aoeDamageRate = aoeDamageRate;
+        obj.GetComponent<RocketScript>().damageCritRate = damageCritRate;
+
+        obj.GetComponent<RocketScript>().twentyDamageRate = twentyDamageRate;
+
+        obj.GetComponent<RocketScript>().electricStillAlive = electricStillAlive;
+
+        obj.GetComponent<RocketScript>().haveKnuts = haveKnuts;
+        obj.GetComponent<RocketScript>().haveTrisagion = haveTrisagion;
+        obj.GetComponent<RocketScript>().haveTwenty = haveTwenty;
+
+        obj.GetComponent<RocketScript>().haveResist = false;
+
+        if (this.haveTwenty > 0) { obj.GetComponent<RocketScript>().canSplit = true; }
+
+        obj.transform.rotation = Quaternion.Euler(0, 0, -90 + rotateRocket(desX, desY));
 
     }
 
@@ -256,6 +358,8 @@ public class RocketLauncherScript : MonoBehaviour {
     }
 
     void FixedUpdate() {
+
+        Debug.Log("All of that money that you've get thus far: " + testMoney);
 
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "Money: " + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score: " + score;
@@ -412,6 +516,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
         }
 
+        ironDomeRefresh();
+
     }
 
     public void getAPSUp() {
@@ -434,6 +540,8 @@ public class RocketLauncherScript : MonoBehaviour {
             canShotMaxCounter = (int)(1 / Time.fixedDeltaTime / aps);
 
         }
+
+        ironDomeRefresh();
 
     }
 

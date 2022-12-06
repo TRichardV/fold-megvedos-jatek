@@ -12,7 +12,7 @@ public class EarthScript : MonoBehaviour {
     // STATS
     float maxHealth = 100f;
 
-    float health = 0f;
+    float health;
 
 
     // WARMOG STATS
@@ -57,12 +57,12 @@ public class EarthScript : MonoBehaviour {
     public int haveWarmog = 0;
 
 
-    // ONLY FOR TESTING
-    void Start() {
+    private void Start() {
 
-        health = 1;
+        health = maxHealth;
 
     }
+
 
     public void getWarmog() {
 
