@@ -179,7 +179,51 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     }
     void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
 
-        GameObject obj = Instantiate(MeteorObjs[Random.Range(0, 5)]);
+        GameObject obj = null;
+        switch (type)
+        {
+            case 0: // NORMAL METEOR
+            case 1: // NORMAL METEOR t2
+            case 2: // NORMAL METEOR t3
+            case 3: // A MOVING METEOR (TO RIGHT AND LEFT)
+            case 4: // BIG METEOR
+            case 5: // METEOR WAVE TO THE RIGHT (OR LEFT)
+                obj = Instantiate(MeteorObjs[Random.Range(0, 5)]);
+                break;
+
+            case 10: // REGULAR SPACESHIP
+            case 11: // SHOOTING SPACESHIP
+            case 12: // MOVING AND SHOOTING SPACESHIP
+            case 110: // BOSS'S SPACESHIP
+                obj = Instantiate(MeteorObjs[Random.Range(5, 13)]);
+                break;
+
+            case 90: // SPACESHIP BULLET 1
+                obj = Instantiate(MeteorObjs[17]);
+                break;
+
+            case 100: // BOSS 1
+                obj = Instantiate(MeteorObjs[Random.Range(13, 17)]);
+                break;
+
+            case 120: // BOSS'S BULLET
+                obj = Instantiate(MeteorObjs[18]);
+                break;
+
+            case 200: // COIN t1
+                obj = Instantiate(MeteorObjs[19]);
+                break;
+            case 201: // COIN t2
+                obj = Instantiate(MeteorObjs[20]);
+                break;
+            case 202: // COIN t3
+                obj = Instantiate(MeteorObjs[21]);
+                break;
+
+            case 300: // SATELITE
+                obj = Instantiate(MeteorObjs[22]);
+                break;
+        }
 
         //obj.transform.parent = this.gameObject.transform;
 
