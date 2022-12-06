@@ -105,7 +105,7 @@ public class MeteorScript : MonoBehaviour {
             { { 2f, 1f, 0f, 0f, 3f } }, // 200
             { { 2f, 1f, 0f, 0f, 6f } }, // 201
             { { 2f, 1f, 0f, 0f, 10f } }, // 202
-            { { 1f, 1f, 0f, -100f, -5f } }, // 303
+            { { 1f, 1f, 0f, -100f, -5f } }, // 300
 
         };
 
