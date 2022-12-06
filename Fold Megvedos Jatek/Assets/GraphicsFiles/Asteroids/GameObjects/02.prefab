@@ -295,22 +295,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5790065127be6c4798ae88f8f636640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeteorP: {fileID: 0}
-  meteor: {fileID: 8017870706591989014, guid: 17e87511c37e78c48adc8ab8118ec324, type: 3}
+  meteor: {fileID: 7932612689090509713}
   parentB: {fileID: 0}
   type: 0
   level: 0
-  damage: 1
-  health: 0
+  isBullet: 0
+  damage: 0
+  score: 0
+  money: 0
   speed: 0
+  health: 0
   desX: 0
   desY: 0
   kX: 0
   kY: 0
   hIndex3: 0
-  isBullet: 0
   defSpeed: 0
   slowTick: -1
   slowTickM: 0
   stunTick: -1
   stunTickM: 0
+  slowInSec1: 1.5
+  slowInSec2: 2
+  stunInSec2: 1
