@@ -1032,11 +1032,11 @@ MonoBehaviour:
   wicText: {fileID: 576954486}
   ptSlider: {fileID: 2120504689}
   MeteorObjs:
-  - {fileID: 7321949903579065771, guid: 5db6a4532c7c08044ba397f6b3446a3f, type: 3}
-  - {fileID: 7932612689090509713, guid: f010f8b0050858049b6f21dd821aaf7a, type: 3}
-  - {fileID: 5399977761355216950, guid: a0c8956baa0a44b48a7fb63130a17514, type: 3}
-  - {fileID: 6451260140200833716, guid: 64d6d9b7d14e5b4458375f484ed55d12, type: 3}
-  - {fileID: 5958838067109198737, guid: 4acc6da0a5b13a142987a9a86345f929, type: 3}
+  - {fileID: 6716237923597722632, guid: d59d9de22cd88594385abb0953768fdc, type: 3}
+  - {fileID: 3973066746209787827, guid: cddb5585b674b0443959e7ad7bd408d1, type: 3}
+  - {fileID: 6702901730232915039, guid: d1f76b69a4d23494eba5eeb50a416e48, type: 3}
+  - {fileID: 4656687739248961354, guid: e345b0b62451dad46a3afb8a10e7036d, type: 3}
+  - {fileID: 6583466552493697516, guid: 921f7f4ddfc81cb4bae0832f12f8efd9, type: 3}
   - {fileID: 7245596086902658681, guid: 1b3340e3a11de7f4da47420d09dc7ca5, type: 3}
   - {fileID: 2878288165737852852, guid: c6d5810a4f4fde04c8f20a0534b05375, type: 3}
   - {fileID: 2569189515601835631, guid: cb47f18b9c60be34a81f21759d7031c2, type: 3}
@@ -1094,22 +1094,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4280216145872578, guid: 1885272d02befb3429e46bfb5a828167, type: 3}
   m_PrefabInstance: {fileID: 920036227}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &535606001
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535605996}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.009745926, y: 0.006980717}
-  serializedVersion: 2
-  m_Radius: 1.006341
 --- !u!114 &535606003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,6 +1109,19 @@ MonoBehaviour:
   hpBar: {fileID: 867135230}
   haveTankItem: 0
   haveWarmog: 0
+--- !u!135 &535606006
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535605996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.006341
+  m_Center: {x: -0.009745926, y: 0.006980717, z: -0.0042635202}
 --- !u!1 &576954486
 GameObject:
   m_ObjectHideFlags: 0

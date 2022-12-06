@@ -96,12 +96,22 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     void setComponents(GameObject gameobj)
     {
-        Rigidbody2D rb2 = gameobj.AddComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-        BoxCollider2D bc2 = gameobj.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+        Rigidbody rb = gameobj.AddComponent(typeof(Rigidbody)) as Rigidbody;
+        MeshCollider mc = gameobj.AddComponent(typeof(MeshCollider)) as MeshCollider;
         MeteorScript ms = gameobj.AddComponent(typeof(MeteorScript)) as MeteorScript;
 
-        rb2.gravityScale = 0;
-        bc2.isTrigger = true;
+        rb.useGravity = false;
+        mc.convex = true;
+        mc.isTrigger = true;
+
+        mc.sharedMesh = gameobj.GetComponent<MeshFilter>().sharedMesh;
+
+        /*
+        Vector3 size = gameobj.transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh.bounds.size;
+        Debug.LogError(size.x);
+        Debug.LogError(size.y);
+        bc2.size = new Vector2(size.x, size.y);
+        */
     }
 
     void uploadList(int index) {
