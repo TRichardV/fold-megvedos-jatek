@@ -106,7 +106,7 @@ public class RocketLauncherScript : MonoBehaviour {
     int dmgUP = 0;
     int apsUP = 0;
 
-    float[,] dmgUPs = { { 5f, 25f }, { 7f, 60f }, { 10f, 130f }, { 15f, 300f }, { 22f, 1200f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
+    float[,] dmgUPs = { { 5f, 25f }, { 7.5f, 75f }, { 10f, 225f }, { 15f, 300f }, { 22f, 1200f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
     float[,] apsUPs = { { 0.1f, 10f }, { 0.13f, 20f }, { 0.14f, 45f }, { 0.15f, 75f }, { 0.17f, 140f }, { 0.22f, 220f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
 
 
@@ -229,6 +229,9 @@ public class RocketLauncherScript : MonoBehaviour {
         setPanel();
 
         rocketSpeed *= Time.deltaTime;
+
+        money += 144.5f;
+        testMoney += 144.5f;
 
     }
 

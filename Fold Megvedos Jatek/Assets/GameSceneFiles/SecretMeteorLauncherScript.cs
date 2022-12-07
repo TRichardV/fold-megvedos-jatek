@@ -27,7 +27,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
 
     // WAVE NUMBER
-    int waveNumber = 0;
+    int waveNumber = 4;
 
 
     // WAVES + METEORS
@@ -185,6 +185,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         rb2.gravityScale = 0;
         //bc2.isTrigger = true;
+
+        gameobj.tag = "meteor";
     }
 
     void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {

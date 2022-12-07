@@ -95,9 +95,9 @@ public class MeteorScript : MonoBehaviour {
             { { 0f, 0f, 0f, 0f, 0f } }, // 3
             { { 0f, 0f, 0f, 0f, 0f } }, // 4
             { { 0f, 0f, 0f, 0f, 0f } }, // 5
-            { { 1.8f, 22f, 30f, 40f, 2.25f } }, // 10
-            { { 1.6f, 30f, 30f, 60f, 3.5f } }, // 11
-            { { 1.6f, 30f, 30f, 80, 4f } }, // 12
+            { { 1.6f, 22f, 30f, 40f, 2.25f } }, // 10
+            { { 1.5f, 30f, 30f, 60f, 3.5f } }, // 11
+            { { 1.5f, 30f, 30f, 80, 4f } }, // 12
             { { 3f, 1f, 15f, 1f, 0.05f } }, // 90
             { { 0.6f, 300f, 10f, 1000f, 100f } }, // 100 - BOSS
             { { 1.0f, 30f, 30f, 20f, 2f } }, // 110
@@ -479,7 +479,7 @@ public class MeteorScript : MonoBehaviour {
     
     // GET DAMAGE
     public void shot(float damage) {
-
+        Debug.LogError("asd");
         if (canGetDamage == true) {
 
             health -= damage;
