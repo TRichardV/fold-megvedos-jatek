@@ -26,12 +26,12 @@ public class MeteorScript : MonoBehaviour {
     public float speed;
 
     public float health;
-    bool canGetDamage = true;
+    public bool canGetDamage = true;
 
 
     // SHOOTING STATS
-    float minAPS = 0.5f;
-    float maxAPS = 0.5f;
+    float minAPS = 0.2f;
+    float maxAPS = 0.48f;
 
     int canShotCounter = 0;
     int canShotCounterM;
@@ -89,19 +89,19 @@ public class MeteorScript : MonoBehaviour {
 
         stats = new float[17, 1, 5] {
 
-            { { 1.7f, 10f, 10f, 5f, 1f } }, // 0
+            { { 1.65f, 10f, 10f, 5f, 1f } }, // 0
             { { 1.3f, 20f, 20f, 10f, 1.5f } }, // 1
             { { 1f, 30f, 30f, 50f, 2f } }, // 2
-            { { 0f, 0f, 0f, 0f, 0f } }, // 3
+            { { 1.3f, 20f, 10f, 70f, 5f } }, // 3 N
             { { 0f, 0f, 0f, 0f, 0f } }, // 4
-            { { 0f, 0f, 0f, 0f, 0f } }, // 5
-            { { 1.8f, 22f, 30f, 40f, 2.25f } }, // 10
-            { { 1.6f, 30f, 30f, 60f, 3.5f } }, // 11
-            { { 1.6f, 30f, 30f, 80, 4f } }, // 12
-            { { 3f, 1f, 15f, 1f, 0.05f } }, // 90
-            { { 0.6f, 300f, 10f, 1000f, 100f } }, // 100 - BOSS
-            { { 1.0f, 30f, 30f, 20f, 2f } }, // 110
-            { { 3f, 100f, 50f, 10f, 0f } }, // 120
+            { { 1f, 20f, 10f, 100f, 7f } }, // 5 N
+            { { 1.4f, 27f, 30f, 40f, 2.25f } }, // 10
+            { { 1.25f, 30f, 30f, 60f, 3.5f } }, // 11
+            { { 1.25f, 35f, 30f, 80, 4f } }, // 12
+            { { 2.25f, 1f, 15f, 1f, 0.05f } }, // 90
+            { { 0.6f, 1000f, 10f, 500f, 150f } }, // 100 - BOSS
+            { { 2f, 30f, 30f, 20f, 2f } }, // 110
+            { { 1.5f, 60f, 50f, 10f, 0f } }, // 120
             { { 2f, 1f, 0f, 0f, 3f } }, // 200
             { { 2f, 1f, 0f, 0f, 6f } }, // 201
             { { 2f, 1f, 0f, 0f, 10f } }, // 202
@@ -157,7 +157,7 @@ public class MeteorScript : MonoBehaviour {
             case 3:
 
                 movingX = (maxX * 2) / (colNumber - 1) / 4;
-                movingTime = 0.2f;
+                movingTime = 0.8f;
 
                 hIndexMax = (int)Math.Round(1 / Time.fixedDeltaTime * movingTime);
 
@@ -202,10 +202,10 @@ public class MeteorScript : MonoBehaviour {
 
             case 11:
 
-                canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+                minAPS = 0.1f;
+                maxAPS = 0.3f;
 
-                minAPS = 0.5f;
-                maxAPS = 0.5f;
+                canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
                 getStats(7, 0);
 
@@ -227,18 +227,12 @@ public class MeteorScript : MonoBehaviour {
             case 90:
 
                 isBullet = true;
-                scale = new Vector3(0.3f, 1f, 0.1f);
-
-                this.gameObject.transform.localScale = scale;
 
                 getStats(9, 0);
 
                 break;
 
             case 100:
-
-                scale = new Vector3(0.5f, 0.5f, 0.5f);
-                this.gameObject.transform.localScale = scale;
 
                 hIndex = 0;
 
@@ -252,10 +246,10 @@ public class MeteorScript : MonoBehaviour {
 
             case 110:
 
-                canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+                minAPS = 0.175f;
+                maxAPS = 0.375f;
 
-                minAPS = 0.2f;
-                maxAPS = 0.5f;
+                canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
                 getStats(11, 0);
 
@@ -507,9 +501,15 @@ public class MeteorScript : MonoBehaviour {
 
             if (!isBullet) {
 
-                if (type >= 110 && type < 200) {
+                if (type == 110) {
 
                     parentB.GetComponent<MeteorScript>().hIndex3--;
+
+                }
+                else if (type == 120) {
+
+                    // WHEN A REGULAR BULLET FROM A BOSS'S SPACESHIP
+                    // DOES LITERALLY NOTHING
 
                 }
                 else {
@@ -535,27 +535,19 @@ public class MeteorScript : MonoBehaviour {
     }
 
     // CREATE AUXILIARY MISSILES
-    void createEnemyRocket(float desX, float desY, float posX, float posY, int type, int level) {
+    GameObject createEnemyRocket(float desX, float desY, float posX, float posY, int type, int level) {
 
-        GameObject obj = Instantiate(meteor, new Vector2(posX, posY), Quaternion.identity);
-
-        //obj.transform.parent = this.gameObject.transform;
-
-        obj.transform.position = new Vector2(posX, posY);
-
-        obj.GetComponent<MeteorScript>().desX = desX;
-        obj.GetComponent<MeteorScript>().desY = desY;
-
-        obj.GetComponent<MeteorScript>().type = type;
-        obj.GetComponent<MeteorScript>().level = level;
-
-        if (type >= 110) {
-
-            obj.GetComponent<MeteorScript>().parentB = this.gameObject;
-
-        }
-
+        GameObject obj = GameObject.Find("SecretMeteorLauncher").GetComponent<SecretMeteorLauncherScript>().createMeteor(desX, desY, posX, posY, type, level);
         obj.GetComponent<MeteorScript>().set();
+        return obj;
+
+    }
+
+    void createEnemyRocket(float desX, float desY, float posX, float posY, int type, int level, GameObject obj) {
+
+        GameObject asd = createEnemyRocket(desX, desY, posX, posY, type, level);
+        asd.GetComponent<MeteorScript>().parentB = obj;
+
 
     }
 
@@ -573,12 +565,12 @@ public class MeteorScript : MonoBehaviour {
 
         if (hIndex2 == 0) {
 
-            transform.position = new Vector2(transform.position.x + movingUnit, transform.position.y);
+            transform.position = new Vector2(transform.position.x + movingUnit*1.5f, transform.position.y);
 
         }
         else if (hIndex2 == 1) {
 
-            transform.position = new Vector2(transform.position.x - movingUnit, transform.position.y);
+            transform.position = new Vector2(transform.position.x - movingUnit*1.5f, transform.position.y);
 
         }
 
@@ -658,7 +650,7 @@ public class MeteorScript : MonoBehaviour {
         if (canShotCounter >= canShotCounterM) {
 
             canShotCounter = 0;
-            canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+            canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
             createEnemyRocket(transform.position.x, -20, transform.position.x, transform.position.y, 90, 0);
 
@@ -703,7 +695,7 @@ public class MeteorScript : MonoBehaviour {
         if (canShotCounter >= canShotCounterM && (hIndex2 == 3 || hIndex2 == 1)) {
 
             canShotCounter = 0;
-            canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+            canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
             createEnemyRocket(transform.position.x, -20, transform.position.x, transform.position.y, 90, 0);
 
@@ -721,6 +713,8 @@ public class MeteorScript : MonoBehaviour {
     int hIndex4 = 0;
     // BOSS 1
     public void type100() {
+
+        //Debug.Log("Boss hp: " + health);
 
         if (hIndex2 == 0) { // MOVE IN
 
@@ -757,8 +751,8 @@ public class MeteorScript : MonoBehaviour {
 
             hIndex2 = 10; // STATE
 
-            createEnemyRocket(transform.position.x - 1f, transform.position.y - 1f, transform.position.x - 1f, transform.position.y + 3f, 110, 0);
-            createEnemyRocket(transform.position.x + 1f, transform.position.y - 1f, transform.position.x + 1f, transform.position.y + 3f, 110, 0);
+            createEnemyRocket(transform.position.x - 1.1f, transform.position.y - 1.1f, transform.position.x - 1.1f, transform.position.y + 3f, 110, 0, this.gameObject);
+            createEnemyRocket(transform.position.x + 1.1f, transform.position.y - 1.1f, transform.position.x + 1.1f, transform.position.y + 3f, 110, 0, this.gameObject);
 
         }
 
@@ -798,7 +792,7 @@ public class MeteorScript : MonoBehaviour {
         }
         if (hIndex2 == 5) { // CREATE BULET
 
-            hIndex3 = 1;
+            hIndex3 = 0;
 
             createEnemyRocket(transform.position.x, -30f, transform.position.x, transform.position.y, 120, 0);
 
@@ -822,12 +816,14 @@ public class MeteorScript : MonoBehaviour {
 
         }
 
+        canGetDamage = true;
+
         canShotCounter++;
 
         if (canShotCounter >= canShotCounterM) {
 
             canShotCounter = 0;
-            canShotCounterM = (int)Math.Round(Random.Range(1 / Time.fixedDeltaTime / minAPS, 1 / Time.fixedDeltaTime / maxAPS));
+            canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
             createEnemyRocket(transform.position.x, -20, transform.position.x, transform.position.y, 90, 0);
 

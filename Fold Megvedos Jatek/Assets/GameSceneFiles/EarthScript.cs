@@ -112,32 +112,36 @@ public class EarthScript : MonoBehaviour {
 
         hpBar.GetComponent<TextMeshProUGUI>().text = ((int)Mathf.Round(this.health) + "/" + this.maxHealth);
         
-        if (waitTick == -1) {
+        if (haveWarmog > 0) {
 
-            healTick++;
+            if (waitTick == -1) {
 
-            if (healTick >= healTickM) {
+                healTick++;
 
-                this.health += this.maxHealth * (this.healPercent / 100);
+                if (healTick >= healTickM) {
 
-                if (this.health > this.maxHealth) {
+                    this.health += this.maxHealth * (this.healPercent / 100);
 
-                    this.health = this.maxHealth;
+                    if (this.health > this.maxHealth) {
+
+                        this.health = this.maxHealth;
+
+                    }
+
+                    healTick = 0;
 
                 }
 
-                healTick = 0;
-
             }
+            if (waitTick > -1) {
 
-        }
-        if (waitTick > -1) {
+                waitTick++;
 
-            waitTick++;
+                if (waitTick >= waitTickM) {
 
-            if (waitTick >= waitTickM) {
+                    waitTick = -1;
 
-                waitTick = -1;
+                }
 
             }
 
