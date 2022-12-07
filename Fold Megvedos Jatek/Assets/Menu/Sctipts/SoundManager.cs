@@ -1,17 +1,17 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Istance;
-    [SerializeField] private AudioSource musicSource, effectSource;
-    public void Awake()
+    public static SoundManager Instance;
+
+    [SerializeField] private AudioSource _musicSource, _effectSource;
+
+    private void Awake()
     {
-        if (Istance == null)
-        {
-            Istance = this;
+        if (Instance == null) { 
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -20,14 +20,29 @@ public class SoundManager : MonoBehaviour
         }
 
     }
+
     public void PlaySound(AudioClip clip)
     {
-        effectSource.PlayOneShot(clip);
-        musicSource.PlayOneShot(clip);
-    }
-
-    public void ChangeVolume(float value)
+        _effectSource.PlayOneShot(clip);    
+    } 
+    
+    public void ChangeMusicVolume(float value)
     {
         AudioListener.volume = value;
     }
-}
+
+    public void ChnageEffectsVolume(float value)
+    {
+        AudioListener.volume = value;
+    }
+
+    public void ToggleEffects()
+    {
+        _effectSource.mute = !_effectSource.mute;
+    }
+
+    public void ToggleMusic()
+    {
+        _musicSource.mute = !_musicSource.mute;
+    }
+}   
