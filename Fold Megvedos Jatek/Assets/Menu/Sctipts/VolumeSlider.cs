@@ -11,24 +11,15 @@ public class VolumeSlider : MonoBehaviour
     Slider slider
     {
         get { return GetComponent<Slider>(); }
-
-    [SerializeField] private Slider _slider, _slider2;
-    void Start()
-    {
-        SoundManager.Instance.ChangeMusicVolume(_slider.value);
-        SoundManager.Instance.ChnageEffectsVolume(_slider2.value);
-        _slider.onValueChanged.AddListener(val => SoundManager.Instance.ChangeMusicVolume(val));
-        _slider2.onValueChanged.AddListener(val1 => SoundManager.Instance.ChnageEffectsVolume(val1));
-
     }
+
 
     public AudioMixer mixer;
 
     [SerializeField]
     private string volumeName;
 
-    [SerializeField]
-    private TMPro.TextMeshProUGUI volumeLabel;
+
 
     User userScript;
     private void Start()
@@ -40,8 +31,7 @@ public class VolumeSlider : MonoBehaviour
         if (mixer != null)
             mixer.SetFloat(volumeName, Mathf.Log(value) * 20f);
 
-        if (volumeLabel != null)
-            volumeLabel.text = Mathf.Round(value * 100.0f).ToString() + "%";
+        
 
         if (gameObject.name == "MusicSlider")
         {

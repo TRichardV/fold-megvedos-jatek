@@ -7,7 +7,7 @@ using System.IO;
 public class User : MonoBehaviour
 {
     //----változók amiket el kell menteni (értékkel vagy nélkül)----
-    public int minta = 0;
+    public float[] volumePct = { 1, 1 };
 
 
     //--------------------------------------------------------------
@@ -33,7 +33,7 @@ public class User : MonoBehaviour
         UserData data = SaveSystem.LoadUser();
 
         //---------------változók amiket el kell menteni----------------
-        minta = data.minta;
+        volumePct = data.volumePct;
 
 
         //--------------------------------------------------------------

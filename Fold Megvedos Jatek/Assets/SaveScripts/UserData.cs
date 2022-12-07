@@ -7,7 +7,7 @@ public class UserData
 {
     //---változók amiket el kell menteni (csak létrehozás, érték megadás nélkül)---
     public int minta;
-
+    public float[] volumePct;
 
     //--------------------------------------------------------------------
     
@@ -15,7 +15,7 @@ public class UserData
     {
 
         //---------------változók amiket el kell menteni----------------
-        minta = user.minta;
+        volumePct = user.volumePct;
 
 
         //--------------------------------------------------------------
