@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class BrimstoneLaserScript : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
     // DEFAULT POSITIONS, SCALES
     float defScaleX = 4f;
     float defScaleY = 1f;
-    float defPosZ = 11f;
+    float defPosZ = 4f;
 
     float headDefPosZ = 12f;
 
@@ -157,6 +158,10 @@ public class BrimstoneLaserScript : MonoBehaviour {
         while (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && index1 < 10 && inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
 
             laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y + 0.1f);
+            ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;
+            PSShape.scale = new Vector3(laser.gameObject.transform.localScale.x * 0.1f, 0.1f, (laser.gameObject.transform.localScale.y * 0.075f) + 0.1f);
+            ParticleSystem.EmissionModule PSEmission = laser.GetComponentInChildren<ParticleSystem>().emission;
+            PSEmission.rateOverTime = PSShape.scale.z * 8;
             laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
 
             this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.1f);
@@ -167,8 +172,11 @@ public class BrimstoneLaserScript : MonoBehaviour {
         while (index2 < 10 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
 
             laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.2f);
+            ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;
+            PSShape.scale = new Vector3(laser.gameObject.transform.localScale.x * 0.1f, 0.1f, (laser.gameObject.transform.localScale.y * 0.075f) - 0.2f);
+            ParticleSystem.EmissionModule PSEmission = laser.GetComponentInChildren<ParticleSystem>().emission;
+            PSEmission.rateOverTime = PSShape.scale.z / 8;
             laser.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.1f);
-
             this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.2f);
             index2++;
 
@@ -377,7 +385,6 @@ public class BrimstoneLaserScript : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
 
         if (!inLaser.Contains(collision.gameObject)) {
-
             if (collision.GetComponent<MeteorScript>().isBullet == true) {
 
                 collision.gameObject.GetComponent<MeteorScript>().shot(999999);
@@ -397,7 +404,6 @@ public class BrimstoneLaserScript : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         
         if (inLaser.Contains(collision.gameObject)) {
-
             inLaser.Remove(collision.gameObject);
 
         }
