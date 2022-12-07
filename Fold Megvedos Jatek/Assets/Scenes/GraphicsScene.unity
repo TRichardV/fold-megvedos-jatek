@@ -1049,7 +1049,7 @@ MonoBehaviour:
   - {fileID: 2242450750659538863, guid: 077a1dfbec1ca8942a219c562c125c6d, type: 3}
   - {fileID: 250456754927816046, guid: b29a1670b07b5354f958d5e2a02ad2de, type: 3}
   - {fileID: 6688037182185886232, guid: 4a7c1dd3a225b904e81cf729996c66f4, type: 3}
-  - {fileID: 0}
+  - {fileID: 7325428183376030742, guid: f9f3a66e1b08c5c458be834388b4950c, type: 3}
   - {fileID: 0}
   - {fileID: 5471641632656009850, guid: d2b0acaba4c21454e9008206e526f93e, type: 3}
   - {fileID: 5471641632656009850, guid: e53984073079a124c9fbe220131c256c, type: 3}
@@ -1125,6 +1125,7 @@ MonoBehaviour:
   hpBar: {fileID: 867135230}
   haveTankItem: 0
   haveWarmog: 0
+  Explosion: {fileID: 3221905533353506913, guid: 1ddca2bb7ecca684fb604dc901ef0f38, type: 3}
 --- !u!1 &576954486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,7 +2670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229806510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2764,7 +2765,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -2831,8 +2832,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.2
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2938,7 +2939,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.5415094, b: 0.5415094, a: 1}
+      maxColor: {r: 1, g: 0.4660377, b: 0.4660377, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3464,7 +3465,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 0.05
       mode: 0
       spread: 0
       speed:
@@ -8808,7 +8809,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577955450}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: -0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8903,7 +8904,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -15182,7 +15183,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
