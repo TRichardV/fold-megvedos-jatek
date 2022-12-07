@@ -1051,9 +1051,9 @@ MonoBehaviour:
   - {fileID: 6688037182185886232, guid: 4a7c1dd3a225b904e81cf729996c66f4, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5471641632656009850, guid: d2b0acaba4c21454e9008206e526f93e, type: 3}
+  - {fileID: 5471641632656009850, guid: e53984073079a124c9fbe220131c256c, type: 3}
+  - {fileID: 5471641632656009850, guid: 434846afbe5dd5f48a8889e3e38ac682, type: 3}
   - {fileID: 2347393775938333590, guid: 312bd6cc76fca2f47ab195d2fd7e7954, type: 3}
 --- !u!114 &512398754
 MonoBehaviour:
@@ -7893,6 +7893,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409683165}
   m_CullTransparentMesh: 1
+--- !u!1001 &1423305665
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4805169
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.1496542
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658126914442195136, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471641632656009850, guid: e53984073079a124c9fbe220131c256c, type: 3}
+      propertyPath: m_Name
+      value: Coin t2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e53984073079a124c9fbe220131c256c, type: 3}
 --- !u!1 &1430043947
 GameObject:
   m_ObjectHideFlags: 0
@@ -8998,7 +9069,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3157c1cb9283214995530f405fc0822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minta: 0
+  volumePct:
+  - 1
+  - 1
 --- !u!1 &1742694846
 GameObject:
   m_ObjectHideFlags: 0

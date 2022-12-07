@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8577991881115074405}
   - component: {fileID: 5832110266038127535}
   m_Layer: 3
-  m_Name: Coin
+  m_Name: Coin t1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 5471641632656009850}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.4805169, y: 0, z: -2.1496542}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8577991881115074405
 MeshFilter:
@@ -61,8 +61,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f5a37be55e60324fb5942ea749227bc, type: 2}
-  - {fileID: 2100000, guid: eeb78b4a0c4cc92439193d4befb6e083, type: 2}
+  - {fileID: 2100000, guid: 676358bf620cfe54bb77643684f30216, type: 2}
+  - {fileID: 2100000, guid: 5b8811aa12896074c830778d43741f5b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
