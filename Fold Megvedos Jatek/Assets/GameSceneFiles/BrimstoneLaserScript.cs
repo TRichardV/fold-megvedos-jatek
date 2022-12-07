@@ -155,7 +155,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
     void checkGrow() {
 
         int index1 = 0;
-        while (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && index1 < 10 && inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
+        while (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && index1 < 20 && inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
 
             laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y + 0.1f);
             ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;
@@ -169,7 +169,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
         }
         int index2 = 0;
-        while (index2 < 10 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
+        while (index2 < 40 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
 
             laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.2f);
             ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;

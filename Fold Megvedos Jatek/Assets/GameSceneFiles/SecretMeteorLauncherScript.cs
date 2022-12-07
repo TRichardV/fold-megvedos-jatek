@@ -27,7 +27,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
 
     // WAVE NUMBER
-    int waveNumber = 0;
+    int waveNumber = 9;
 
 
     // WAVES + METEORS
@@ -65,23 +65,23 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         waveSettings = new int[20, 10, 3] {
 
-            { {150, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {180, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {210, 0, 0 }, { 35, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {240, 0, 0 }, { 42, 0, 0 }, { 15, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {140, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {160, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {185, 0, 0 }, { 35, 0, 0 }, { 7, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {210, 0, 0 }, { 42, 0, 0 }, { 15, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
             { {1000, 0, 0 }, { 35, 200, 0 }, { 18, 201, 0 }, { 3, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {300, 0, 0 }, { 45, 0, 0 }, { 25, 1, 0 }, { 7, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {340, 0, 0 }, { 50, 0, 0 }, { 30, 1, 0 }, { 15, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {380, 0, 0 }, { 50, 0, 0 }, { 35, 1, 0 }, { 22, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {430, 0, 0 }, { 50, 0, 0 }, { 40, 1, 0 }, { 30, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {270, 0, 0 }, { 35, 0, 0 }, { 25, 1, 0 }, { 10, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {315, 0, 0 }, { 35, 0, 0 }, { 30, 1, 0 }, { 17, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {350, 0, 0 }, { 30, 0, 0 }, { 30, 1, 0 }, { 24, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {400, 0, 0 }, { 30, 0, 0 }, { 30, 1, 0 }, { 30, 10, 0 }, { 13, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
             { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
 
-            { {150, 0, 0 }, { 10, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {180, 0, 0 }, { 20, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {210, 0, 0 }, { 35, 0, 0 }, { 10, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {240, 0, 0 }, { 42, 0, 0 }, { 17, 1, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {430, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 30, 10, 0 }, { 15, 11, 0 }, { 5, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {450, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 35, 10, 0 }, { 15, 11, 0 }, { 15, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {470, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 35, 10, 0 }, { 15, 11, 0 }, { 20, 3, 0 }, { 5, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {500, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 40, 10, 0 }, { 15, 11, 0 }, { 20, 3, 0 }, { 12, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
             { {1000, 0, 0 }, { 35, 200, 0 }, { 18, 201, 0 }, { 3, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
             { {300, 0, 0 }, { 45, 0, 0 }, { 25, 1, 0 }, { 7, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
             { {340, 0, 0 }, { 50, 0, 0 }, { 30, 1, 0 }, { 15, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
@@ -185,9 +185,11 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         rb2.gravityScale = 0;
         //bc2.isTrigger = true;
+
+        gameobj.tag = "meteor";
     }
 
-    void createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
+    public GameObject createMeteor (float desX, float desY, float posX, float posY, int type, int level) {
 
         GameObject obj = null;
         switch (type)
@@ -198,39 +200,62 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             case 3: // A MOVING METEOR (TO RIGHT AND LEFT)
             case 4: // BIG METEOR
             case 5: // METEOR WAVE TO THE RIGHT (OR LEFT)
+
                 obj = Instantiate(MeteorObjs[Random.Range(0, 5)]);
                 break;
 
             case 10: // REGULAR SPACESHIP
+
+                obj = Instantiate(MeteorObjs[5]);
+                break;
+
             case 11: // SHOOTING SPACESHIP
+
+                obj = Instantiate(MeteorObjs[7]);
+                break;
+
             case 12: // MOVING AND SHOOTING SPACESHIP
+
+                obj = Instantiate(MeteorObjs[6]);
+                break;
+
             case 110: // BOSS'S SPACESHIP
-                obj = Instantiate(MeteorObjs[Random.Range(5, 13)]);
+
+                obj = Instantiate(MeteorObjs[7]);
                 break;
 
             case 90: // SPACESHIP BULLET 1
+
                 obj = Instantiate(MeteorObjs[17]);
                 break;
 
             case 100: // BOSS 1
+
                 obj = Instantiate(MeteorObjs[Random.Range(13, 17)]);
                 break;
 
             case 120: // BOSS'S BULLET
+
                 obj = Instantiate(MeteorObjs[18]);
                 break;
 
             case 200: // COIN t1
+
                 obj = Instantiate(MeteorObjs[19]);
                 break;
+
             case 201: // COIN t2
+
                 obj = Instantiate(MeteorObjs[20]);
                 break;
+
             case 202: // COIN t3
+
                 obj = Instantiate(MeteorObjs[21]);
                 break;
 
             case 300: // SATELITE
+
                 obj = Instantiate(MeteorObjs[22]);
                 break;
         }
@@ -248,6 +273,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
         obj.GetComponent<MeteorScript>().level = level;
 
         obj.GetComponent<MeteorScript>().set();
+
+        return obj;
         
     }
 
@@ -307,8 +334,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     if (meteors.Count > 0 && waveSettings[waveNumber, 0, 0] == -1) {
 
-                        //createMeteor(0, -50f, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
-                        createMeteor(0f, 0f, 0f, this.gameObject.transform.position.y, 300, 0);
+                        createMeteor(0, -50f, 0, this.gameObject.transform.position.y, meteors[0][0], meteors[0][1]);
                         meteors.RemoveAt(0); // actually useless
 
                     }

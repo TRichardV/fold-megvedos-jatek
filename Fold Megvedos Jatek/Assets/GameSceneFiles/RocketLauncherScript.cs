@@ -29,15 +29,15 @@ public class RocketLauncherScript : MonoBehaviour {
     public float score = 0f;
     public float money = 0f;
 
-    public float rocketSpeed = 3f; // WILL BEEN MULTIPLYED WITH DELTATIME
+    public float rocketSpeed = 3f; // WILL BEEN MULTIPLYED WITH DELTA.TIME
 
 
     // BRIMSTONE STATS
-    float brimTimeOnSec1 = 3f;
-    float brimTimeOnSec2 = 4f;
+    float brimTimeOnSec1 = 6f;
+    float brimTimeOnSec2 = 10f;
 
-    float brimDamageRate = 0.1f;
-    float brimDamagePerSec = 0.1f;
+    float brimDamageRate = 0.2f;
+    float brimDamagePerSec = 0.2f;
 
     float brimAPSRate1 = 0.5f;
     float brimAPSRate2 = 0.35f;
@@ -105,9 +105,9 @@ public class RocketLauncherScript : MonoBehaviour {
     // UPGRADES
     int dmgUP = 0;
     int apsUP = 0;
-
-    float[,] dmgUPs = { { 5f, 25f }, { 7f, 60f }, { 10f, 130f }, { 15f, 300f }, { 22f, 1200f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
-    float[,] apsUPs = { { 0.1f, 10f }, { 0.13f, 20f }, { 0.14f, 45f }, { 0.15f, 75f }, { 0.17f, 140f }, { 0.22f, 220f }, { 0.26F, 350F }, { 0.3f, 600f }, { 0.35f, 1300f } };
+    //{ { 5f, 25f }, { 7.5f, 75f }, { 10f, 225f }
+    float[,] dmgUPs = { { 4f, 30f }, { 6f, 75f }, { 7f, 150f }, { 9f, 220f }, { 13f, 300f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
+    float[,] apsUPs = { { 0.1f, 10f }, { 0.125f, 20f }, { 0.13f, 60f }, { 0.15f, 110f }, { 0.175f, 180f }, { 0.21f, 270f }, { 0.26F, 40F }, { 0.3f, 600f }, { 0.35f, 1300f } };
 
 
     // ITEMS FOR HANDLE
@@ -230,6 +230,9 @@ public class RocketLauncherScript : MonoBehaviour {
 
         rocketSpeed *= Time.deltaTime;
 
+        money += 832f;
+        testMoney += 832f;
+
     }
 
 
@@ -305,7 +308,7 @@ public class RocketLauncherScript : MonoBehaviour {
             brimstoneLaser.active = true;
             brimstoneLaserHead.active = true;
 
-            Debug.Log(damage + " " + brimDamageRate + " " + damage * brimDamageRate);
+            //Debug.Log(damage + " " + brimDamageRate + " " + damage * brimDamageRate);
 
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().damage = damage * brimDamageRate;
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().damagePerSec = brimDamagePerSec;
