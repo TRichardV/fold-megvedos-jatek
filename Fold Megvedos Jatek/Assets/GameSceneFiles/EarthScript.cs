@@ -56,6 +56,8 @@ public class EarthScript : MonoBehaviour {
     public int haveTankItem = 0;
     public int haveWarmog = 0;
 
+    // EXPLOSION EFFECT
+    public GameObject Explosion = null;
 
     private void Start() {
 
@@ -143,7 +145,8 @@ public class EarthScript : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+
+    private IEnumerator OnTriggerEnter2D(Collider2D collision) {
 
         if (collision.gameObject.tag.Equals("meteor")) {
 
@@ -177,6 +180,10 @@ public class EarthScript : MonoBehaviour {
 
             collision.gameObject.GetComponent<MeteorScript>().shot(999999);
 
+            GameObject obj = Instantiate(Explosion, collision.transform.position, Quaternion.identity);
+            obj.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(1);
+            Destroy(obj);
         }
 
     }
