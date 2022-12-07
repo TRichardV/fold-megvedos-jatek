@@ -8,10 +8,7 @@ public class Menu : MonoBehaviour
     bool isOpened = false;
     private void Start()
     {
-        if (gameObject.name =="SettingsPart")
-        {
-            gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
-        }
+
         
     }
 
@@ -19,12 +16,14 @@ public class Menu : MonoBehaviour
     {
         if (isOpened)
         {
-            gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+            GetComponent<Animator>().Play("CloseSettingPart", 0, 0);
+            GameObject.Find("Main Menu").GetComponent<Animator>().Play("MainMenuAnimationClose", 0,0);
             isOpened = false;
         }
         else
         {
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            GetComponent<Animator>().Play("OpenSettingPart",0,0);
+            GameObject.Find("Main Menu").GetComponent<Animator>().Play("MainMenuAnimation",0,0);
             isOpened = true;
         }
     }
