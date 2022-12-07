@@ -323,8 +323,9 @@ public class RocketScript : MonoBehaviour {
 
                 if (collision.gameObject.GetComponent<MeteorScript>().isBullet == true) {
 
-                    collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+                    float dam = this.damage;
                     this.damage -= collision.gameObject.GetComponent<MeteorScript>().health;
+                    collision.gameObject.GetComponent<MeteorScript>().shot(dam);
 
                     if (this.damage <= 0) {
 
