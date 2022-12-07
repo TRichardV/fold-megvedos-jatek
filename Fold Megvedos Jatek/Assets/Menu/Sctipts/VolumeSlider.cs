@@ -25,6 +25,7 @@ public class VolumeSlider : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ValueLoader());
+        GameObject.FindGameObjectWithTag("MainAudio").GetComponent<DontDestroy>().mainAudio.Play();
     }
     public void UpdateValueOnChange(float value)
     {
@@ -48,7 +49,6 @@ public class VolumeSlider : MonoBehaviour
     private IEnumerator ValueLoader()
     {
         yield return new WaitForSeconds(0.0001f);
-        GameObject.FindGameObjectWithTag("MainAudio").GetComponent<DontDestroy>().mainAudio.Play();
         userScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<User>();
 
         if (gameObject.name == "MusicSlider")
