@@ -12,8 +12,8 @@ public class MeteorScript : MonoBehaviour {
 
 
     // GENERAL STATS
-    public int type;
-    public int level;
+    int type;
+    int level;
 
     public Boolean isBullet = false;
 
@@ -113,8 +113,6 @@ public class MeteorScript : MonoBehaviour {
 
     void getStats(int index, int level) {
 
-        Debug.Log(level + " :level");
-
         if (level == 0) {
 
             speed = stats[index, 0, 0];
@@ -133,8 +131,6 @@ public class MeteorScript : MonoBehaviour {
             damage = stats[index, 0, 2] * noInternet(stats[index, 1, 2], level);
             score = stats[index, 0, 3] * noInternet(stats[index, 1, 3], level);
             money = stats[index, 0, 4] * noInternet(stats[index, 1, 4], level);
-
-            Debug.Log(noInternet(stats[index, 1, 1], level) + " " + level + " " + maxHealth);
 
         }
 
@@ -155,7 +151,10 @@ public class MeteorScript : MonoBehaviour {
 
     }
 
-    public void set() {
+    public void set(int typeI, int levelI) {
+
+        type = typeI;
+        level = levelI;
 
         statUpload();
 
@@ -163,7 +162,7 @@ public class MeteorScript : MonoBehaviour {
 
             case 0:
 
-                getStats(0, 0);
+                getStats(0, level);
 
                 break;
 
@@ -173,7 +172,7 @@ public class MeteorScript : MonoBehaviour {
 
                 this.gameObject.transform.localScale = scale;
 
-                getStats(1, 0);
+                getStats(1, level);
 
                 break;
 
@@ -183,39 +182,39 @@ public class MeteorScript : MonoBehaviour {
 
                 this.gameObject.transform.localScale = scale;
 
-                getStats(2, 0);
+                getStats(2, level);
 
                 break;
 
             case 3:
 
                 movingX = (maxX * 2) / (colNumber - 1) / 4;
-                movingTime = 0.8f;
+                movingTime = 1f;
 
                 hIndexMax = (int)Math.Round(1 / Time.fixedDeltaTime * movingTime);
 
                 movingUnit = movingX / hIndexMax;
 
-                getStats(3, 0);
+                getStats(3, level);
 
                 break;
 
             case 4:
 
-                scale = new Vector3(1.3f, 1.3f, 1.3f);
+                scale = new Vector3(0.35f, 0.35f, 0.35f);
 
                 this.gameObject.transform.localScale = scale;
                 
                 speed = 1f;
 
-                getStats(4, 0);
+                getStats(4, level);
 
                 break;
 
             case 5:
 
                 movingX = (maxX * 2) / (colNumber - 1);
-                movingTime = 0.2f;
+                movingTime = 0.3f;
 
                 hIndexMax = (int)Math.Round(1 / Time.fixedDeltaTime * movingTime);
 
@@ -223,13 +222,13 @@ public class MeteorScript : MonoBehaviour {
 
                 hIndex2 = Random.Range(0, 2);
 
-                getStats(5, 0);
+                getStats(5, level);
 
                 break;
 
             case 10:
 
-                getStats(6, 0);
+                getStats(6, level);
 
                 break;
 
@@ -240,20 +239,23 @@ public class MeteorScript : MonoBehaviour {
 
                 canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
-                getStats(7, 0);
+                getStats(7, level);
 
                 break;
 
             case 12:
 
-                movingX = (maxX * 2) / (colNumber - 1);
-                movingTime = 0.4f;
+                minAPS = 0.1f;
+                maxAPS = 0.3f;
+
+                movingX = (maxX * 2) / (colNumber - 1) / 4;
+                movingTime = 1f;
 
                 hIndexMax = (int)Math.Round(1 / Time.fixedDeltaTime * movingTime);
 
                 movingUnit = movingX / hIndexMax;
 
-                getStats(8, 0);
+                getStats(8, level);
 
                 break;
 
@@ -261,7 +263,7 @@ public class MeteorScript : MonoBehaviour {
 
                 isBullet = true;
 
-                getStats(9, 0);
+                getStats(9, level);
 
                 break;
 
@@ -273,7 +275,7 @@ public class MeteorScript : MonoBehaviour {
                 
                 hIndex2 = 0;
 
-                getStats(10, 0);
+                getStats(10, level);
 
                 break;
 
@@ -284,37 +286,37 @@ public class MeteorScript : MonoBehaviour {
 
                 canShotCounterM = (int)Math.Round((1 / Time.deltaTime) / Random.Range(minAPS, maxAPS));
 
-                getStats(11, 0);
+                getStats(11, level);
 
                 break;
 
             case 120:
 
-                getStats(12, 0);
+                getStats(12, level);
                 
                 break;
 
             case 200:
 
-                getStats(13, 0);
+                getStats(13, level);
 
                 break;
 
             case 201:
 
-                getStats(14, 0);
+                getStats(14, level);
 
                 break;
 
             case 202:
 
-                getStats(15, 0);
+                getStats(15, level);
 
                 break;
 
             case 300: // SATELITE
 
-                getStats(16, 0);
+                getStats(16, level);
 
                 float y = Random.Range(0, maxY + minY) - minY;
                 
@@ -571,7 +573,7 @@ public class MeteorScript : MonoBehaviour {
     GameObject createEnemyRocket(float desX, float desY, float posX, float posY, int type, int level) {
 
         GameObject obj = GameObject.Find("SecretMeteorLauncher").GetComponent<SecretMeteorLauncherScript>().createMeteor(desX, desY, posX, posY, type, level);
-        obj.GetComponent<MeteorScript>().set();
+        obj.GetComponent<MeteorScript>().set(type, level);
         return obj;
 
     }
@@ -598,12 +600,12 @@ public class MeteorScript : MonoBehaviour {
 
         if (hIndex2 == 0) {
 
-            transform.position = new Vector2(transform.position.x + movingUnit*2.5f, transform.position.y);
+            transform.position = new Vector2(transform.position.x + movingUnit*4f, transform.position.y);
 
         }
         else if (hIndex2 == 1) {
 
-            transform.position = new Vector2(transform.position.x - movingUnit*2.5f, transform.position.y);
+            transform.position = new Vector2(transform.position.x - movingUnit*4f, transform.position.y);
 
         }
 
@@ -713,13 +715,13 @@ public class MeteorScript : MonoBehaviour {
 
         if (hIndex2 == 1) {
 
-            transform.position = new Vector2(transform.position.x - movingUnit, transform.position.y);
+            transform.position = new Vector2(transform.position.x - movingUnit*4, transform.position.y);
 
         }
 
         if (hIndex2 == 3) {
 
-            transform.position = new Vector2(transform.position.x + movingUnit, transform.position.y);
+            transform.position = new Vector2(transform.position.x + movingUnit*4, transform.position.y);
 
         }
 
@@ -746,8 +748,6 @@ public class MeteorScript : MonoBehaviour {
     int hIndex4 = 0;
     // BOSS 1
     public void type100() {
-
-        //Debug.Log("Boss hp: " + health);
 
         if (hIndex2 == 0) { // MOVE IN
 

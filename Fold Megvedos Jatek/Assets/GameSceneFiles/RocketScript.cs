@@ -36,6 +36,9 @@ public class RocketScript : MonoBehaviour {
     int haveResistCM;
 
 
+    // TRISAGION ITEM
+    public float trisagionRate;
+
     // DESTINATION FIND
     public float desX;
     public float desY;
@@ -178,6 +181,8 @@ public class RocketScript : MonoBehaviour {
 
         obj.GetComponent<RocketScript>().electricStillAlive = electricStillAlive;
 
+        obj.GetComponent<RocketScript>().trisagionRate = trisagionRate;
+
         obj.GetComponent<RocketScript>().haveKnuts = haveKnuts;
         obj.GetComponent<RocketScript>().haveTrisagion = haveTrisagion;
         obj.GetComponent<RocketScript>().haveTwenty = haveTwenty;
@@ -261,6 +266,7 @@ public class RocketScript : MonoBehaviour {
                         first = false;
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
                         tryShoot(damage * twentyDamageRate); // 20/20
+                        damage *= trisagionRate;
 
                     }
 
@@ -308,6 +314,13 @@ public class RocketScript : MonoBehaviour {
 
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
                         tryShoot(damage * twentyDamageRate); // 20/20
+
+                    }
+
+                    if (first) {
+
+                        first = false;
+                        damage *= trisagionRate;
 
                     }
 

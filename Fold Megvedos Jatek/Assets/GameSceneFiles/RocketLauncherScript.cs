@@ -36,19 +36,19 @@ public class RocketLauncherScript : MonoBehaviour {
     float brimTimeOnSec1 = 6f;
     float brimTimeOnSec2 = 10f;
 
-    float brimDamageRate = 0.2f;
-    float brimDamagePerSec = 0.2f;
+    float brimDamageRate = 0.4f;
+    float brimDamagePerSec = 0.55f;
 
-    float brimAPSRate1 = 0.5f;
-    float brimAPSRate2 = 0.35f;
+    float brimAPSRate1 = 0.3f;
+    float brimAPSRate2 = 0.15f;
 
 
     // KNUTS HAMMER STATS
-    int chanceOfCrit1 = 20;
+    int chanceOfCrit1 = 15;
     float aoeDamageRate1 = 0.5f;
     float damageCritRate1 = 1.5f;
 
-    int chanceOfCrit2 = 35;
+    int chanceOfCrit2 = 30;
     float aoeDamageRate2 = 0.75f;
     float damageCritRate2 = 1.75f;
 
@@ -62,14 +62,19 @@ public class RocketLauncherScript : MonoBehaviour {
 
 
     // IRON DOME STATS
-    float domeDamagePercent1 = 50;
-    float domeDamagePercent2 = 70;
+    float domeDamagePercent1 = 40;
+    float domeDamagePercent2 = 60;
 
-    float domeAPSPercent1 = 80;
-    float domeAPSPercent2 = 100;
+    float domeAPSPercent1 = 50;
+    float domeAPSPercent2 = 70;
 
-    int domeAPSRange1 = 30;
+    int domeAPSRange1 = 40;
     int domeAPSRange2 = 15;
+
+
+    // TRISAGION STATS
+    float trisagionRate1 = 0.3f;
+    float trisagionRate2 = 0.45f;
 
 
     // 20/20 ITEM
@@ -102,12 +107,16 @@ public class RocketLauncherScript : MonoBehaviour {
     public int domeAPSRange;
 
 
+    // TRISAGION
+    public float trisagionRate;
+
+
     // UPGRADES
     int dmgUP = 0;
     int apsUP = 0;
     //{ { 5f, 25f }, { 7.5f, 75f }, { 10f, 225f }
-    float[,] dmgUPs = { { 4f, 30f }, { 6f, 75f }, { 7f, 150f }, { 9f, 220f }, { 13f, 300f }, { 30f, 2500f }, { 40f, 7000f }, { 60f, 25000f }, { 100, 100000f } };
-    float[,] apsUPs = { { 0.1f, 10f }, { 0.125f, 20f }, { 0.13f, 60f }, { 0.15f, 110f }, { 0.175f, 180f }, { 0.21f, 270f }, { 0.26F, 40F }, { 0.3f, 600f }, { 0.35f, 1300f } };
+    float[,] dmgUPs = { { 4f, 30f }, { 6f, 75f }, { 7f, 150f }, { 9f, 220f }, { 13f, 300f }, { 14f, 600f }, { 15f, 1200f }, { 16f, 2500f }, { 18f, 6000 } };
+    float[,] apsUPs = { { 0.1f, 10f }, { 0.125f, 20f }, { 0.13f, 60f }, { 0.15f, 110f }, { 0.175f, 180f }, { 0.20f, 270f }, { 0.24F, 600f }, { 0.28f, 1100f }, { 0.32f, 2200f } };
 
 
     // ITEMS FOR HANDLE
@@ -220,6 +229,17 @@ public class RocketLauncherScript : MonoBehaviour {
 
         }
 
+        if (haveTrisagion == 1) {
+
+            trisagionRate = trisagionRate1;
+
+        }
+        else if (haveTrisagion == 2) {
+
+            trisagionRate = trisagionRate2;
+
+        }
+
     }
 
     void Start() {
@@ -230,8 +250,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
         rocketSpeed *= Time.deltaTime;
 
-        money += 832f;
-        testMoney += 832f;
+        /*money += 2197f;
+        testMoney += 2197f;*/
 
     }
 
@@ -292,6 +312,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
             obj.GetComponent<RocketScript>().electricStillAlive = electricStillAlive;
 
+            obj.GetComponent<RocketScript>().trisagionRate = trisagionRate;
+
             obj.GetComponent<RocketScript>().haveKnuts = haveKnuts;
             obj.GetComponent<RocketScript>().haveTrisagion = haveTrisagion;
             obj.GetComponent<RocketScript>().haveTwenty = haveTwenty;
@@ -323,6 +345,8 @@ public class RocketLauncherScript : MonoBehaviour {
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().twentyDamageRate = twentyDamageRate * twentyBrimstoneBoostRate;
 
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().twentyBrimstoneBoostRate = twentyBrimstoneBoostRate;
+
+            brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().trisagionRate = trisagionRate;
 
             brimstoneLaserHead.GetComponent<BrimstoneLaserScript>().electricStillAlive = electricStillAlive;
             Debug.Log(haveKnuts + " " + haveTrisagion + " " + haveTwenty);
@@ -362,7 +386,7 @@ public class RocketLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
-        //Debug.Log("All of that money that you've get thus far: " + testMoney);
+        Debug.Log("All of that money that you've get thus far: " + testMoney);
 
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "<sprite=1>" + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score:\n" + score;
@@ -411,7 +435,7 @@ public class RocketLauncherScript : MonoBehaviour {
 
             rotateOurself(tPos.x, tPos.y);
 
-            if (tPos.y > transform.position.y && canShot == true && !panelVisible) {
+            if (tPos.y > transform.position.y-1f && canShot == true && !panelVisible) {
 
                 createRocket(tPos.x, tPos.y);
 

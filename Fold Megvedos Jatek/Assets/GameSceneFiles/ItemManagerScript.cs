@@ -36,7 +36,8 @@ public class ItemManagerScript : MonoBehaviour
     // ONLY FOR TESTING
     private void Start() {
 
-        //getIronDomeItem();
+        getItem(randomItem());
+        randomItem();
 
     }
 

@@ -66,7 +66,7 @@ public class EarthScript : MonoBehaviour {
 
     private void Start() {
 
-        health = 20f;
+        health = maxHealth;
 
 
     }
@@ -154,8 +154,6 @@ public class EarthScript : MonoBehaviour {
         }
 
     }
-
-    
 
 
     private IEnumerator OnTriggerEnter2D(Collider2D collision) {

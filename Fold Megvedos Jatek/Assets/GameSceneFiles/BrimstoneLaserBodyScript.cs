@@ -45,6 +45,10 @@ public class BrimstoneLaserBodyScript : MonoBehaviour
     public float twentyDamageRate;
 
 
+    // TRISAGION
+    public float trisagionRate;
+
+
     // DAMAGE COUNTERS
     public float damageTickM;
     float damageTick = 0;
@@ -159,6 +163,8 @@ public class BrimstoneLaserBodyScript : MonoBehaviour
         obj.GetComponent<RocketScript>().twentyDamageRate = twentyDamageRate / twentyBrimstoneBoostRate;
 
         obj.GetComponent<RocketScript>().electricStillAlive = electricStillAlive;
+
+        obj.GetComponent<RocketScript>().trisagionRate = trisagionRate;
 
         obj.GetComponent<RocketScript>().haveKnuts = haveKnuts;
         obj.GetComponent<RocketScript>().haveTrisagion = haveTrisagion;
