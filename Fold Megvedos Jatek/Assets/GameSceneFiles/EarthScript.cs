@@ -13,6 +13,10 @@ public class EarthScript : MonoBehaviour {
 
     public TextMeshProUGUI Points;
 
+    public TextMeshProUGUI MostPoints;
+
+    public AudioSource HitEarth;
+
 
     // STATS
     float maxHealth = 100f;
@@ -201,6 +205,11 @@ public class EarthScript : MonoBehaviour {
                 user.SaveData();
 
 
+                MostPoints.GetComponent<TextMeshProUGUI>().text = "Highest Score: " + highscore;
+
+                Time.timeScale = 0f;
+
+
                 GameOverPanel.SetActive(true);
   
               
@@ -210,6 +219,10 @@ public class EarthScript : MonoBehaviour {
 
             GameObject obj = Instantiate(Explosion, collision.transform.position, Quaternion.identity);
             obj.GetComponent<ParticleSystem>().Play();
+
+            HitEarth = GetComponent<AudioSource>();
+            HitEarth.Play();
+
             yield return new WaitForSeconds(1);
             Destroy(obj);
         }
