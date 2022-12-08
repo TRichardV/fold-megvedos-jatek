@@ -8,7 +8,9 @@ public class EarthScript : MonoBehaviour {
     // OBJECTS
     public GameObject hpBar;
 
-    public GameObject OverPanel;
+    public GameObject GameOverPanel;
+
+    public TextMeshProUGUI Points;
 
 
     // STATS
@@ -63,7 +65,8 @@ public class EarthScript : MonoBehaviour {
 
     private void Start() {
 
-        health = maxHealth;
+        health = 20f;
+
 
     }
 
@@ -151,6 +154,8 @@ public class EarthScript : MonoBehaviour {
 
     }
 
+    
+
 
     private IEnumerator OnTriggerEnter2D(Collider2D collision) {
 
@@ -182,9 +187,11 @@ public class EarthScript : MonoBehaviour {
 
                 Debug.Log("HALÁL");
 
-                OverPanel.SetActive(true);
+                Points.GetComponent<TextMeshProUGUI>().text = "Score: " + GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
 
-
+                GameOverPanel.SetActive(true);
+  
+              
             }
 
             collision.gameObject.GetComponent<MeteorScript>().shot(999999);

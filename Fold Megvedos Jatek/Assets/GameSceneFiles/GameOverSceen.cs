@@ -7,27 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class GameOverSceen : MonoBehaviour
 {
-    public TextMeshProUGUI Points;
-
-    public void GameOverScore()
-    {
-        Points.text = "Score:" + GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
-    }
-
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GraphicsScene");
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("MenuScene");
     }
-
-
-
-
 
 }
 
