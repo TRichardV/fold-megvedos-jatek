@@ -11,7 +11,8 @@ public class ItemManagerScript : MonoBehaviour
     public GameObject launcher;
     public GameObject ironDomeG;
     public GameObject itemChoice;
-    
+    public Sprite[] images;
+
 
     public bool choiceIsOn = false;
 
@@ -63,7 +64,9 @@ public class ItemManagerScript : MonoBehaviour
 
         itemChoice.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item0];
         itemChoice.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
-
+        GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().sprite = images[item0];
+        GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().sprite = images[item1];
+        GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 208, 0, 100);
     }
 
     // GET A RANDOM ITEM

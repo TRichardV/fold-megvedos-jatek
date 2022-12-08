@@ -250,8 +250,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
         rocketSpeed *= Time.deltaTime;
 
-        /*money += 2197f;
-        testMoney += 2197f;*/
+        money += 2197f;
+        testMoney += 2197f;
 
     }
 
@@ -428,7 +428,6 @@ public class RocketLauncherScript : MonoBehaviour {
 
         //Debug.Log("All of that money that you've get thus far: " + testMoney);
 
-
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "<sprite=1>" + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score:\n" + score;
 
@@ -500,14 +499,14 @@ public class RocketLauncherScript : MonoBehaviour {
         if (!panelVisible) {
 
             panel.SetActive(true);
-            panel.GetComponent<Animator>().Play("UpgradePanelOpen",0,0);
+            panel.transform.parent.GetComponent<Animator>().Play("UpgradePanelOpen",0,0);
             panelVisible = true;
 
         }
 
         else {
 
-            panel.GetComponent<Animator>().Play("UpgradePanelClose", 0, 0); ;
+            panel.transform.parent.GetComponent<Animator>().Play("UpgradePanelClose", 0, 0); ;
             panelVisible = false;
 
         }
