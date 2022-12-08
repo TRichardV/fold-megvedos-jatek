@@ -8,6 +8,8 @@ public class EarthScript : MonoBehaviour {
     // OBJECTS
     public GameObject hpBar;
 
+    public GameObject OverPanel;
+
 
     // STATS
     float maxHealth = 100f;
@@ -179,6 +181,9 @@ public class EarthScript : MonoBehaviour {
             if (this.health <= 0) {
 
                 Debug.Log("HALÁL");
+
+                OverPanel.SetActive(true);
+
 
             }
 
