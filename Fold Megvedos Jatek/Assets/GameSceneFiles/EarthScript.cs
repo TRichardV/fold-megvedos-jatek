@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EarthScript : MonoBehaviour {
 
@@ -116,7 +117,7 @@ public class EarthScript : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        hpBar.GetComponent<TextMeshProUGUI>().text = ((int)Mathf.Round(this.health) + "/" + this.maxHealth);
+        hpBar.transform.GetChild(1).GetComponent<Image>().fillAmount = (int)Mathf.Round(this.health) / this.maxHealth;
         
         if (haveWarmog > 0) {
 
@@ -162,6 +163,7 @@ public class EarthScript : MonoBehaviour {
 
         if (collision.gameObject.tag.Equals("meteor")) {
 
+            hpBar.GetComponent<Animator>().Play("damage", 0, 0);
             waitTick = 0;
 
             if (haveTankItem > 0) {
