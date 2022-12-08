@@ -117,7 +117,7 @@ public class EarthScript : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        //hpBar.transform.GetChild(1).GetComponent<Image>().fillAmount = (int)Mathf.Round(this.health) / this.maxHealth;
+        hpBar.transform.GetChild(1).GetComponent<Image>().fillAmount = (int)Mathf.Round(this.health) / this.maxHealth;
         
         if (haveWarmog > 0) {
 
