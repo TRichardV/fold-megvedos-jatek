@@ -389,7 +389,8 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                 if (preparationTimeCounter == 0) {
 
-                    wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + 1 + ". wave is coming!";
+                    wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + 1 + ". Wave is coming!";
+                    GameObject.Find("WaveIsComingPanel").GetComponent<Animator>().Play("WaweIsComing", 0, 0);
 
                     for (int i = 0; i < spawnablePlaces.Length; i++) {
 
