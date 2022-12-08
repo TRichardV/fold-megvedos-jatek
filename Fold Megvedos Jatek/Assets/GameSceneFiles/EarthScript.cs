@@ -71,7 +71,7 @@ public class EarthScript : MonoBehaviour {
 
     private void Start() {
 
-        health = 1f;
+        health = maxHealth;
 
 
     }
