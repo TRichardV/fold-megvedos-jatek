@@ -13,8 +13,6 @@ public class EarthScript : MonoBehaviour {
 
     public TextMeshProUGUI Points;
 
-    public TextMeshProUGUI MostPoints;
-
 
     // STATS
     float maxHealth = 100f;
@@ -201,9 +199,6 @@ public class EarthScript : MonoBehaviour {
                 }
 
                 user.SaveData();
-
-
-                MostPoints.GetComponent<TextMeshProUGUI>().text = "Highest Score: " + user.highscore;
 
 
                 GameOverPanel.SetActive(true);
