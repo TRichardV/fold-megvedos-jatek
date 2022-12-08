@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EarthScript : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class EarthScript : MonoBehaviour {
     public GameObject GameOverPanel;
 
     public TextMeshProUGUI Points;
+
+    public TextMeshProUGUI MostPoints;
 
 
     // STATS
@@ -116,7 +119,7 @@ public class EarthScript : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        hpBar.GetComponent<TextMeshProUGUI>().text = ((int)Mathf.Round(this.health) + "/" + this.maxHealth);
+        hpBar.transform.GetChild(1).GetComponent<Image>().fillAmount = (int)Mathf.Round(this.health) / this.maxHealth;
         
         if (haveWarmog > 0) {
 
@@ -160,6 +163,7 @@ public class EarthScript : MonoBehaviour {
 
         if (collision.gameObject.tag.Equals("meteor")) {
 
+            hpBar.GetComponent<Animator>().Play("damage", 0, 0);
             waitTick = 0;
 
             if (haveTankItem > 0) {
@@ -197,6 +201,9 @@ public class EarthScript : MonoBehaviour {
                 }
 
                 user.SaveData();
+
+
+                MostPoints.GetComponent<TextMeshProUGUI>().text = "Highest Score: " + user.highscore;
 
 
                 GameOverPanel.SetActive(true);
