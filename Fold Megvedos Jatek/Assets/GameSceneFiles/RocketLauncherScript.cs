@@ -364,8 +364,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
         Debug.Log("All of that money that you've get thus far: " + testMoney);
 
-        GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "Money: " + money;
-        GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score: " + score;
+        GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "<sprite=1>" + money;
+        GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score:\n" + score;
 
         if (canShotCounter == 1) {
 
@@ -425,8 +425,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
     void setPanel() {
 
-        panel.transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {dmgUP}.]\n${dmgUPs[dmgUP, 1]}";
-        panel.transform.GetChild(1).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {apsUP}.]\n${apsUPs[apsUP, 1]}";
+        panel.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {dmgUP}.]\n${dmgUPs[dmgUP, 1]}";
+        panel.transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"[LVL. {apsUP}.]\n${apsUPs[apsUP, 1]}";
 
     }
 
