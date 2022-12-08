@@ -285,7 +285,33 @@ public class RocketLauncherScript : MonoBehaviour {
 
         if (this.haveTwenty > 0) { obj.GetComponent<RocketScript>().canSplit = true; }
 
-        obj.transform.rotation = Quaternion.Euler(0, 0, -90 + rotateRocket(desX, desY));
+        //obj.transform.rotation = Quaternion.Euler(0, 0, rotateSideRocket(pos.x, pos.y, desX, desY));
+
+        float angle = rotateDomeRocket(pos.x, pos.y, desX, desY);
+        obj.transform.rotation = Quaternion.Euler(0, 0, 0-angle);
+
+
+        GameObject.Find("SideRocketLauncher").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
+        GameObject.Find("SideRocketLauncher2").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
+
+    }
+
+    float rotateDomeRocket(float posX, float posY, float desX, float desY) {
+
+        float a = Vector3.Distance(new Vector3(posX, posY), new Vector3(desX, posY));
+        float b = Vector3.Distance(new Vector3(desX, posY), new Vector3(desX, desY));
+
+
+        float angle = Mathf.Atan(a / b) * Mathf.Rad2Deg;
+
+        if (desX < posX) {
+
+            angle = -angle;
+
+        }
+
+        return angle;
+        //return 45;
 
     }
 
@@ -369,6 +395,13 @@ public class RocketLauncherScript : MonoBehaviour {
         float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
 
         float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+
+        if (desY < transform.position.y) {
+
+            angle = -angle;
+
+        }
+
         return angle;
 
     }
@@ -380,6 +413,13 @@ public class RocketLauncherScript : MonoBehaviour {
         float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(desX, desY));
 
         float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+
+        if (desY < transform.position.y) {
+
+            angle = -angle;
+
+        }
+
         GameObject.Find("SpaceShip").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
 
     }
