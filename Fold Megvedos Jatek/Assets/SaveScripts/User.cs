@@ -9,6 +9,8 @@ public class User : MonoBehaviour
     //----változók amiket el kell menteni (értékkel vagy nélkül)----
     public float[] volumePct = { 1, 1 };
 
+    public float highscore = 0;
+
 
     //--------------------------------------------------------------
 
@@ -35,6 +37,7 @@ public class User : MonoBehaviour
         //---------------változók amiket el kell menteni----------------
         volumePct = data.volumePct;
 
+        highscore = data.highscore;
 
         //--------------------------------------------------------------
     }

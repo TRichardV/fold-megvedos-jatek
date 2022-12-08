@@ -19,6 +19,7 @@ public class EarthScript : MonoBehaviour {
     float health;
 
 
+
     // WARMOG STATS
     float waitForHealInSec1 = 15f;
     float healInEverySecond1 = 1.5f;
@@ -186,8 +187,19 @@ public class EarthScript : MonoBehaviour {
             if (this.health <= 0) {
 
                 Debug.Log("HALÁL");
+                float score = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
+                Points.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
-                Points.GetComponent<TextMeshProUGUI>().text = "Score: " + GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
+                User user = GameObject.Find("Main Camera").GetComponent<User>();
+                float highscore =  user.highscore;
+
+                if (highscore < score)
+                {
+                    user.highscore = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
+                }
+
+                user.SaveData();
+
 
                 GameOverPanel.SetActive(true);
   

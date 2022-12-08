@@ -8,6 +8,7 @@ public class UserData
     //---változók amiket el kell menteni (csak létrehozás, érték megadás nélkül)---
     public int minta;
     public float[] volumePct;
+    public float highscore;
 
     //--------------------------------------------------------------------
     
@@ -16,6 +17,7 @@ public class UserData
 
         //---------------változók amiket el kell menteni----------------
         volumePct = user.volumePct;
+        highscore = user.highscore;
 
 
         //--------------------------------------------------------------
