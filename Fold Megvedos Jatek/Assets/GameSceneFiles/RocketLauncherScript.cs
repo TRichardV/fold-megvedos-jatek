@@ -250,8 +250,8 @@ public class RocketLauncherScript : MonoBehaviour {
 
         rocketSpeed *= Time.deltaTime;
 
-        /*money += 2197f;
-        testMoney += 2197f;*/
+        money += 2197f;
+        testMoney += 2197f;
 
     }
 
@@ -386,7 +386,7 @@ public class RocketLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
-        Debug.Log("All of that money that you've get thus far: " + testMoney);
+        //Debug.Log("All of that money that you've get thus far: " + testMoney);
 
         GameObject.Find("MoneyCounter").GetComponent<TextMeshProUGUI>().text = "<sprite=1>" + money;
         GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text = "Score:\n" + score;
