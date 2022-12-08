@@ -308,7 +308,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
     void FixedUpdate() {
 
-        GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "Meteors: " + meteorNumber;
+        GameObject.FindGameObjectsWithTag("c.wavecounter")[0].gameObject.GetComponent<TextMeshProUGUI>().text = "<sprite=0>" + meteorNumber;
 
         if (preparationTimeCounter == -1) { // SPAWN METEORS
 
