@@ -87,25 +87,25 @@ public class MeteorScript : MonoBehaviour {
 
         // SPEED - HEALTH - DAMAGE - SCORE - MONEY
 
-        stats = new float[17, 1, 5] {
+        stats = new float[17, 2, 5] {
 
-            { { 1.65f, 10f, 10f, 5f, 1f } }, // 0
-            { { 1.3f, 20f, 20f, 10f, 1.5f } }, // 1
-            { { 1f, 30f, 30f, 50f, 2f } }, // 2
-            { { 1.3f, 20f, 10f, 70f, 5f } }, // 3 N
-            { { 0f, 0f, 0f, 0f, 0f } }, // 4
-            { { 1f, 20f, 10f, 100f, 7f } }, // 5 N
-            { { 1.4f, 27f, 30f, 40f, 2.25f } }, // 10
-            { { 1.25f, 30f, 30f, 60f, 3.5f } }, // 11
-            { { 1.25f, 35f, 30f, 80, 4f } }, // 12
-            { { 2.25f, 1f, 15f, 1f, 0.05f } }, // 90
-            { { 0.6f, 1000f, 10f, 500f, 150f } }, // 100 - BOSS
-            { { 2f, 30f, 30f, 20f, 2f } }, // 110
-            { { 1.5f, 60f, 50f, 10f, 0f } }, // 120
-            { { 2f, 1f, 0f, 0f, 3f } }, // 200
-            { { 2f, 1f, 0f, 0f, 6f } }, // 201
-            { { 2f, 1f, 0f, 0f, 10f } }, // 202
-            { { 1f, 1f, 0f, -100f, -5f } }, // 303
+            { { 1.65f, 10f, 10f, 5f, 1f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 0
+            { { 1.3f, 20f, 20f, 10f, 1.5f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 1
+            { { 1f, 30f, 30f, 50f, 2f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 2
+            { { 1.3f, 20f, 10f, 70f, 5f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 3 N
+            { { 0.6f, 100f, 40f, 80f, 5f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 4
+            { { 1f, 20f, 10f, 100f, 7f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 5 N
+            { { 1.4f, 27f, 30f, 40f, 2.25f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 10
+            { { 1.25f, 30f, 30f, 60f, 3.5f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 11
+            { { 1.25f, 35f, 30f, 80, 4f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 12
+            { { 2.25f, 1f, 15f, 1f, 0.05f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 90
+            { { 0.6f, 100f/*1000f*/, 10f, 500f, 150f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 100 - BOSS
+            { { 2f, 30f, 30f, 20f, 2f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 110
+            { { 1.5f, 60f, 50f, 10f, 0f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 120
+            { { 2f, 1f, 0f, 0f, 3f }, { 1f, 1f, 1f, 1f, 1.5f } }, // 200
+            { { 2f, 1f, 0f, 0f, 6f }, { 1f, 1f, 1f, 1f, 1.5f } }, // 201
+            { { 2f, 1f, 0f, 0f, 10f }, { 1f, 1f, 1f, 1f, 1.5f } }, // 202
+            { { 1f, 1f, 0f, -100f, -5f }, { 1f, 1.2f, 1.1f, 1.3f, 1.3f } }, // 303
 
         };
 
@@ -113,14 +113,47 @@ public class MeteorScript : MonoBehaviour {
 
     void getStats(int index, int level) {
 
-        speed = stats[index, level, 0];
-        defSpeed = speed * Time.fixedDeltaTime;
-        maxHealth = stats[index, level, 1];
-        damage = stats[index, level, 2];
-        score = stats[index, level, 3];
-        money = stats[index, level, 4];
+        Debug.Log(level + " :level");
+
+        if (level == 0) {
+
+            speed = stats[index, 0, 0];
+            defSpeed = speed * Time.fixedDeltaTime;
+            maxHealth = stats[index, 0, 1];
+            damage = stats[index, 0, 2];
+            score = stats[index, 0, 3];
+            money = stats[index, 0, 4];
+
+        }
+        else if (level > 0) {
+
+            speed = stats[index, 0, 0] * noInternet(stats[index, 1, 0], level);
+            defSpeed = speed * Time.fixedDeltaTime;
+            maxHealth = stats[index, 0, 1] * noInternet(stats[index, 1, 1], level);
+            damage = stats[index, 0, 2] * noInternet(stats[index, 1, 2], level);
+            score = stats[index, 0, 3] * noInternet(stats[index, 1, 3], level);
+            money = stats[index, 0, 4] * noInternet(stats[index, 1, 4], level);
+
+            Debug.Log(noInternet(stats[index, 1, 1], level) + " " + level + " " + maxHealth);
+
+        }
+
+
 
     } 
+    float noInternet(float number, float x) {
+
+        float asd = number;
+
+        for (int i = 0; i < x-1; i++) {
+
+            asd = asd * number;
+
+        }
+
+        return asd;
+
+    }
 
     public void set() {
 
@@ -565,12 +598,12 @@ public class MeteorScript : MonoBehaviour {
 
         if (hIndex2 == 0) {
 
-            transform.position = new Vector2(transform.position.x + movingUnit*1.5f, transform.position.y);
+            transform.position = new Vector2(transform.position.x + movingUnit*2.5f, transform.position.y);
 
         }
         else if (hIndex2 == 1) {
 
-            transform.position = new Vector2(transform.position.x - movingUnit*1.5f, transform.position.y);
+            transform.position = new Vector2(transform.position.x - movingUnit*2.5f, transform.position.y);
 
         }
 

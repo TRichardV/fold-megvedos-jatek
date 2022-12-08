@@ -47,10 +47,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
     int waveTimeMax;
     int waveTimeCounter = 0;
 
-    int tableDownMax;
-    int tableDownCounter = -1;
-    int tableState = -1;
-
 
     // AUXILIARY VARIABLES
     float chanceOfSpawn = 1f;
@@ -78,20 +74,27 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
             { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
 
-            { {430, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 30, 10, 0 }, { 15, 11, 0 }, { 5, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {450, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 35, 10, 0 }, { 15, 11, 0 }, { 15, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {470, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 35, 10, 0 }, { 15, 11, 0 }, { 20, 3, 0 }, { 5, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {500, 0, 0 }, { 20, 0, 0 }, { 20, 1, 0 }, { 40, 10, 0 }, { 15, 11, 0 }, { 20, 3, 0 }, { 12, 0, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {1000, 0, 0 }, { 35, 200, 0 }, { 18, 201, 0 }, { 3, 202, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {300, 0, 0 }, { 45, 0, 0 }, { 25, 1, 0 }, { 7, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {340, 0, 0 }, { 50, 0, 0 }, { 30, 1, 0 }, { 15, 10, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {380, 0, 0 }, { 50, 0, 0 }, { 35, 1, 0 }, { 22, 10, 0 }, { 5, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-            { {430, 0, 0 }, { 50, 0, 0 }, { 40, 1, 0 }, { 30, 10, 0 }, { 10, 11, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {400, 0, 0 }, { 30, 0, 1 }, { 30, 1, 1 }, { 30, 10, 1 }, { 13, 11, 1 }, { 5, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {430, 0, 0 }, { 30, 0, 1 }, { 30, 1, 1 }, { 30, 10, 1 }, { 13, 11, 1 }, { 10, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {460, 0, 0 }, { 30, 0, 1 }, { 30, 1, 1 }, { 30, 10, 1 }, { 10, 11, 1 }, { 17, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {500, 0, 0 }, { 20, 0, 1 }, { 20, 1, 1 }, { 35, 10, 1 }, { 10, 11, 1 }, { 25, 3, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {1000, 0, 0 }, { 35, 200, 1 }, { 18, 201, 1 }, { 3, 202, 1 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {515, 0, 0 }, { 20, 0, 1 }, { 20, 1, 1 }, { 35, 10, 1 }, { 10, 11, 1 }, { 25, 3, 0 }, { 5, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {530, 0, 0 }, { 20, 0, 1 }, { 20, 1, 1 }, { 35, 10, 1 }, { 10, 11, 1 }, { 25, 3, 0 }, { 10, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {545, 0, 0 }, { 20, 0, 1 }, { 20, 1, 1 }, { 35, 10, 1 }, { 10, 11, 1 }, { 25, 3, 0 }, { 17, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {560, 0, 0 }, { 20, 0, 1 }, { 20, 1, 1 }, { 35, 10, 1 }, { 10, 11, 1 }, { 25, 3, 0 }, { 25, 5, 0 }, {0,0,0}, {0,0,0}, {0,0,0} },
 
-            { {-1, 0, 0 }, { 1, 100, 0 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+            { {-1, 0, 0 }, { 1, 100, 1 }, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
         };
 
+            // 3
+            // 5
+
+            // 2
+            // 4
+            // 12
+            // 303
     }
 
     void uploadList(int index) {
@@ -115,7 +118,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                     loc[0] = waveSettings[index, i, 1];
                     loc[1] = waveSettings[index, i, 2];
-
+                    Debug.Log("ads: " + loc[1]);
                     meteors.Add(loc);
 
                 }
@@ -164,7 +167,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
         preparationTimeMax = (int)(1 / Time.fixedDeltaTime * defPrepTimeSec);
         waveTimeMax = (int)(1 / Time.fixedDeltaTime * defWaveTimeSec);
-        tableDownMax = (int)(1 / Time.fixedDeltaTime * defTableDownSec);
 
         meteorNumber = meteorNumberMax;
 
@@ -387,8 +389,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
                 if (preparationTimeCounter == 0) {
 
-                    tableDownCounter = 0;
-                    tableState = 0;
                     wicText.GetComponent<TextMeshProUGUI>().text = waveNumber + 1 + ". wave is coming!";
 
                     for (int i = 0; i < spawnablePlaces.Length; i++) {
@@ -411,48 +411,6 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
                     preparationTimeCounter = -1;
 
                     ptSlider.SetActive(false);
-
-                }
-
-                if (tableDownCounter > -1) {
-
-                    tableDownCounter++;
-
-                    if (tableDownCounter >= tableDownMax) {
-
-                        tableDownCounter = -1;
-                        tableState = -1;
-
-                    }
-
-                    if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4))) { // SET TABLE IS DOWN
-
-                        tableState = 1;
-
-                    }
-                    else if (tableDownCounter == (int)Math.Round((double)(tableDownMax / 4) * 3)) { // SET TABLE GO UP
-
-                        tableState = 2;
-
-                    }
-
-                    float disPerTick = defTableDis / (int)Math.Round((double)(tableDownMax / 4));
-
-                    switch (tableState) {
-
-                        case 0:
-
-                            wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y - disPerTick);
-
-                            break;
-
-                        case 2:
-
-                            wicPanel.transform.position = new Vector2(wicPanel.transform.position.x, wicPanel.transform.position.y + disPerTick);
-
-                            break;
-
-                    }
 
                 }
 
