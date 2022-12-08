@@ -459,14 +459,14 @@ public class RocketLauncherScript : MonoBehaviour {
         if (!panelVisible) {
 
             panel.SetActive(true);
-            panel.GetComponent<Animator>().Play("UpgradePanelOpen",0,0);
+            panel.transform.parent.GetComponent<Animator>().Play("UpgradePanelOpen",0,0);
             panelVisible = true;
 
         }
 
         else {
 
-            panel.GetComponent<Animator>().Play("UpgradePanelClose", 0, 0); ;
+            panel.transform.parent.GetComponent<Animator>().Play("UpgradePanelClose", 0, 0); ;
             panelVisible = false;
 
         }
