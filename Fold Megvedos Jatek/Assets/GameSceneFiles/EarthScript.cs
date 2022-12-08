@@ -8,13 +8,16 @@ public class EarthScript : MonoBehaviour {
     // OBJECTS
     public GameObject hpBar;
 
-    public GameObject OverPanel;
+    public GameObject GameOverPanel;
+
+    public TextMeshProUGUI Points;
 
 
     // STATS
     float maxHealth = 100f;
 
     float health;
+
 
 
     // WARMOG STATS
@@ -63,7 +66,8 @@ public class EarthScript : MonoBehaviour {
 
     private void Start() {
 
-        health = maxHealth;
+        health = 20f;
+
 
     }
 
@@ -151,6 +155,8 @@ public class EarthScript : MonoBehaviour {
 
     }
 
+    
+
 
     private IEnumerator OnTriggerEnter2D(Collider2D collision) {
 
@@ -181,10 +187,23 @@ public class EarthScript : MonoBehaviour {
             if (this.health <= 0) {
 
                 Debug.Log("HALÁL");
+                float score = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
+                Points.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
 
-                OverPanel.SetActive(true);
+                User user = GameObject.Find("Main Camera").GetComponent<User>();
+                float highscore =  user.highscore;
+
+                if (highscore < score)
+                {
+                    user.highscore = GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().score;
+                }
+
+                user.SaveData();
 
 
+                GameOverPanel.SetActive(true);
+  
+              
             }
 
             collision.gameObject.GetComponent<MeteorScript>().shot(999999);
