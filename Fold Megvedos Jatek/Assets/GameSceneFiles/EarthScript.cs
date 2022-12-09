@@ -211,8 +211,10 @@ public class EarthScript : MonoBehaviour {
 
 
                 GameOverPanel.SetActive(true);
-  
-              
+                GameOverPanel.GetComponent<Animator>().Play("GameOverPanelAppear");
+                GameObject.Find("InGamePanel").GetComponent<Animator>().Play("InGamePanelDisAppear");
+
+
             }
 
             collision.gameObject.GetComponent<MeteorScript>().shot(999999);
