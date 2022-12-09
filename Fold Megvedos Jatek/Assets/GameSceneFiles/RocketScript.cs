@@ -172,7 +172,7 @@ public class RocketScript : MonoBehaviour {
         obj.GetComponent<RocketScript>().desX = x1;
         obj.GetComponent<RocketScript>().desY = y1;
 
-        obj.GetComponent<RocketScript>().damage = damage * twentyDamageRate;
+        obj.GetComponent<RocketScript>().damage = damage;
         obj.GetComponent<RocketScript>().speed = speed;
 
         obj.GetComponent<RocketScript>().chanceOfCrit = chanceOfCrit;
@@ -193,35 +193,12 @@ public class RocketScript : MonoBehaviour {
         obj.GetComponent<RocketScript>().haveResist = true;
 
 
-        float a = Vector3.Distance(new Vector3(transform.position.x, transform.position.y), new Vector3(x1, transform.position.y));
-        float b = Vector3.Distance(new Vector3(x1, transform.position.y), new Vector3(x1, y1));
+        float a = Vector3.Distance(transform.position, new Vector3(x1, y1));
+        float b = 1;
+        float c = Vector3.Distance(new Vector3(b, transform.position.y), new Vector3(x1, y1));
 
-
-        float angle = Mathf.Atan(b / a) * Mathf.Rad2Deg;
-
-        if (x1 > transform.position.x) {
-
-            angle = 0 - (90 - angle);
-
-            if (y1 < transform.position.y) {
-
-                angle -= 90;
-
-            }
-
-        }
-        else if (x1 < transform.position.x) {
-
-            angle = 90 - angle;
-
-        }
-        else {
-
-            angle = 0;
-
-        }
-
-        obj.transform.rotation = Quaternion.Euler(0, 0, angle);
+        float angle = (Mathf.Acos((Mathf.Pow(a, 2) + Mathf.Pow(b, 2) - Mathf.Pow(c, 2)) / (2 * a * b))) * Mathf.Rad2Deg;
+        //obj.transform.rotation = Quaternion.Euler(0, 0, -90 + angle);
 
     }
 
