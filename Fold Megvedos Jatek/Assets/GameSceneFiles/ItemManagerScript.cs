@@ -93,7 +93,7 @@ public class ItemManagerScript : MonoBehaviour
 
         if (item == -1) {
 
-            Debug.Log("nincs több");
+            Debug.Log("nincs tï¿½bb");
 
         }
 

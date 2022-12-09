@@ -513,6 +513,7 @@ public class MeteorScript : MonoBehaviour {
 
             health -= damage;
 
+
             if (GameObject.Find("RocketLauncher").GetComponent<RocketLauncherScript>().haveIceborn == 1) {
 
                 slowTickM = (int)Mathf.Round(1 / Time.deltaTime * slowInSec1);

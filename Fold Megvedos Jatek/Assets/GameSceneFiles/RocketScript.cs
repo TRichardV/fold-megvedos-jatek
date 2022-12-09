@@ -9,6 +9,8 @@ public class RocketScript : MonoBehaviour {
     // MISSILES, OBJECTS
     public GameObject sRocket;
     public GameObject Electric;
+    public AudioSource HitMeteor;
+    public AudioSource HitWithTrisagion; 
 
 
     // STATS
@@ -239,6 +241,11 @@ public class RocketScript : MonoBehaviour {
                         GameObject el = Instantiate(Electric);
                         el.GetComponent<ElectricScript>().aliveTickM = (int)Mathf.Round(1 / Time.deltaTime * electricStillAlive);
                         el.GetComponent<ElectricScript>().damagedMeteors.Add(collision.gameObject);
+                        el.GetComponent<Animator>().Play("Electric");
+                        el.GetComponentInChildren<ParticleSystem>().Play();
+
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
 
                         if (haveKnuts > 0) {
 
@@ -257,6 +264,9 @@ public class RocketScript : MonoBehaviour {
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
                         tryShoot(damage * twentyDamageRate); // 20/20
 
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
+
                     }
 
                     destroyT();
@@ -269,6 +279,9 @@ public class RocketScript : MonoBehaviour {
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
 
                     this.damage -= collision.gameObject.GetComponent<MeteorScript>().health;
+
+                    HitWithTrisagion = GetComponent<AudioSource>();
+                    HitWithTrisagion.Play();
 
                     if (this.damage <= 0) {
 
@@ -291,12 +304,18 @@ public class RocketScript : MonoBehaviour {
                         tryShoot(damage * twentyDamageRate); // 20/20
                         damage *= trisagionRate;
 
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
+
                     }
 
                     else if (!first) {
 
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
                         tryShoot(damage * twentyDamageRate); // 20/20
+
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
 
                     }
 
@@ -305,6 +324,9 @@ public class RocketScript : MonoBehaviour {
                 else {
 
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+
+                    HitWithTrisagion = GetComponent<AudioSource>();
+                    HitWithTrisagion.Play();
 
                 }
 
@@ -320,6 +342,9 @@ public class RocketScript : MonoBehaviour {
                         GameObject el = Instantiate(Electric);
                         el.GetComponent<ElectricScript>().damagedMeteors.Add(collision.gameObject);
                         el.GetComponent<ElectricScript>().aliveTickM = (int)Mathf.Round(1 / Time.deltaTime * electricStillAlive);
+
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
 
                         if (haveKnuts > 0) {
 
@@ -338,6 +363,10 @@ public class RocketScript : MonoBehaviour {
                         collision.gameObject.GetComponent<MeteorScript>().shot(damage);
                         tryShoot(damage * twentyDamageRate); // 20/20
 
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
+
+
                     }
 
                     if (first) {
@@ -345,12 +374,18 @@ public class RocketScript : MonoBehaviour {
                         first = false;
                         damage *= trisagionRate;
 
+                        HitWithTrisagion = GetComponent<AudioSource>();
+                        HitWithTrisagion.Play();
+
                     }
 
                 }
                 else {
 
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
+
+                    HitWithTrisagion = GetComponent<AudioSource>();
+                    HitWithTrisagion.Play();
 
                 }
 
@@ -362,6 +397,10 @@ public class RocketScript : MonoBehaviour {
                     float dam = this.damage;
                     this.damage -= collision.gameObject.GetComponent<MeteorScript>().health;
                     collision.gameObject.GetComponent<MeteorScript>().shot(dam);
+
+                    HitWithTrisagion = GetComponent<AudioSource>();
+                    HitWithTrisagion.Play();
+
 
                     if (this.damage <= 0) {
 
@@ -377,6 +416,7 @@ public class RocketScript : MonoBehaviour {
                     collision.gameObject.GetComponent<MeteorScript>().shot(damage);
 
                     destroyT();
+
 
                 }
 
@@ -395,6 +435,9 @@ public class RocketScript : MonoBehaviour {
         GetComponent<BoxCollider2D>().enabled = false;
         explosionParticle = transform.GetComponentInChildren<ParticleSystem>();
         explosionParticle.Play();
+
+        HitMeteor = GetComponent<AudioSource>();
+        HitMeteor.Play();
 
         StartCoroutine(Destroyer());
 

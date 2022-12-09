@@ -34,7 +34,6 @@ public class ElectricScript : MonoBehaviour {
         if (!damagedMeteors.Contains(collision.gameObject) && collision.gameObject.tag == "meteor") {
 
             damagedMeteors.Add(collision.gameObject);
-
             collision.gameObject.GetComponent<MeteorScript>().shot(damage);
 
         }

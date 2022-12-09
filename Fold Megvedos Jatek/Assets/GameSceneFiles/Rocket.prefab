@@ -99,9 +99,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baf63e83c4728e42b947dc9d2fc0a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sRocket: {fileID: 0}
+  Electric: {fileID: 0}
+  HitMeteor: {fileID: 0}
+  damage: 0
+  speed: 0
+  chanceOfCrit: 0
+  aoeDamageRate: 0
+  damageCritRate: 0
+  electricStillAlive: 0
+  twentyDamageRate: 0
+  haveResist: 0
+  trisagionRate: 0
   desX: 1
   desY: 3
-  RocketP: {fileID: 0}
+  haveKnuts: 0
+  haveTrisagion: 0
+  haveTwenty: 0
+  canSplit: 0
 --- !u!61 &4660750316942565950
 BoxCollider2D:
   m_ObjectHideFlags: 0
