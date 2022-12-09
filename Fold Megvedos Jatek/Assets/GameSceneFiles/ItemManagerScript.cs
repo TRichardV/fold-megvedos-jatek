@@ -72,8 +72,8 @@ public class ItemManagerScript : MonoBehaviour
 
 
 
-        itemChoice.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item0];
-        itemChoice.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
+        itemChoice.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item0];
+        itemChoice.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
         GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().sprite = images[item0];
         GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().sprite = images[item1];
 
@@ -108,7 +108,7 @@ public class ItemManagerScript : MonoBehaviour
 
         if (item == -1) {
 
-            Debug.Log("nincs több");
+            Debug.Log("nincs tï¿½bb");
 
         }
 
