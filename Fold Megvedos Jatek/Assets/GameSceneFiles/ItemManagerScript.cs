@@ -62,11 +62,14 @@ public class ItemManagerScript : MonoBehaviour
 
 
 
-        itemChoice.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item0];
-        itemChoice.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
+        itemChoice.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item0];
+        itemChoice.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
         GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().sprite = images[item0];
         GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().sprite = images[item1];
-        GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 208, 0, 100);
+        GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 180, 0, 240);
+        GameObject.Find("Item0").GetComponent<Image>().color = new Color32(255, 255, 255, 35);
+        GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 180, 0, 240);
+        GameObject.Find("Item1").GetComponent<Image>().color = new Color32(255, 255, 255, 35);
     }
 
     // GET A RANDOM ITEM
