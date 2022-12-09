@@ -27,7 +27,7 @@ public class SecretMeteorLauncherScript : MonoBehaviour {
 
 
     // WAVE NUMBER
-    int waveNumber = 0;
+    int waveNumber = 9;
 
 
     // WAVES + METEORS
