@@ -18,9 +18,9 @@ public class BrimstoneLaserScript : MonoBehaviour {
     // DEFAULT POSITIONS, SCALES
     float defScaleX = 4f;
     float defScaleY = 1f;
-    float defPosZ = 4f;
+    float defPosZ = 4.5f;
 
-    float headDefPosZ = 12f;
+    float headDefPosZ = 5.25f;
 
 
     // STATS
@@ -118,10 +118,10 @@ public class BrimstoneLaserScript : MonoBehaviour {
         Vector3 pos = laser.gameObject.transform.localPosition;
         Vector3 scale = laser.gameObject.transform.localScale;
 
-        laser.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, 11f);
+        laser.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, headDefPosZ);
         laser.gameObject.transform.localScale = new Vector3(defScaleX, defScaleY, scale.z);
 
-        transform.localPosition = new Vector3(posy.x, posy.y, headDefPosZ);
+        transform.localPosition = new Vector3(posy.x, posy.y, headDefPosZ + 0.75f);
 
         /*
         laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 50f);
@@ -162,7 +162,7 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
         int index1 = 0;
         while (laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count == 0 && index1 < 20 && inLaser.Count == 0 && laser.gameObject.transform.localScale.y < 100f) {
-
+            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.1f);
             laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y + 0.1f);
             ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;
             PSShape.scale = new Vector3(laser.gameObject.transform.localScale.x * 0.1f, 0.1f, (laser.gameObject.transform.localScale.y * 0.075f) + 0.1f);
@@ -170,26 +170,30 @@ public class BrimstoneLaserScript : MonoBehaviour {
             PSEmission.rateOverTime = PSShape.scale.z * 8;
             laser.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.05f);
 
-            this.gameObject.transform.localPosition += new Vector3(0f, 0f, 0.1f);
+
             index1++;
 
         }
-        int index2 = 0;
-        while (index2 < 40 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.gameObject.transform.localScale.y > 1f) {
 
-            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.2f);
+
+    }
+    void checkGrow2() {
+
+        int index2 = 0;
+        while (index2 < 20 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser.Count > 0 && laser.GetComponent<BrimstoneLaserBodyScript>().inLaser[0].tag != "specialRocket" && laser.gameObject.transform.localScale.y > 1f) {
+            this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.1f);
+            laser.gameObject.transform.localScale = new Vector2(laser.gameObject.transform.localScale.x, laser.gameObject.transform.localScale.y - 0.1f);
             ParticleSystem.ShapeModule PSShape = laser.GetComponentInChildren<ParticleSystem>().shape;
-            PSShape.scale = new Vector3(laser.gameObject.transform.localScale.x * 0.1f, 0.1f, (laser.gameObject.transform.localScale.y * 0.075f) - 0.2f);
+            PSShape.scale = new Vector3(laser.gameObject.transform.localScale.x * 0.1f, 0.1f, (laser.gameObject.transform.localScale.y * 0.075f) - 0.1f);
             ParticleSystem.EmissionModule PSEmission = laser.GetComponentInChildren<ParticleSystem>().emission;
             PSEmission.rateOverTime = PSShape.scale.z / 8;
-            laser.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.1f);
-            this.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.2f);
+            laser.gameObject.transform.localPosition -= new Vector3(0f, 0f, 0.05f);
+
             index2++;
 
         }
 
     }
-
     int dama;
     private void FixedUpdate() {
 
@@ -201,6 +205,8 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
             damageTick++;
 
+            checkGrow();
+
             if (damageTick >= damageTickM) {
 
                 damageTick = 0;
@@ -209,13 +215,14 @@ public class BrimstoneLaserScript : MonoBehaviour {
 
                     dama++;
                     doingDamage(inLaser[0]);
-                    Debug.Log("Damage " + dama);
+
+
 
                 }
 
             }
 
-            checkGrow();
+            checkGrow2();
 
         }
 

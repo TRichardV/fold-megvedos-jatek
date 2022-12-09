@@ -4831,7 +4831,7 @@ GameObject:
   - component: {fileID: 6442930613895531396}
   m_Layer: 3
   m_Name: Rocket
-  m_TagString: Untagged
+  m_TagString: specialRocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4925,6 +4925,7 @@ MonoBehaviour:
   electricStillAlive: 0
   twentyDamageRate: 0
   haveResist: 0
+  trisagionRate: 0
   desX: 1
   desY: 3
   haveKnuts: 0

@@ -18,9 +18,9 @@ public class BrimstoneLaserBodyScript : MonoBehaviour
     // DEFAULT POSITIONS, SCALES
     float defScaleX = 4f;
     float defScaleY = 1f;
-    float defPosZ = 4f;
+    float defPosZ = 4.5f;
 
-    float headDefPosZ = 12f;
+    float headDefPosZ = 5.25f;
 
 
     // STATS

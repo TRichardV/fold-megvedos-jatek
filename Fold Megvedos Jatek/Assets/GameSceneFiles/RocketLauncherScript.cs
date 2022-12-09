@@ -37,7 +37,7 @@ public class RocketLauncherScript : MonoBehaviour {
     float brimTimeOnSec2 = 10f;
 
     float brimDamageRate = 0.4f;
-    float brimDamagePerSec = 0.55f;
+    float brimDamagePerSec = 0.05f;
 
     float brimAPSRate1 = 0.3f;
     float brimAPSRate2 = 0.15f;
@@ -291,8 +291,8 @@ public class RocketLauncherScript : MonoBehaviour {
         obj.transform.rotation = Quaternion.Euler(0, 0, 0-angle);
 
 
-        GameObject.Find("SideRocketLauncher").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
-        GameObject.Find("SideRocketLauncher2").transform.rotation = Quaternion.Euler(-angle, 90f, -90f);
+        GameObject.Find("SideRocketLauncher").transform.rotation = Quaternion.Euler(angle-90, 90f, -90f);
+        GameObject.Find("SideRocketLauncher2").transform.rotation = Quaternion.Euler(angle-90, 90f, -90f);
 
     }
 

@@ -24,6 +24,7 @@ public class ItemManagerScript : MonoBehaviour
     int items = 8;
     int item0 = -1;
     int item1 = -1;
+    bool gItem = false;
 
 
     // ITEMS THAT HANDLED THERE
@@ -38,7 +39,8 @@ public class ItemManagerScript : MonoBehaviour
     private void Start() {
 
         //getIronDomeItem();
-        getTwentyItem();
+        //getTwentyItem();
+        getBrimstoneItem();
 
     }
 
@@ -48,11 +50,18 @@ public class ItemManagerScript : MonoBehaviour
         choiceIsOn = true;
         itemChoice.active = true;
 
-        if (items > 1) {
+        if (items > 2) {
 
             item0 = randomItem();
             item1 = randomItem();
 
+        }
+        else if (items == 1 || items == 2) {
+
+            item0 = randomItem();
+            item1 = randomItem();
+
+            gItem = true;
         }
         else {
 
@@ -67,7 +76,16 @@ public class ItemManagerScript : MonoBehaviour
         itemChoice.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = names[item1];
         GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().sprite = images[item0];
         GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().sprite = images[item1];
-        GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 208, 0, 100);
+
+        if (gItem) {
+
+            GameObject.Find("Item0").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 171, 0, 200);
+            GameObject.Find("Item0").GetComponent<Image>().color = new Color32(255, 255, 255, 40);
+            GameObject.Find("Item1").transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 171, 0, 200);
+            GameObject.Find("Item1").GetComponent<Image>().color = new Color32(255, 255, 255, 40);
+
+        }
+
     }
 
     // GET A RANDOM ITEM
@@ -121,9 +139,10 @@ public class ItemManagerScript : MonoBehaviour
 
         }
 
-        if (items < 2) {
+        if (gItem) {
 
             getAnItem(item);
+            gItem = false;
 
         }
 

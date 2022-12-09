@@ -16970,8 +16970,8 @@ MonoBehaviour:
   panel: {fileID: 1436981419}
   button: {fileID: 1901818246}
   reloadBar: {fileID: 1829888002}
-  dmgUPObject: {fileID: 1454510941}
-  apsUPObject: {fileID: 0}
+  dmgUPObject: {fileID: 1721828694}
+  apsUPObject: {fileID: 1047263772}
   aps: 0.5
   damage: 10
   score: 0
@@ -16981,8 +16981,8 @@ MonoBehaviour:
   brimstoneLaserHead: {fileID: 2027746820}
   bulletBrim: 0
   haveBrimstone: 0
-  dome1: {fileID: 0}
-  dome2: {fileID: 0}
+  dome1: {fileID: 239897831}
+  dome2: {fileID: 1498971698}
   domeDamagePercent: 0
   domeAPSPercent: 0
   domeAPSRange: 0
@@ -17024,7 +17024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1975460549
 Transform:
   m_ObjectHideFlags: 0
@@ -17423,7 +17423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027746820}
   m_LocalRotation: {x: -0.000000018272809, y: -0.70710677, z: 0.7071069, w: -0.00000003676646}
-  m_LocalPosition: {x: 0, y: -0, z: 5.23}
+  m_LocalPosition: {x: 0, y: -0, z: 5.25}
   m_LocalScale: {x: 3.0686598, y: 0.7294832, z: 2.4}
   m_ConstrainProportionsScale: 1
   m_Children:
