@@ -216,6 +216,8 @@ public class RocketScript : MonoBehaviour {
                         GameObject el = Instantiate(Electric);
                         el.GetComponent<ElectricScript>().aliveTickM = (int)Mathf.Round(1 / Time.deltaTime * electricStillAlive);
                         el.GetComponent<ElectricScript>().damagedMeteors.Add(collision.gameObject);
+                        el.GetComponent<Animator>().Play("Electric");
+                        el.GetComponentInChildren<ParticleSystem>().Play();
 
                         if (haveKnuts > 0) {
 
