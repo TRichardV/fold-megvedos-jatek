@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagedMeteors: []
   damage: 0
+  aliveTickM: 0
 --- !u!58 &2241465170680836755
 CircleCollider2D:
   m_ObjectHideFlags: 0
